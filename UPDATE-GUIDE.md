@@ -63,17 +63,26 @@
 
 메뉴(종의소개/종의예배/종의생활/종의소식)를 바꾸려면 모든 html 파일 상단의 `<nav>` 두 곳(데스크톱 · 모바일)을 함께 수정합니다.
 
-## 5. GitHub Pages에 올리기 (최초 1회)
+## 5. 호스팅 (배포 완료)
 
-1. github.com 가입 후 새 저장소(Repository) 만들기 → 이름 예: `jongs-church`
-   - **Public**으로 생성
-2. 저장소 페이지에서 **Add file → Upload files** 클릭 → 이 폴더의 파일 전체를 끌어다 놓고 **Commit changes**
-3. 저장소의 **Settings → Pages** 메뉴에서
-   - Source: `Deploy from a branch`
-   - Branch: `main` / `(root)` 선택 → **Save**
-4. 1–2분 뒤 `https://계정명.github.io/jongs-church/` 주소로 접속 가능
+- **사이트 주소**: https://chodavid12.github.io/jongs-church/
+- **저장소**: https://github.com/chodavid12/jongs-church (chodavid12 계정, GitHub Pages, main 브랜치)
 
-이후 내용 수정도 같은 방식으로 파일을 다시 업로드(덮어쓰기)하면 자동 반영됩니다.
+### 수정 사항을 사이트에 반영하는 방법
+
+방법 A — 터미널 (이 폴더에서):
+```
+git add -A
+git commit -m "수정 내용"
+git push
+```
+
+방법 B — 웹: 저장소 페이지에서 **Add file → Upload files**로 수정한 파일을 끌어다 놓고 **Commit changes**
+
+푸시 후 1–2분 안에 사이트에 자동 반영됩니다.
+디자인(css)을 수정했다면 모든 html의 `style.css?v=3`에서 숫자를 하나 올려주세요(`?v=4`) — 방문자 브라우저 캐시 때문입니다.
+
+도메인을 구입하면: 저장소 **Settings → Pages → Custom domain**에 입력하면 됩니다.
 
 ## 6. 나중에 추가할 것 (로드맵 메모)
 
