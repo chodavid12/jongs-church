@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -55,11 +55,15 @@
 
   <!-- 히어로 -->
   <section class="hero">
+    <div class="hero-aura" aria-hidden="true"></div>
     <div class="container hero-inner">
-      <img class="hero-logo rise" src="assets/logo.png" alt="종의교회 — SINCE 2023">
-      <h1 class="rise">우리는<br><em>주의 종</em>입니다</h1>
-      <p class="hero-sub rise">하나님의 종으로 오신 예수 그리스도의 가르침대로 <br>작은 자들이 어울려 사는 나라를 이뤄가겠습니다.</p>
-      <div class="hero-cta rise">
+      <img class="hero-logo" src="assets/logo.png" alt="종의교회 — SINCE 2023">
+      <h1 class="hero-title">
+        <span class="line"><span class="line-in">우리는</span></span>
+        <span class="line"><span class="line-in"><em>주의 종</em>입니다</span></span>
+      </h1>
+      <p class="hero-sub">하나님의 종으로 오신 예수 그리스도의 가르침대로 <br>작은 자들이 어울려 사는 나라를 이뤄가겠습니다.</p>
+      <div class="hero-cta">
         <a class="btn btn-accent" href="worship.html">예배 안내 <span class="arrow">→</span></a>
         <a class="btn" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">설교 영상 보기 <span class="arrow">↗</span></a>
       </div>
@@ -161,6 +165,30 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
+<!-- ===== 공지 팝업 =====
+     운영 방법
+     · 켜기/끄기 : 아래 data-active 값을 "true"(켜짐) / "false"(꺼짐)로 바꾸세요.
+     · 내용 변경 : 새 공지로 바꿀 때는 data-key 값도 새 이름으로 바꿔주세요.
+                  (그래야 '오늘 하루 보지 않기'를 눌렀던 분들께도 새 공지가 다시 보입니다.)
+     · 이미지 사용(선택) : promo-figure 주석을 풀고 src를 바꾸세요. 필요 없으면 그대로 두세요.
+     · 버튼 링크 : promo-cta 의 href 를 원하는 페이지/주소로 바꾸세요. 버튼이 필요 없으면 그 줄을 지우세요. -->
+<div class="promo" id="promo" data-active="true" data-key="2026-여름-예배시간" aria-hidden="true">
+  <div class="promo-backdrop" data-promo-close></div>
+  <div class="promo-card" role="dialog" aria-modal="true" aria-labelledby="promo-title">
+    <button class="promo-x" data-promo-close aria-label="닫기">&times;</button>
+    <!-- <figure class="promo-figure"><img src="assets/promo.jpg" alt=""></figure> -->
+    <img class="promo-mark" src="assets/logo-mark.png" alt="">
+    <span class="promo-eyebrow">종의교회 공지</span>
+    <h2 class="promo-title" id="promo-title">7월부터 주일예배<br><em>오전 10시</em></h2>
+    <p class="promo-text">2026년 7월부터 주일예배 시간이 오전 11시에서 <strong>오전 10시</strong>로 변경됩니다. 바뀐 시간에 맞춰 함께해 주세요.</p>
+    <a class="btn btn-accent promo-cta" href="worship.html">예배 안내 보기 <span class="arrow">→</span></a>
+    <div class="promo-foot">
+      <button class="promo-dismiss" data-promo-today>오늘 하루 보지 않기</button>
+      <button class="promo-dismiss" data-promo-close>닫기</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js?v=4"></script>
 </body>
 </html>

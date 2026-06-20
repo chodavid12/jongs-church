@@ -42,6 +42,51 @@ if ('IntersectionObserver' in window && revealEls.length) {
   revealEls.forEach((el) => el.classList.add('visible'));
 }
 
+// 공지 팝업
+const promo = document.getElementById('promo');
+if (promo && promo.dataset.active === 'true') {
+  const key = 'promo:' + (promo.dataset.key || 'default');
+  const today = (() => {
+    const d = new Date();
+    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  })();
+
+  // '오늘 하루 보지 않기'를 누른 날이면 표시하지 않음
+  let dismissedToday = false;
+  try { dismissedToday = localStorage.getItem(key) === today; } catch (e) {}
+
+  if (!dismissedToday) {
+    const openPromo = () => {
+      promo.classList.add('open');
+      promo.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('promo-open');
+    };
+    const closePromo = () => {
+      promo.classList.remove('open');
+      promo.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('promo-open');
+    };
+
+    promo.querySelectorAll('[data-promo-close]').forEach((el) => {
+      el.addEventListener('click', closePromo);
+    });
+
+    const today1 = promo.querySelector('[data-promo-today]');
+    if (today1) {
+      today1.addEventListener('click', () => {
+        try { localStorage.setItem(key, today); } catch (e) {}
+        closePromo();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && promo.classList.contains('open')) closePromo();
+    });
+
+    setTimeout(openPromo, 800);
+  }
+}
+
 // 푸터 연도
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
