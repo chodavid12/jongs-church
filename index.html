@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
@@ -42,7 +42,7 @@
       <a href="worship.html"><span class="num">02</span>종의예배</a>
       <a href="life.html"><span class="num">03</span>종의생활</a>
       <a href="news.html"><span class="num">04</span>종의소식</a>
-      <a href="index.html#location"><span class="num">05</span>오시는 길</a>
+      <a href="index.html#guide"><span class="num">05</span>오시는 길</a>
     </nav>
     <div class="mobile-ext">
       <a class="btn" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube <span class="arrow">↗</span></a>
@@ -71,58 +71,92 @@
     <div class="hero-scroll">SCROLL</div>
   </section>
 
-  <!-- 둘러보기 -->
-  <section class="section" id="explore">
+  <!-- 종의정신 (정체성) -->
+  <section class="section section-tint" id="creed">
     <div class="container">
-      <div class="section-head reveal">
-        <span class="sq"></span>
-        <h2>둘러보기</h2>
-        <span class="en">EXPLORE</span>
-      </div>
-      <div class="page-tiles">
-        <a class="tile reveal" href="about.html">
-          <span class="tile-en">ABOUT</span>
-          <h3>종의소개</h3>
-          <p>설립과 종의정신, 섬기는 사람들과 교회 조직을 소개합니다.</p>
-          <span class="go">자세히 보기 →</span>
-        </a>
-        <a class="tile reveal" href="worship.html">
-          <span class="tile-en">WORSHIP</span>
-          <h3>종의예배</h3>
-          <p>주일예배와 금요묵상, 예배 순서와 절기를 안내합니다.</p>
-          <span class="go">자세히 보기 →</span>
-        </a>
-        <a class="tile reveal" href="life.html">
-          <span class="tile-en">LIFE</span>
-          <h3>종의생활</h3>
-          <p>성도의 말씀·기도·찬양 생활과 교인 등록, 헌금을 안내합니다.</p>
-          <span class="go">자세히 보기 →</span>
-        </a>
-        <a class="tile reveal" href="news.html">
-          <span class="tile-en">NEWS</span>
-          <h3>종의소식</h3>
-          <p>매주 주보와 설교 영상, 교회 소식을 전합니다.</p>
-          <span class="go">자세히 보기 →</span>
-        </a>
+      <div class="creed reveal">
+        <span class="creed-eyebrow">종의정신</span>
+        <h2 class="creed-statement">작은 자들이 어울려 사는<br>나라를 이뤄갑니다</h2>
+        <p class="creed-ref">하나님의 종으로 오신 예수 그리스도의 가르침대로 — 이사야 42:1–7</p>
+        <div class="creed-points">
+          <div>
+            <strong>Since 2023</strong>
+            <span>예수 그리스도의 몸으로<br>세워진 교회</span>
+          </div>
+          <div>
+            <strong>No 십일조 · No 봉투</strong>
+            <span>헌금 순서도, 봉투도<br>따로 없습니다</span>
+          </div>
+          <div>
+            <strong>가족과 상식</strong>
+            <span>자원하는 마음으로,<br>상식에 맞게</span>
+          </div>
+        </div>
+        <a class="creed-link" href="about.html">종의소개 자세히 보기 →</a>
       </div>
     </div>
   </section>
 
-  <!-- 오시는 길 -->
-  <section class="section section-tint" id="location">
+  <!-- 예배 라이브 -->
+  <section class="section" id="live">
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
-        <h2>오시는 길</h2>
-        <span class="en">LOCATION</span>
+        <h2>예배 라이브</h2>
+        <span class="en">WORSHIP LIVE</span>
+      </div>
+      <a class="live-panel reveal" href="https://youtube.com/@jongs_community/live" target="_blank" rel="noopener">
+        <span class="live-play" aria-hidden="true"></span>
+        <span class="live-main">
+          <span class="live-badge"><span class="dot"></span>LIVE · 주일 오전 11:00</span>
+          <span class="live-title">실시간 예배 송출</span>
+          <span class="live-sub">유튜브에서 종의교회 주일예배를 실시간으로 함께 드릴 수 있습니다. ↗</span>
+        </span>
+      </a>
+      <div class="live-links reveal">
+        <a class="btn" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">지난 설교 · 강론 다시보기 <span class="arrow">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 교회 소식 -->
+  <section class="section section-tint" id="news">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="sq"></span>
+        <h2>교회 소식</h2>
+        <span class="en">NEWS</span>
+      </div>
+      <div class="bulletin-wrap">
+        <div class="desc reveal">
+          <p class="quote">이번 주 주보를<br>홈페이지에서 보실 수 있습니다.</p>
+          <p>매주일 주보를 올려드리며, 공지와 교회 소식은 네이버 밴드를 통해 나눕니다.</p>
+        </div>
+        <div class="bulletin-actions reveal">
+          <a class="btn btn-accent" href="bulletins/2026/2026-06-07.pdf" target="_blank" rel="noopener">이번 주 주보 (PDF) <span class="arrow">↗</span></a>
+          <a class="btn" href="news.html">지난 주보 모아보기 <span class="arrow">→</span></a>
+          <a class="btn" href="https://www.band.us/band/89344128" target="_blank" rel="noopener">네이버 밴드 소식 <span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 교회 안내 -->
+  <section class="section" id="guide">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="sq"></span>
+        <h2>교회 안내</h2>
+        <span class="en">GUIDE</span>
       </div>
       <div class="location-grid">
         <div class="location-info reveal">
           <p class="addr">경기도 부천시<br>부일로505번길 17-1, B1층</p>
-          <p>주일 오전 11시, 예배당에서 뵙겠습니다.</p>
+          <p>주일예배 오전 11:00 · 금요묵상 저녁 8:30<br>처음 오시는 분도 편히 함께하실 수 있습니다.</p>
           <div class="map-links">
             <a class="btn" href="https://map.naver.com/p/search/%EB%B6%80%EC%B2%9C%EC%8B%9C%20%EB%B6%80%EC%9D%BC%EB%A1%9C505%EB%B2%88%EA%B8%B8%2017-1" target="_blank" rel="noopener">네이버 지도 <span class="arrow">↗</span></a>
             <a class="btn" href="https://map.kakao.com/?q=%EB%B6%80%EC%B2%9C%EC%8B%9C%20%EB%B6%80%EC%9D%BC%EB%A1%9C505%EB%B2%88%EA%B8%B8%2017-1" target="_blank" rel="noopener">카카오맵 <span class="arrow">↗</span></a>
+            <a class="btn" href="worship.html">예배 안내 <span class="arrow">→</span></a>
           </div>
         </div>
         <div class="map-frame reveal">

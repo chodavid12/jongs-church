@@ -966,6 +966,143 @@ body.menu-open .mobile-menu nav a:nth-child(5) { transition-delay: 0.26s; }
 }
 
 /* ==========================================================================
+   홈 — 종의정신 (정체성 밴드)
+   ========================================================================== */
+.creed {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+}
+.creed-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+.creed-statement {
+  font-size: clamp(28px, 6.4vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+}
+.creed-ref {
+  margin-top: 18px;
+  font-size: 14px;
+  color: var(--ink-faint);
+}
+.creed-points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 44px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line-mid);
+}
+.creed-points > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.creed-points strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-deep);
+}
+.creed-points span {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.creed-link {
+  display: inline-block;
+  margin-top: 40px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  transition: color 0.2s;
+}
+.creed-link:hover { color: var(--accent); }
+
+/* ==========================================================================
+   홈 — 예배 라이브 패널
+   ========================================================================== */
+.live-panel {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: clamp(28px, 5vw, 44px);
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  color: #fff;
+  box-shadow: 0 24px 60px -28px rgba(46, 110, 153, 0.6);
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.live-panel:hover { transform: translateY(-4px); }
+
+.live-play {
+  flex: none;
+  width: clamp(64px, 14vw, 84px);
+  height: clamp(64px, 14vw, 84px);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  position: relative;
+}
+.live-play::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 54%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent #fff;
+}
+.live-panel:hover .live-play { background: rgba(255, 255, 255, 0.26); }
+
+.live-main { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 6px 12px;
+  border-radius: var(--pill);
+  background: rgba(255, 255, 255, 0.18);
+}
+.live-badge .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #ff5b5b;
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+.live-title {
+  font-size: clamp(22px, 5vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+.live-sub {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.live-links { margin-top: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .live-badge .dot { animation: none; }
+}
+
+/* ==========================================================================
    공지 팝업
    ========================================================================== */
 .promo {
@@ -1096,6 +1233,11 @@ body.promo-open { overflow: hidden; }
   .grid-4 { grid-template-columns: 1fr 1fr; gap: 12px; }
   .bulletin-wrap { grid-template-columns: 1fr; }
   .location-grid { grid-template-columns: 1fr; }
+
+  .creed-points { grid-template-columns: 1fr; gap: 22px; }
+
+  .live-panel { flex-direction: column; align-items: flex-start; gap: 22px; }
+  .live-main { gap: 9px; }
 
   .hero-sub br { display: none; }
 
