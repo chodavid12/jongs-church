@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>관리자 — 종의교회</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="css/style.css?v=6">
+  <style>
+    .admin-wrap { max-width: 720px; margin: 0 auto; padding: calc(var(--header-h) + 48px) var(--pad-x) 80px; }
+    .admin-card { background: var(--paper-tint); border-radius: var(--radius); padding: 28px 24px; margin-bottom: 16px; }
+    .admin-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .admin-card .key { font-size: 12px; color: var(--ink-faint); margin-bottom: 14px; }
+    .admin-card textarea {
+      width: 100%; min-height: 72px; padding: 12px 14px; border-radius: 14px;
+      border: 1px solid var(--line-mid); font: inherit; font-size: 14.5px; line-height: 1.6;
+      resize: vertical; background: var(--paper);
+    }
+    .admin-card .color-row { display: flex; align-items: center; gap: 12px; }
+    .admin-card input[type="color"] { width: 48px; height: 40px; border: 1px solid var(--line-mid); border-radius: 10px; background: var(--paper); padding: 2px; }
+    .admin-card input[type="text"] {
+      flex: 1; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line-mid);
+      font: inherit; font-size: 14.5px; background: var(--paper);
+    }
+    .admin-row-foot { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 12px; }
+    .admin-status { font-size: 13px; color: var(--ink-faint); }
+    .admin-group-title { margin: 36px 0 4px; font-weight: 800; font-size: 19px; }
+    #auth-view { max-width: 360px; margin: calc(var(--header-h) + 80px) auto 0; padding: 0 var(--pad-x); }
+    #auth-view input { width: 100%; padding: 12px 14px; margin-bottom: 10px; border-radius: 12px; border: 1px solid var(--line-mid); font: inherit; font-size: 15px; }
+    #auth-view .btn { width: 100%; justify-content: center; margin-top: 6px; }
+    #auth-error { color: #c0392b; font-size: 13.5px; margin-top: 10px; }
+    #auth-toggle { display: block; text-align: center; margin-top: 16px; font-size: 13.5px; color: var(--ink-soft); }
+    .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logotype" href="index.html"><img class="mark" src="assets/logo-mark.png" alt="종의교회 로고">종의교회 — 관리자</a>
+  </div>
+</header>
+
+<main>
+  <section id="auth-view">
+    <h1 style="font-size:22px;font-weight:800;margin-bottom:18px;">관리자 로그인</h1>
+    <input id="auth-email" type="email" placeholder="이메일" autocomplete="username">
+    <input id="auth-password" type="password" placeholder="비밀번호" autocomplete="current-password">
+    <button class="btn btn-accent" id="login-btn">로그인</button>
+    <button class="btn" id="signup-btn" style="display:none;">계정 만들기</button>
+    <a href="#" id="auth-toggle">처음이신가요? 계정 만들기</a>
+    <p id="auth-error"></p>
+  </section>
+
+  <div class="admin-wrap" id="editor-view" style="display:none;">
+    <div class="admin-header">
+      <h1 style="font-size:22px;font-weight:800;">사이트 내용 편집</h1>
+      <button class="btn" id="logout-btn">로그아웃</button>
+    </div>
+
+    <h2 class="admin-group-title">콘텐츠</h2>
+    <div id="content-list"></div>
+
+    <h2 class="admin-group-title">디자인 색상</h2>
+    <div id="theme-list"></div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+  const SUPABASE_URL = "https://jqxhdajpehnwaewrfjld.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_aD4lD4JuNZWJrjFUVUpOLQ_0rc9r8dx";
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const authView = document.getElementById("auth-view");
+  const editorView = document.getElementById("editor-view");
+  const authError = document.getElementById("auth-error");
+  const authToggle = document.getElementById("auth-toggle");
+  const loginBtn = document.getElementById("login-btn");
+  const signupBtn = document.getElementById("signup-btn");
+  let mode = "login";
+
+  authToggle.addEventListener("click", (e) => {
+    e.preventDefault();
+    mode = mode === "login" ? "signup" : "login";
+    loginBtn.style.display = mode === "login" ? "" : "none";
+    signupBtn.style.display = mode === "signup" ? "" : "none";
+    authToggle.textContent = mode === "login" ? "처음이신가요? 계정 만들기" : "이미 계정이 있으신가요? 로그인";
+  });
+
+  async function handleAuth(fn) {
+    authError.textContent = "";
+    const email = document.getElementById("auth-email").value.trim();
+    const password = document.getElementById("auth-password").value;
+    const { error } = await fn({ email, password });
+    if (error) authError.textContent = error.message;
+  }
+
+  loginBtn.addEventListener("click", () => handleAuth((c) => sb.auth.signInWithPassword(c)));
+  signupBtn.addEventListener("click", () => handleAuth((c) => sb.auth.signUp(c)));
+  document.getElementById("logout-btn").addEventListener("click", () => sb.auth.signOut());
+
+  function renderContentRow(row) {
+    const card = document.createElement("div");
+    card.className = "admin-card";
+    card.innerHTML = `
+      <h3>${row.label}</h3>
+      <p class="key">${row.key}</p>
+      <textarea>${row.value}</textarea>
+      <div class="admin-row-foot">
+        <span class="admin-status"></span>
+        <button class="btn btn-accent">저장</button>
+      </div>
+    `;
+    const textarea = card.querySelector("textarea");
+    const status = card.querySelector(".admin-status");
+    card.querySelector("button").addEventListener("click", async () => {
+      status.textContent = "저장 중…";
+      const { error } = await sb
+        .from("site_settings")
+        .update({ value: textarea.value, updated_at: new Date().toISOString() })
+        .eq("key", row.key);
+      status.textContent = error ? "오류: " + error.message : "저장됨 ✓";
+    });
+    return card;
+  }
+
+  function renderThemeRow(row) {
+    const card = document.createElement("div");
+    card.className = "admin-card";
+    card.innerHTML = `
+      <h3>${row.label}</h3>
+      <p class="key">${row.key}</p>
+      <div class="color-row">
+        <input type="color" value="${row.value}">
+        <input type="text" value="${row.value}">
+      </div>
+      <div class="admin-row-foot">
+        <span class="admin-status"></span>
+        <button class="btn btn-accent">저장</button>
+      </div>
+    `;
+    const colorInput = card.querySelector('input[type="color"]');
+    const textInput = card.querySelector('input[type="text"]');
+    colorInput.addEventListener("input", () => (textInput.value = colorInput.value));
+    textInput.addEventListener("input", () => {
+      if (/^#[0-9a-fA-F]{6}$/.test(textInput.value)) colorInput.value = textInput.value;
+    });
+    const status = card.querySelector(".admin-status");
+    card.querySelector("button").addEventListener("click", async () => {
+      status.textContent = "저장 중…";
+      const { error } = await sb
+        .from("site_settings")
+        .update({ value: textInput.value, updated_at: new Date().toISOString() })
+        .eq("key", row.key);
+      status.textContent = error ? "오류: " + error.message : "저장됨 ✓";
+    });
+    return card;
+  }
+
+  async function loadEditor() {
+    const { data, error } = await sb.from("site_settings").select("*").order("group_name").order("key");
+    if (error) {
+      editorView.innerHTML = "불러오기 오류: " + error.message;
+      return;
+    }
+    const contentList = document.getElementById("content-list");
+    const themeList = document.getElementById("theme-list");
+    contentList.innerHTML = "";
+    themeList.innerHTML = "";
+    data.forEach((row) => {
+      if (row.group_name === "theme") themeList.appendChild(renderThemeRow(row));
+      else contentList.appendChild(renderContentRow(row));
+    });
+  }
+
+  sb.auth.onAuthStateChange((_event, session) => {
+    if (session) {
+      authView.style.display = "none";
+      editorView.style.display = "";
+      loadEditor();
+    } else {
+      authView.style.display = "";
+      editorView.style.display = "none";
+    }
+  });
+</script>
+</body>
+</html>
