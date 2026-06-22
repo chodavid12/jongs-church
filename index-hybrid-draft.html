@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <script>history.scrollRestoration="manual";window.scrollTo(0,0);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>종의교회 — 가안 (원본 + Apple 혼합)</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="하나님의 종으로 오신 예수 그리스도의 가르침대로, 작은 자들이 어울려 사는 나라를 이뤄가는 종의교회입니다. 주일예배 오전 11:00 · 부천시 부일로505번길 17-1 B1층">
+  <meta property="og:title" content="종의교회 — 우리는 주의 종입니다">
+  <meta property="og:description" content="작은 자들이 어울려 사는 나라를 이뤄가는 종의교회. 주일예배 오전 11:00 · 부천">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  <link rel="stylesheet" href="css/style.css?v=7">
+
+  <style>
+    /* 가안 전용 — 원본 컴포넌트는 그대로 두고, 히어로/예배라이브에 풀블리드 영상,
+       종의정신에 보강 사진을 더해 애플식 시네마틱 톤을 섞었다. */
+    .hero-bgvideo {
+      position: absolute; inset: 0; z-index: 0; overflow: hidden;
+    }
+    .hero-bgvideo video {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.34; filter: saturate(1.05);
+    }
+    .hero-bgvideo::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.92) 86%, var(--paper) 100%);
+    }
+    .hero-aura { z-index: 0; }
+
+    .creed-photo {
+      max-width: 920px; margin: 48px auto 0; border-radius: var(--radius);
+      overflow: hidden; aspect-ratio: 16 / 8;
+      box-shadow: 0 30px 60px -24px rgba(0,0,0,0.18);
+    }
+    .creed-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    #live.live-cinematic {
+      position: relative; background: #0a0a0a; color: #f5f5f7;
+      overflow: hidden;
+    }
+    #live.live-cinematic .live-bgvideo {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    #live.live-cinematic .live-bgvideo video {
+      width: 100%; height: 100%; object-fit: cover; opacity: 0.45;
+    }
+    #live.live-cinematic .live-bgvideo::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.82) 100%);
+    }
+    #live.live-cinematic .container { position: relative; z-index: 1; }
+    #live.live-cinematic .section-head { border-top-color: rgba(255,255,255,.2); }
+    #live.live-cinematic .section-head h2 { color: #f5f5f7; }
+    #live.live-cinematic .section-head .en { color: #a1a1a6; }
+    #live.live-cinematic .live-links .btn { border-color: rgba(255,255,255,.3); color: #f5f5f7; background: transparent; }
+    #live.live-cinematic .live-links .btn:hover { background: #fff; border-color: #fff; color: #000; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logotype" href="index.html"><img class="mark" src="assets/logo-mark.png" alt="종의교회 로고">종의교회</a>
+    <nav class="site-nav" aria-label="주 메뉴">
+      <a href="about.html">종의소개</a>
+      <a href="worship.html">종의예배</a>
+      <a href="life.html">종의생활</a>
+      <a href="news.html">종의소식</a>
+      <a class="nav-ext" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube</a>
+      <a class="nav-ext" href="https://www.band.us/band/89344128" target="_blank" rel="noopener">BAND</a>
+    </nav>
+    <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" aria-hidden="true">
+  <div class="container">
+    <nav aria-label="모바일 메뉴">
+      <a href="about.html"><span class="num">01</span>종의소개</a>
+      <a href="worship.html"><span class="num">02</span>종의예배</a>
+      <a href="life.html"><span class="num">03</span>종의생활</a>
+      <a href="news.html"><span class="num">04</span>종의소식</a>
+      <a href="index.html#guide"><span class="num">05</span>오시는 길</a>
+    </nav>
+    <div class="mobile-ext">
+      <a class="btn" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube <span class="arrow">↗</span></a>
+      <a class="btn" href="https://www.band.us/band/89344128" target="_blank" rel="noopener">네이버 밴드 <span class="arrow">↗</span></a>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- 히어로 -->
+  <section class="hero">
+    <div class="hero-bgvideo" aria-hidden="true">
+      <video src="assets/media/hero.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="hero-aura" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <img class="hero-logo" src="assets/logo.png" alt="종의교회 — SINCE 2023">
+      <h1 class="hero-title">
+        <span class="line"><span class="line-in">우리는</span></span>
+        <span class="line"><span class="line-in"><em>주의 종</em>입니다</span></span>
+      </h1>
+      <p class="hero-sub" data-cms="hero_sub">하나님의 종으로 오신 예수 그리스도의 가르침대로 <br>작은 자들이 어울려 사는 나라를 이뤄가겠습니다.</p>
+      <div class="hero-cta">
+        <a class="btn btn-accent" href="worship.html">예배 안내 <span class="arrow">→</span></a>
+        <a class="btn" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">설교 영상 보기 <span class="arrow">↗</span></a>
+      </div>
+    </div>
+    <div class="hero-scroll">SCROLL</div>
+  </section>
+
+  <!-- 종의정신 (정체성) -->
+  <section class="section section-tint" id="creed">
+    <div class="container">
+      <div class="creed reveal">
+        <span class="creed-eyebrow">종의정신</span>
+        <h2 class="creed-statement" data-cms="creed_statement">작은 자들이 어울려 사는<br>나라를 이뤄갑니다</h2>
+        <p class="creed-ref">하나님의 종으로 오신 예수 그리스도의 가르침대로 — 이사야 42:1–7</p>
+        <div class="creed-points">
+          <div>
+            <strong>Since 2023</strong>
+            <span>예수 그리스도의 몸으로<br>세워진 교회</span>
+          </div>
+          <div>
+            <strong>No 십일조 · No 봉투</strong>
+            <span>헌금 순서도, 봉투도<br>따로 없습니다</span>
+          </div>
+          <div>
+            <strong>가족과 상식</strong>
+            <span>자원하는 마음으로,<br>상식에 맞게</span>
+          </div>
+        </div>
+        <a class="creed-link" href="about.html">종의소개 자세히 보기 →</a>
+        <div class="creed-photo reveal">
+          <img src="assets/media/community.jpeg" alt="종의교회 성도들">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 교회 소개 영상 -->
+  <section class="section" id="intro-video">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="sq"></span>
+        <h2>교회 소개</h2>
+        <span class="en">INTRO VIDEO</span>
+      </div>
+      <div class="video-frame reveal">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/tNzdNHZGXmc"
+          title="종의교회 소개 영상"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- 예배 라이브 -->
+  <section class="section live-cinematic" id="live">
+    <div class="live-bgvideo" aria-hidden="true">
+      <video src="assets/media/worship.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="sq"></span>
+        <h2>예배 라이브</h2>
+        <span class="en">WORSHIP LIVE</span>
+      </div>
+      <a class="live-panel reveal" href="https://youtube.com/@jongs_community/live" target="_blank" rel="noopener">
+        <span class="live-play" aria-hidden="true"></span>
+        <span class="live-main">
+          <span class="live-badge"><span class="dot"></span>LIVE · 주일 <span data-cms="service_time_short">오전 11:00</span></span>
+          <span class="live-title">실시간 예배 송출</span>
+          <span class="live-sub">유튜브에서 종의교회 주일예배를 실시간으로 함께 드릴 수 있습니다. ↗</span>
+        </span>
+      </a>
+      <div class="live-links reveal">
+        <a class="btn" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">지난 설교 · 강론 다시보기 <span class="arrow">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 교회 소식 -->
+  <section class="section section-tint" id="news">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="sq"></span>
+        <h2>교회 소식</h2>
+        <span class="en">NEWS</span>
+      </div>
+      <div class="bulletin-wrap">
+        <div class="desc reveal">
+          <p class="quote">이번 주 주보를<br>홈페이지에서 보실 수 있습니다.</p>
+          <p>매주일 주보를 올려드리며, 공지와 교회 소식은 네이버 밴드를 통해 나눕니다.</p>
+        </div>
+        <div class="bulletin-actions reveal">
+          <a class="btn btn-accent" href="bulletins/2026/2026-06-07.pdf" target="_blank" rel="noopener">이번 주 주보 (PDF) <span class="arrow">↗</span></a>
+          <a class="btn" href="news.html">지난 주보 모아보기 <span class="arrow">→</span></a>
+          <a class="btn" href="https://www.band.us/band/89344128" target="_blank" rel="noopener">네이버 밴드 소식 <span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 교회 안내 -->
+  <section class="section" id="guide">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="sq"></span>
+        <h2>교회 안내</h2>
+        <span class="en">GUIDE</span>
+      </div>
+      <div class="location-grid">
+        <div class="location-info reveal">
+          <p class="addr">경기도 부천시<br>부일로505번길 17-1, B1층</p>
+          <p><span data-cms="worship_times_line">주일예배 오전 11:00 · 금요묵상 저녁 8:30</span><br>처음 오시는 분도 편히 함께하실 수 있습니다.</p>
+          <div class="map-links">
+            <a class="btn" href="https://map.naver.com/p/search/%EB%B6%80%EC%B2%9C%EC%8B%9C%20%EB%B6%80%EC%9D%BC%EB%A1%9C505%EB%B2%88%EA%B8%B8%2017-1" target="_blank" rel="noopener">네이버 지도 <span class="arrow">↗</span></a>
+            <a class="btn" href="https://map.kakao.com/?q=%EB%B6%80%EC%B2%9C%EC%8B%9C%20%EB%B6%80%EC%9D%BC%EB%A1%9C505%EB%B2%88%EA%B8%B8%2017-1" target="_blank" rel="noopener">카카오맵 <span class="arrow">↗</span></a>
+            <a class="btn" href="worship.html">예배 안내 <span class="arrow">→</span></a>
+          </div>
+        </div>
+        <div class="map-frame reveal">
+          <iframe
+            src="https://www.google.com/maps?q=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EB%B6%80%EC%B2%9C%EC%8B%9C%20%EB%B6%80%EC%9D%BC%EB%A1%9C505%EB%B2%88%EA%B8%B8%2017-1&amp;output=embed"
+            title="종의교회 위치 지도"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col">
+        <p class="footer-logotype"><span class="sq"></span>종의교회</p>
+        <p>담임목사 <span data-cms="pastor_name">박재협</span><br>경기도 부천시 <span data-cms="church_address">부일로505번길 17-1, B1층</span><br><span data-cms="worship_times_line">주일예배 오전 11:00 · 금요묵상 저녁 8:30</span></p>
+      </div>
+      <div class="footer-col">
+        <p class="label">바로가기</p>
+        <div class="links">
+          <a href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube — 설교 영상 ↗</a>
+          <a href="https://www.band.us/band/89344128" target="_blank" rel="noopener">네이버 밴드 — 교회 소식 ↗</a>
+          <a href="news.html">주보 아카이브 →</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="label">헌금 계좌</p>
+        <p><span data-cms="account_bank">카카오뱅크</span> <span data-cms="account_number">7979-63-04620</span><br>예금주 <span data-cms="account_holder">조다윗</span></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year">2026</span> 종의교회</p>
+      <p>우리는 주의 종입니다</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== 공지 팝업 =====
+     운영 방법
+     · 켜기/끄기 : 아래 data-active 값을 "true"(켜짐) / "false"(꺼짐)로 바꾸세요.
+     · 내용 변경 : 새 공지로 바꿀 때는 data-key 값도 새 이름으로 바꿔주세요.
+                  (그래야 '오늘 하루 보지 않기'를 눌렀던 분들께도 새 공지가 다시 보입니다.)
+     · 이미지 사용(선택) : promo-figure 주석을 풀고 src를 바꾸세요. 필요 없으면 그대로 두세요.
+     · 버튼 링크 : promo-cta 의 href 를 원하는 페이지/주소로 바꾸세요. 버튼이 필요 없으면 그 줄을 지우세요. -->
+<div class="promo" id="promo" data-active="true" data-key="2026-여름-예배시간" aria-hidden="true">
+  <div class="promo-backdrop" data-promo-close></div>
+  <div class="promo-card" role="dialog" aria-modal="true" aria-labelledby="promo-title">
+    <button class="promo-x" data-promo-close aria-label="닫기">&times;</button>
+    <!-- <figure class="promo-figure"><img src="assets/promo.jpg" alt=""></figure> -->
+    <img class="promo-mark" src="assets/logo-mark.png" alt="">
+    <span class="promo-eyebrow">종의교회 공지</span>
+    <h2 class="promo-title" id="promo-title">7월부터 주일예배<br><em>오전 10시</em></h2>
+    <p class="promo-text">2026년 7월부터 주일예배 시간이 오전 11시에서 <strong>오전 10시</strong>로 변경됩니다. 바뀐 시간에 맞춰 함께해 주세요.</p>
+    <a class="btn btn-accent promo-cta" href="worship.html">예배 안내 보기 <span class="arrow">→</span></a>
+    <div class="promo-foot">
+      <button class="promo-dismiss" data-promo-today>오늘 하루 보지 않기</button>
+      <button class="promo-dismiss" data-promo-close>닫기</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/cms.js?v=1"></script>
+<script src="js/main.js?v=4"></script>
+</body>
+</html>
