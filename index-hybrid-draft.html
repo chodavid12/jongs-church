@@ -103,7 +103,7 @@
   <!-- 히어로 -->
   <section class="hero">
     <div class="hero-bgvideo" aria-hidden="true">
-      <video src="assets/media/hero.mp4" autoplay muted loop playsinline></video>
+      <video src="assets/media/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="hero-aura" aria-hidden="true"></div>
     <div class="container hero-inner">
@@ -173,7 +173,7 @@
   <!-- 예배 라이브 -->
   <section class="section live-cinematic" id="live">
     <div class="live-bgvideo" aria-hidden="true">
-      <video src="assets/media/worship.mp4" autoplay muted loop playsinline></video>
+      <video src="assets/media/worship.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="container">
       <div class="section-head reveal">
@@ -301,5 +301,13 @@
 
 <script src="js/cms.js?v=1"></script>
 <script src="js/main.js?v=4"></script>
+<script>
+document.querySelectorAll('video[autoplay]').forEach((v) => {
+  const tryPlay = () => v.play().catch(() => {});
+  tryPlay();
+  v.addEventListener('loadedmetadata', tryPlay, { once: true });
+  document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+});
+</script>
 </body>
 </html>

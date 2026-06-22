@@ -125,7 +125,7 @@
       <a class="ad-link" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">설교 영상 보기 ›</a>
     </div>
     <div class="ad-imgbox short">
-      <video src="assets/media/hero.mp4" autoplay muted loop playsinline></video>
+      <video src="assets/media/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
   </section>
 
@@ -181,7 +181,7 @@
       <a class="ad-link" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">지난 설교 다시보기 ›</a>
     </div>
     <div class="ad-imgbox dark">
-      <video src="assets/media/worship.mp4" autoplay muted loop playsinline></video>
+      <video src="assets/media/worship.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
   </section>
 
@@ -233,5 +233,13 @@
 
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 <script src="js/main.js?v=4"></script>
+<script>
+document.querySelectorAll('video[autoplay]').forEach((v) => {
+  const tryPlay = () => v.play().catch(() => {});
+  tryPlay();
+  v.addEventListener('loadedmetadata', tryPlay, { once: true });
+  document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+});
+</script>
 </body>
 </html>
