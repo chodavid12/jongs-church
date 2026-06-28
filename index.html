@@ -16,6 +16,51 @@
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
   <link rel="stylesheet" href="css/style.css?v=7">
+
+  <style>
+    /* 원본 컴포넌트는 그대로 두고, 히어로/예배라이브에 풀블리드 영상,
+       종의정신에 보강 사진을 더해 애플식 시네마틱 톤을 섞었다. */
+    .hero-bgvideo {
+      position: absolute; inset: 0; z-index: 0; overflow: hidden;
+    }
+    .hero-bgvideo video {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.34; filter: saturate(1.05);
+    }
+    .hero-bgvideo::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.92) 86%, var(--paper) 100%);
+    }
+    .hero-aura { z-index: 0; }
+
+    .creed-photo {
+      max-width: 920px; margin: 48px auto 0; border-radius: var(--radius);
+      overflow: hidden; aspect-ratio: 16 / 8;
+      box-shadow: 0 30px 60px -24px rgba(0,0,0,0.18);
+    }
+    .creed-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    #live.live-cinematic {
+      position: relative; background: #0a0a0a; color: #f5f5f7;
+      overflow: hidden;
+    }
+    #live.live-cinematic .live-bgvideo {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    #live.live-cinematic .live-bgvideo video {
+      width: 100%; height: 100%; object-fit: cover; opacity: 0.45;
+    }
+    #live.live-cinematic .live-bgvideo::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.82) 100%);
+    }
+    #live.live-cinematic .container { position: relative; z-index: 1; }
+    #live.live-cinematic .section-head { border-top-color: rgba(255,255,255,.2); }
+    #live.live-cinematic .section-head h2 { color: #f5f5f7; }
+    #live.live-cinematic .section-head .en { color: #a1a1a6; }
+    #live.live-cinematic .live-links .btn { border-color: rgba(255,255,255,.3); color: #f5f5f7; background: transparent; }
+    #live.live-cinematic .live-links .btn:hover { background: #fff; border-color: #fff; color: #000; }
+  </style>
 </head>
 <body>
 
@@ -56,6 +101,9 @@
 
   <!-- 히어로 -->
   <section class="hero">
+    <div class="hero-bgvideo" aria-hidden="true">
+      <video src="assets/media/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
+    </div>
     <div class="hero-aura" aria-hidden="true"></div>
     <div class="container hero-inner">
       <img class="hero-logo" src="assets/logo.png" alt="종의교회 — SINCE 2023">
@@ -94,6 +142,9 @@
           </div>
         </div>
         <a class="creed-link" href="about.html">종의소개 자세히 보기 →</a>
+        <div class="creed-photo reveal">
+          <img src="assets/media/community.jpeg" alt="종의교회 성도들">
+        </div>
       </div>
     </div>
   </section>
@@ -119,7 +170,10 @@
   </section>
 
   <!-- 예배 라이브 -->
-  <section class="section" id="live">
+  <section class="section live-cinematic" id="live">
+    <div class="live-bgvideo" aria-hidden="true">
+      <video src="assets/media/worship.mp4" autoplay muted loop playsinline preload="auto"></video>
+    </div>
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
@@ -246,5 +300,13 @@
 
 <script src="js/cms.js?v=1"></script>
 <script src="js/main.js?v=4"></script>
+<script>
+document.querySelectorAll('video[autoplay]').forEach((v) => {
+  const tryPlay = () => v.play().catch(() => {});
+  tryPlay();
+  v.addEventListener('loadedmetadata', tryPlay, { once: true });
+  document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+});
+</script>
 </body>
 </html>
