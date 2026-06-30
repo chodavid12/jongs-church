@@ -1007,15 +1007,43 @@ body.menu-open .mobile-menu nav a:nth-child(5) { transition-delay: 0.26s; }
 }
 .archive .year-toggle:hover .year { color: var(--accent-deep); }
 .archive .year-toggle:hover .chev { border-color: var(--accent-deep); }
-.archive .year-group.open .chev { transform: rotate(225deg); }
+.archive .year-group.open > .year-toggle > .chev { transform: rotate(225deg); }
 
 .archive .year-body {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.35s ease;
 }
-.archive .year-group.open .year-body { grid-template-rows: 1fr; }
+.archive .year-group.open > .year-body { grid-template-rows: 1fr; }
 .archive .year-body > ul { overflow: hidden; min-height: 0; }
+
+/* 월 단위 토글 (재정 보고 — 연도 > 월 > 주차) */
+.archive .month-group { border-top: 1px solid var(--line); margin-left: 6px; }
+.archive .month-group:first-child { border-top: 0; }
+.archive .month-toggle {
+  width: 100%; display: flex; align-items: center; gap: 10px;
+  background: none; border: 0; cursor: pointer;
+  padding: 15px 4px 15px 22px; text-align: left; color: inherit; font: inherit;
+}
+.archive .month-name { font-weight: 700; font-size: 16.5px; letter-spacing: -0.01em; }
+.archive .month-sum { font-size: 12.5px; font-weight: 600; color: var(--ink-faint); }
+.archive .month-toggle:hover .month-name { color: var(--accent-deep); }
+.archive .month-toggle:hover .chev { border-color: var(--accent-deep); }
+.archive .month-group.open > .month-toggle > .chev { transform: rotate(225deg); }
+.archive .month-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+.archive .month-group.open > .month-body { grid-template-rows: 1fr; }
+.archive .month-body > .fin-wrap { overflow: hidden; min-height: 0; }
+.archive .year-total {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 16px 4px 4px 22px; margin-top: 4px;
+  border-top: 2px solid var(--ink);
+  font-weight: 800; color: var(--accent-deep); font-size: 15px;
+}
+.archive .year-total .yt-nums { font-variant-numeric: tabular-nums; }
 
 .archive ul li { border-bottom: 1px solid var(--line); }
 .archive .year-body > ul > li:last-child { border-bottom: 0; }

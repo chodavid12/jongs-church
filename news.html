@@ -245,43 +245,58 @@
       var fmtD = function (d) { return d.replace(/-/g, '. '); };
       var html = '';
       years.forEach(function (y, yi) {
-        var isOpen = yi === 0;
+        var yearOpen = yi === 0; // 최신 연도만 펼침
+
+        // 연도 안에서 월별로 묶기
+        var months = [], byMonth = {};
+        byYear[y].forEach(function (w) {
+          var m = w.date.slice(5, 7);
+          if (!byMonth[m]) { byMonth[m] = []; months.push(m); }
+          byMonth[m].push(w);
+        });
+
         // 연 합계
         var yt = { g: 0, p: 0, r: 0 };
         byYear[y].forEach(function (w) { yt.g += w.general || 0; yt.p += w.purpose || 0; yt.r += w.relief || 0; });
 
-        html += '<div class="year-group' + (isOpen ? ' open' : '') + '">'
-              + '<button class="year-toggle" type="button" aria-expanded="' + isOpen + '">'
+        html += '<div class="year-group' + (yearOpen ? ' open' : '') + '">'
+              + '<button class="year-toggle" type="button" aria-expanded="' + yearOpen + '">'
               + '<span class="year">' + y + '</span>'
               + '<span class="year-count">일반 ' + won(yt.g) + '원</span>'
               + '<span class="chev" aria-hidden="true"></span>'
               + '</button>'
-              + '<div class="year-body"><div class="fin-wrap"><table class="fin-table">'
-              + '<thead><tr><th>주간</th><th>일반헌금</th><th>목적헌금</th><th>구제헌금</th></tr></thead><tbody>';
+              + '<div class="year-body"><div>';
 
-        var curMonth = null, ms = { g: 0, p: 0, r: 0 };
-        var flushMonth = function () {
-          if (curMonth === null) return;
-          html += '<tr class="fin-sub"><td>' + curMonth + '월 합계</td>'
-                + '<td>' + won(ms.g) + '</td><td>' + won(ms.p) + '</td><td>' + won(ms.r) + '</td></tr>';
-        };
-        byYear[y].forEach(function (w) {
-          var mon = parseInt(w.date.slice(5, 7), 10);
-          if (curMonth !== null && mon !== curMonth) { flushMonth(); ms = { g: 0, p: 0, r: 0 }; }
-          curMonth = mon;
-          ms.g += w.general || 0; ms.p += w.purpose || 0; ms.r += w.relief || 0;
-          html += '<tr><td class="fin-d">' + fmtD(w.date) + (w.memo ? ' <span class="fin-memo">' + w.memo + '</span>' : '') + '</td>'
-                + '<td>' + won(w.general) + '</td><td>' + won(w.purpose) + '</td><td>' + won(w.relief) + '</td></tr>';
+        months.forEach(function (m, mi) {
+          var monthOpen = yearOpen && mi === 0; // 펼친 연도의 최신 월만 펼침
+          var mt = { g: 0, p: 0, r: 0 };
+          byMonth[m].forEach(function (w) { mt.g += w.general || 0; mt.p += w.purpose || 0; mt.r += w.relief || 0; });
+
+          html += '<div class="month-group' + (monthOpen ? ' open' : '') + '">'
+                + '<button class="month-toggle" type="button" aria-expanded="' + monthOpen + '">'
+                + '<span class="month-name">' + parseInt(m, 10) + '월</span>'
+                + '<span class="month-sum">일반 ' + won(mt.g) + '원</span>'
+                + '<span class="chev" aria-hidden="true"></span>'
+                + '</button>'
+                + '<div class="month-body"><div class="fin-wrap"><table class="fin-table">'
+                + '<thead><tr><th>주간</th><th>일반헌금</th><th>목적헌금</th><th>구제헌금</th></tr></thead><tbody>';
+          byMonth[m].forEach(function (w) {
+            html += '<tr><td class="fin-d">' + fmtD(w.date) + (w.memo ? ' <span class="fin-memo">' + w.memo + '</span>' : '') + '</td>'
+                  + '<td>' + won(w.general) + '</td><td>' + won(w.purpose) + '</td><td>' + won(w.relief) + '</td></tr>';
+          });
+          html += '<tr class="fin-sub"><td>' + parseInt(m, 10) + '월 합계</td>'
+                + '<td>' + won(mt.g) + '</td><td>' + won(mt.p) + '</td><td>' + won(mt.r) + '</td></tr>';
+          html += '</tbody></table></div></div></div>';
         });
-        flushMonth();
 
-        html += '<tr class="fin-total"><td>' + y + ' 합계</td>'
-              + '<td>' + won(yt.g) + '</td><td>' + won(yt.p) + '</td><td>' + won(yt.r) + '</td></tr>';
-        html += '</tbody></table></div></div></div>';
+        html += '<div class="year-total"><span>' + y + ' 합계</span>'
+              + '<span class="yt-nums">일반 ' + won(yt.g) + ' · 목적 ' + won(yt.p) + ' · 구제 ' + won(yt.r) + '</span></div>';
+        html += '</div></div></div>';
       });
       root.innerHTML = html;
 
-      root.querySelectorAll('.year-toggle').forEach(function (btn) {
+      // 연도·월 토글 (각 버튼은 자기 그룹만 열고 닫음)
+      root.querySelectorAll('.year-toggle, .month-toggle').forEach(function (btn) {
         btn.addEventListener('click', function () {
           var open = btn.parentNode.classList.toggle('open');
           btn.setAttribute('aria-expanded', String(open));
