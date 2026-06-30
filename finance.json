@@ -1,9 +1,1099 @@
 {
   "updated": "2026-06-30",
   "unit": "원",
-  "note": "매주 주보 [재정 보고]의 헌금 수입(일반·목적·구제)을 그대로 옮긴 기록입니다.",
+  "note": "매주 주보 [재정 보고]의 헌금 수입(일반·목적·구제)을 그대로 옮긴 기록입니다. (데이터 입력 전: 0원)",
   "weeks": [
-    { "date": "2025-06-08", "general": 460042, "purpose": 100000, "relief": 0, "memo": "목적: 태국 지원" },
-    { "date": "2025-06-01", "general": 610000, "purpose": 0, "relief": 0 }
+    {
+      "date": "2026-06-21",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-06-14",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-06-07",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-05-31",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-05-24",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-05-17",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-05-10",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-05-03",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-04-26",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-04-19",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-04-12",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-04-05",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-03-29",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-03-22",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-03-15",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-03-08",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-03-01",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-02-22",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-02-15",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-02-08",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-02-01",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-01-25",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-01-18",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-01-11",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2026-01-04",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-12-28",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-12-21",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-12-14",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-12-07",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-11-30",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-11-23",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-11-16",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-11-09",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-11-02",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-10-26",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-10-19",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-10-12",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-10-05",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-09-28",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-09-21",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-09-14",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-09-07",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-08-31",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-08-24",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-08-17",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-08-10",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-08-03",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-07-27",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-07-20",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-07-13",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-07-06",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-06-29",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-06-22",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-06-15",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-06-08",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-06-01",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-05-25",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-05-18",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-05-11",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-05-04",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-04-27",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-04-20",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-04-13",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-04-06",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-03-30",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-03-23",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-03-16",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-03-09",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-03-02",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-02-23",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-02-16",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-02-09",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-02-02",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-01-26",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-01-19",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-01-12",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2025-01-05",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-12-29",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-12-22",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-12-15",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-12-08",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-12-01",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-11-24",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-11-17",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-11-10",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-11-03",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-10-27",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-10-20",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-10-13",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-10-06",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-09-29",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-09-22",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-09-15",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-09-08",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-09-01",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-08-25",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-08-18",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-08-11",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-08-04",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-07-28",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-07-21",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-07-14",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-07-07",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-06-30",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-06-23",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-06-16",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-06-09",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-06-02",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-05-26",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-05-19",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-05-12",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-05-05",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-04-28",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-04-21",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-04-14",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-04-07",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-03-31",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-03-24",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-03-17",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-03-10",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-03-03",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-02-25",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-02-18",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-02-11",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-02-04",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-01-28",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-01-21",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-01-14",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2024-01-07",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-12-31",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-12-24",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-12-17",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-12-10",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-12-03",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-11-26",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-11-19",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-11-12",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-11-05",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-10-29",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-10-22",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-10-15",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-10-08",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-10-01",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-09-24",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-09-17",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-09-10",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-09-03",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-08-27",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-08-20",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-08-13",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-08-06",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-07-30",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-07-23",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-07-16",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-07-09",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-07-02",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-06-25",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-06-18",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-06-11",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-06-04",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-05-28",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-05-21",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-05-14",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-05-07",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-04-30",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-04-23",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-04-16",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-04-09",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-04-02",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-03-26",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-03-19",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-03-12",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-03-05",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-02-26",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-02-19",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-02-12",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-02-05",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-01-29",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-01-22",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-01-15",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-01-08",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    },
+    {
+      "date": "2023-01-01",
+      "general": 0,
+      "purpose": 0,
+      "relief": 0
+    }
   ]
 }
