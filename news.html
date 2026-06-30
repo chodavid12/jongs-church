@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=10">
 </head>
 <body>
 
@@ -81,6 +81,19 @@
       <noscript>
         <p class="archive-loading">주보 목록은 자바스크립트가 켜진 환경에서 표시됩니다.</p>
       </noscript>
+    </div>
+  </section>
+
+  <!-- 재정 보고 (finance.json 에서 자동 생성) -->
+  <section class="archive finance" id="finance">
+    <div class="container">
+      <div class="finance-head reveal">
+        <h2 class="finance-title"><span class="sq"></span>재정 보고</h2>
+        <p class="finance-intro">종의교회는 헌금을 투명하게 나눕니다. 매주 주보 [재정 보고]에 실린 헌금 수입(일반·목적·구제)을 그대로 옮겨 정리합니다. <strong>No 십일조 · No 봉투</strong> — 가족과 상식의 원칙으로 운영합니다.</p>
+      </div>
+      <div id="finance-root">
+        <p class="archive-loading">재정 내역을 불러오는 중…</p>
+      </div>
     </div>
   </section>
 
@@ -203,6 +216,80 @@
     })
     .catch(function () {
       root.innerHTML = '<p class="archive-loading">주보 목록을 불러오지 못했습니다.</p>';
+    });
+})();
+</script>
+<script>
+// 재정 보고 — finance.json 을 읽어 연도별·월별로 자동 집계
+(function () {
+  var root = document.getElementById('finance-root');
+  if (!root) return;
+  var won = function (n) { return (n || 0).toLocaleString('ko-KR'); };
+
+  fetch('finance.json?_=' + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function (data) {
+      var weeks = (data && data.weeks) || [];
+      if (!weeks.length) { root.innerHTML = '<p class="archive-loading">아직 등록된 재정 내역이 없습니다.</p>'; return; }
+
+      weeks.sort(function (a, b) { return a.date < b.date ? 1 : -1; }); // 최신순
+
+      // 연도 > 월 로 묶기
+      var years = [], byYear = {};
+      weeks.forEach(function (w) {
+        var y = w.date.slice(0, 4);
+        if (!byYear[y]) { byYear[y] = []; years.push(y); }
+        byYear[y].push(w);
+      });
+
+      var fmtD = function (d) { return d.replace(/-/g, '. '); };
+      var html = '';
+      years.forEach(function (y, yi) {
+        var isOpen = yi === 0;
+        // 연 합계
+        var yt = { g: 0, p: 0, r: 0 };
+        byYear[y].forEach(function (w) { yt.g += w.general || 0; yt.p += w.purpose || 0; yt.r += w.relief || 0; });
+
+        html += '<div class="year-group' + (isOpen ? ' open' : '') + '">'
+              + '<button class="year-toggle" type="button" aria-expanded="' + isOpen + '">'
+              + '<span class="year">' + y + '</span>'
+              + '<span class="year-count">일반 ' + won(yt.g) + '원</span>'
+              + '<span class="chev" aria-hidden="true"></span>'
+              + '</button>'
+              + '<div class="year-body"><div class="fin-wrap"><table class="fin-table">'
+              + '<thead><tr><th>주간</th><th>일반헌금</th><th>목적헌금</th><th>구제헌금</th></tr></thead><tbody>';
+
+        var curMonth = null, ms = { g: 0, p: 0, r: 0 };
+        var flushMonth = function () {
+          if (curMonth === null) return;
+          html += '<tr class="fin-sub"><td>' + curMonth + '월 합계</td>'
+                + '<td>' + won(ms.g) + '</td><td>' + won(ms.p) + '</td><td>' + won(ms.r) + '</td></tr>';
+        };
+        byYear[y].forEach(function (w) {
+          var mon = parseInt(w.date.slice(5, 7), 10);
+          if (curMonth !== null && mon !== curMonth) { flushMonth(); ms = { g: 0, p: 0, r: 0 }; }
+          curMonth = mon;
+          ms.g += w.general || 0; ms.p += w.purpose || 0; ms.r += w.relief || 0;
+          html += '<tr><td class="fin-d">' + fmtD(w.date) + (w.memo ? ' <span class="fin-memo">' + w.memo + '</span>' : '') + '</td>'
+                + '<td>' + won(w.general) + '</td><td>' + won(w.purpose) + '</td><td>' + won(w.relief) + '</td></tr>';
+        });
+        flushMonth();
+
+        html += '<tr class="fin-total"><td>' + y + ' 합계</td>'
+              + '<td>' + won(yt.g) + '</td><td>' + won(yt.p) + '</td><td>' + won(yt.r) + '</td></tr>';
+        html += '</tbody></table></div></div></div>';
+      });
+      root.innerHTML = html;
+
+      root.querySelectorAll('.year-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var open = btn.parentNode.classList.toggle('open');
+          btn.setAttribute('aria-expanded', String(open));
+        });
+      });
+    })
+    .catch(function () {
+      root.innerHTML = '<p class="archive-loading">재정 내역을 불러오지 못했습니다.</p>';
     });
 })();
 </script>

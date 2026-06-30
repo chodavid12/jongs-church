@@ -1058,6 +1058,42 @@ body.menu-open .mobile-menu nav a:nth-child(5) { transition-delay: 0.26s; }
   line-height: 1.9;
 }
 
+/* 재정 보고 */
+.finance { padding-top: clamp(20px, 4vw, 40px); }
+.finance-head { margin-bottom: 8px; }
+.finance-title {
+  display: flex; align-items: center; gap: 12px;
+  font-weight: 800; font-size: 22px; letter-spacing: -0.02em; margin-bottom: 14px;
+}
+.finance-intro {
+  font-size: 15.5px; line-height: 1.75; color: var(--ink-soft); max-width: 760px;
+}
+.finance-intro strong { color: var(--ink); font-weight: 700; }
+
+.fin-wrap { overflow-x: auto; padding-bottom: 4px; }
+.fin-table {
+  width: 100%; border-collapse: collapse; min-width: 480px;
+  font-variant-numeric: tabular-nums; margin: 6px 0 18px;
+}
+.fin-table th, .fin-table td { padding: 13px 14px; text-align: right; white-space: nowrap; }
+.fin-table th:first-child, .fin-table td:first-child { text-align: left; }
+.fin-table thead th {
+  font-size: 12.5px; font-weight: 700; color: var(--ink-faint);
+  border-bottom: 1px solid var(--line-mid); letter-spacing: 0.02em;
+}
+.fin-table tbody td {
+  font-size: 15px; border-bottom: 1px solid var(--line);
+}
+.fin-table .fin-d { color: var(--ink-soft); font-weight: 500; }
+.fin-memo { font-size: 12px; color: var(--accent-deep); font-weight: 600; }
+.fin-table .fin-sub td {
+  font-weight: 700; color: var(--ink); background: var(--paper-tint);
+}
+.fin-table .fin-total td {
+  font-weight: 800; color: var(--accent-deep);
+  border-top: 2px solid var(--ink); border-bottom: 0; font-size: 15.5px;
+}
+
 /* ==========================================================================
    홈 — 종의정신 (정체성 밴드)
    ========================================================================== */
