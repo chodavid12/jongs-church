@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 
-  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="css/style.css?v=9">
 </head>
 <body>
 
@@ -170,8 +170,15 @@
       items.forEach(function (it) { totalByDate[it.date] = (totalByDate[it.date] || 0) + 1; });
 
       var html = '';
-      years.forEach(function (y) {
-        html += '<h2 class="year">' + y + '</h2><ul>';
+      years.forEach(function (y, yi) {
+        var isOpen = yi === 0; // 최신 연도만 펼친 채로 시작
+        html += '<div class="year-group' + (isOpen ? ' open' : '') + '">'
+              + '<button class="year-toggle" type="button" aria-expanded="' + isOpen + '">'
+              + '<span class="year">' + y + '</span>'
+              + '<span class="year-count">' + byYear[y].length + '개</span>'
+              + '<span class="chev" aria-hidden="true"></span>'
+              + '</button>'
+              + '<div class="year-body"><ul>';
         var nthByDate = {};
         byYear[y].forEach(function (it) {
           nthByDate[it.date] = (nthByDate[it.date] || 0) + 1;
@@ -182,9 +189,17 @@
                 + '<span class="title">' + title + '</span>'
                 + '<span class="ext">' + (it.type || 'PDF') + '</span></a></li>';
         });
-        html += '</ul>';
+        html += '</ul></div></div>';
       });
       root.innerHTML = html;
+
+      // 연도 토글 (열기/닫기)
+      root.querySelectorAll('.year-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var open = btn.parentNode.classList.toggle('open');
+          btn.setAttribute('aria-expanded', String(open));
+        });
+      });
     })
     .catch(function () {
       root.innerHTML = '<p class="archive-loading">주보 목록을 불러오지 못했습니다.</p>';
