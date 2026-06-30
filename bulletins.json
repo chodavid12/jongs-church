@@ -6,36 +6,42 @@
       "date": "2026-06-07",
       "year": "2026",
       "path": "bulletins/2026/2026-06-07.pdf",
+      "type": "PDF",
       "title": "주일 주보"
     },
     {
       "date": "2023-01-29",
       "year": "2023",
       "path": "bulletins/2023/2023-01-29.pdf",
+      "type": "PDF",
       "title": "주일 주보"
     },
     {
       "date": "2023-01-22",
       "year": "2023",
       "path": "bulletins/2023/2023-01-22.pdf",
+      "type": "PDF",
       "title": "주일 주보"
     },
     {
       "date": "2023-01-15",
       "year": "2023",
       "path": "bulletins/2023/2023-01-15.pdf",
+      "type": "PDF",
       "title": "주일 주보"
     },
     {
       "date": "2023-01-08",
       "year": "2023",
       "path": "bulletins/2023/2023-01-08.pdf",
+      "type": "PDF",
       "title": "주일 주보"
     },
     {
       "date": "2023-01-01",
       "year": "2023",
       "path": "bulletins/2023/2023-01-01.pdf",
+      "type": "PDF",
       "title": "주일 주보"
     }
   ]

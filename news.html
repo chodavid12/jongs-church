@@ -165,14 +165,22 @@
         byYear[it.year].push(it);
       });
 
+      // 같은 날짜에 여러 장이 있으면 (2), (3) … 으로 표시
+      var totalByDate = {};
+      items.forEach(function (it) { totalByDate[it.date] = (totalByDate[it.date] || 0) + 1; });
+
       var html = '';
       years.forEach(function (y) {
         html += '<h2 class="year">' + y + '</h2><ul>';
+        var nthByDate = {};
         byYear[y].forEach(function (it) {
+          nthByDate[it.date] = (nthByDate[it.date] || 0) + 1;
+          var title = it.title || '주일 주보';
+          if (totalByDate[it.date] > 1) title += ' (' + nthByDate[it.date] + ')';
           html += '<li><a href="' + it.path + '" target="_blank" rel="noopener">'
                 + '<span class="date">' + fmt(it.date) + '</span>'
-                + '<span class="title">' + (it.title || '주일 주보') + '</span>'
-                + '<span class="ext">PDF</span></a></li>';
+                + '<span class="title">' + title + '</span>'
+                + '<span class="ext">' + (it.type || 'PDF') + '</span></a></li>';
         });
         html += '</ul>';
       });
