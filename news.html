@@ -254,6 +254,10 @@
           if (!byMonth[m]) { byMonth[m] = []; months.push(m); }
           byMonth[m].push(w);
         });
+        months.sort();                                   // 월 오름차순 (1월 → 12월)
+        months.forEach(function (m) {                    // 각 월 안 주차 오름차순
+          byMonth[m].sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+        });
 
         // 연 합계
         var yt = { g: 0, p: 0, r: 0 };
@@ -268,7 +272,7 @@
               + '<div class="year-body"><div>';
 
         months.forEach(function (m, mi) {
-          var monthOpen = yearOpen && mi === 0; // 펼친 연도의 최신 월만 펼침
+          var monthOpen = yearOpen && mi === months.length - 1; // 펼친 연도의 최신 월(맨 아래)만 펼침
           var mt = { g: 0, p: 0, r: 0 };
           byMonth[m].forEach(function (w) { mt.g += w.general || 0; mt.p += w.purpose || 0; mt.r += w.relief || 0; });
 
