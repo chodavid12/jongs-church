@@ -815,19 +815,19 @@
     },
     {
       "date": "2023-11-19",
-      "general": 0,
+      "general": 1289084,
       "purpose": 0,
       "relief": 0
     },
     {
       "date": "2023-11-12",
-      "general": 0,
+      "general": 286187,
       "purpose": 0,
       "relief": 0
     },
     {
       "date": "2023-11-05",
-      "general": 0,
+      "general": 4500,
       "purpose": 0,
       "relief": 0
     },
@@ -839,25 +839,25 @@
     },
     {
       "date": "2023-10-22",
-      "general": 0,
+      "general": 200059,
       "purpose": 0,
       "relief": 0
     },
     {
       "date": "2023-10-15",
-      "general": 0,
+      "general": 145000,
       "purpose": 0,
       "relief": 0
     },
     {
       "date": "2023-10-08",
-      "general": 0,
+      "general": 354605,
       "purpose": 0,
       "relief": 0
     },
     {
       "date": "2023-10-01",
-      "general": 0,
+      "general": 355000,
       "purpose": 0,
       "relief": 0
     },
@@ -869,19 +869,19 @@
     },
     {
       "date": "2023-09-17",
-      "general": 0,
+      "general": 100087,
       "purpose": 0,
       "relief": 0
     },
     {
       "date": "2023-09-10",
-      "general": 0,
+      "general": 390000,
       "purpose": 0,
       "relief": 0
     },
     {
       "date": "2023-09-03",
-      "general": 0,
+      "general": 880000,
       "purpose": 0,
       "relief": 0
     },
@@ -893,13 +893,13 @@
     },
     {
       "date": "2023-08-20",
-      "general": 0,
+      "general": 200064,
       "purpose": 0,
       "relief": 0
     },
     {
       "date": "2023-08-13",
-      "general": 0,
+      "general": 290100,
       "purpose": 0,
       "relief": 0
     },
@@ -995,27 +995,30 @@
     },
     {
       "date": "2023-04-23",
-      "general": 0,
-      "purpose": 0,
-      "relief": 0
+      "general": 383866,
+      "purpose": 300000,
+      "relief": 0,
+      "memo": "목적: 조다윗 맥북 후원"
     },
     {
       "date": "2023-04-16",
-      "general": 0,
+      "general": 260000,
       "purpose": 0,
       "relief": 0
     },
     {
       "date": "2023-04-09",
-      "general": 0,
-      "purpose": 0,
-      "relief": 0
+      "general": 330000,
+      "purpose": 1390000,
+      "relief": 0,
+      "memo": "목적: 조다윗 맥북 후원"
     },
     {
       "date": "2023-04-02",
-      "general": 0,
-      "purpose": 0,
-      "relief": 0
+      "general": 350000,
+      "purpose": 100000,
+      "relief": 0,
+      "memo": "목적: 조다윗 맥북 후원"
     },
     {
       "date": "2023-03-26",
