@@ -1,11 +1,116 @@
 {
   "updated": "2026-06-30",
-  "count": 6,
+  "count": 21,
   "items": [
     {
       "date": "2026-06-07",
       "year": "2026",
       "path": "bulletins/2026/2026-06-07.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-05-14",
+      "year": "2023",
+      "path": "bulletins/2023/2023-05-14.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-05-07",
+      "year": "2023",
+      "path": "bulletins/2023/2023-05-07.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-04-30",
+      "year": "2023",
+      "path": "bulletins/2023/2023-04-30.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-04-23",
+      "year": "2023",
+      "path": "bulletins/2023/2023-04-23.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-04-16",
+      "year": "2023",
+      "path": "bulletins/2023/2023-04-16.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-04-09",
+      "year": "2023",
+      "path": "bulletins/2023/2023-04-09.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-04-02",
+      "year": "2023",
+      "path": "bulletins/2023/2023-04-02.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-03-26",
+      "year": "2023",
+      "path": "bulletins/2023/2023-03-26.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-03-19",
+      "year": "2023",
+      "path": "bulletins/2023/2023-03-19.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-03-12",
+      "year": "2023",
+      "path": "bulletins/2023/2023-03-12.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-03-05",
+      "year": "2023",
+      "path": "bulletins/2023/2023-03-05.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-02-26",
+      "year": "2023",
+      "path": "bulletins/2023/2023-02-26.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-02-19",
+      "year": "2023",
+      "path": "bulletins/2023/2023-02-19.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-02-12",
+      "year": "2023",
+      "path": "bulletins/2023/2023-02-12.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2023-02-05",
+      "year": "2023",
+      "path": "bulletins/2023/2023-02-05.pdf",
       "type": "PDF",
       "title": "주일 주보"
     },
