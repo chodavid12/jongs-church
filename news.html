@@ -67,40 +67,20 @@
       <h1><em>종의</em>소식</h1>
       <p class="desc">매주 주보와 설교 영상, 교회 소식을 전합니다. 종이 주보는 매주 5부 미만으로만 출력하며, 연 단위로 소책자와 E-Book으로 엮어 보관합니다.</p>
       <div class="actions">
-        <a class="btn btn-accent" href="bulletins/2026/2026-06-07.pdf" target="_blank" rel="noopener">이번 주 주보 (PDF) <span class="arrow">↗</span></a>
+        <a id="latest-bulletin-btn" class="btn btn-accent" href="news.html#bulletin" target="_blank" rel="noopener">이번 주 주보 (PDF) <span class="arrow">↗</span></a>
       </div>
     </div>
   </section>
 
-  <!-- 주보 아카이브 -->
+  <!-- 주보 아카이브 (bulletins.json 에서 자동 생성) -->
   <section class="archive" id="bulletin">
     <div class="container">
-
-      <h2 class="year">2026</h2>
-      <ul>
-        <!--
-          ▼ 새 주보 추가 방법
-          1) 주보 PDF 파일을 bulletins/2026/ 폴더에 넣습니다. (파일명 예: 2026-06-14.pdf)
-          2) 아래 한 줄을 복사해 목록 맨 위에 붙여넣고, 날짜 두 군데를 바꿉니다.
-          3) 위 페이지 상단의 '이번 주 주보 (PDF)' 버튼의 href도 새 파일명으로 바꿉니다.
-
-          <li>
-            <a href="bulletins/2026/2026-06-14.pdf" target="_blank" rel="noopener">
-              <span class="date">2026. 06. 14</span>
-              <span class="title">주일 주보</span>
-              <span class="ext">PDF</span>
-            </a>
-          </li>
-        -->
-        <li>
-          <a href="bulletins/2026/2026-06-07.pdf" target="_blank" rel="noopener">
-            <span class="date">2026. 06. 07</span>
-            <span class="title">주일 주보 — 제4권 23호</span>
-            <span class="ext">PDF</span>
-          </a>
-        </li>
-      </ul>
-
+      <div id="archive-root">
+        <p class="archive-loading">주보를 불러오는 중…</p>
+      </div>
+      <noscript>
+        <p class="archive-loading">주보 목록은 자바스크립트가 켜진 환경에서 표시됩니다.</p>
+      </noscript>
     </div>
   </section>
 
@@ -160,5 +140,48 @@
 
 <script src="js/cms.js?v=1"></script>
 <script src="js/main.js?v=4"></script>
+<script>
+// 주보 아카이브 — bulletins.json 을 읽어 연도별로 자동 렌더링
+(function () {
+  var root = document.getElementById('archive-root');
+  if (!root) return;
+  var fmt = function (d) { return d.replace(/-/g, '. '); }; // 2023-01-01 → 2023. 01. 01
+
+  fetch('bulletins.json?_=' + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function (data) {
+      var items = (data && data.items) || [];
+      if (!items.length) { root.innerHTML = '<p class="archive-loading">아직 등록된 주보가 없습니다.</p>'; return; }
+
+      // 상단 '이번 주 주보' 버튼을 최신 주보로 연결
+      var btn = document.getElementById('latest-bulletin-btn');
+      if (btn) btn.setAttribute('href', items[0].path);
+
+      // 연도별 묶기 (items 는 최신순)
+      var years = [];
+      var byYear = {};
+      items.forEach(function (it) {
+        if (!byYear[it.year]) { byYear[it.year] = []; years.push(it.year); }
+        byYear[it.year].push(it);
+      });
+
+      var html = '';
+      years.forEach(function (y) {
+        html += '<h2 class="year">' + y + '</h2><ul>';
+        byYear[y].forEach(function (it) {
+          html += '<li><a href="' + it.path + '" target="_blank" rel="noopener">'
+                + '<span class="date">' + fmt(it.date) + '</span>'
+                + '<span class="title">' + (it.title || '주일 주보') + '</span>'
+                + '<span class="ext">PDF</span></a></li>';
+        });
+        html += '</ul>';
+      });
+      root.innerHTML = html;
+    })
+    .catch(function () {
+      root.innerHTML = '<p class="archive-loading">주보 목록을 불러오지 못했습니다.</p>';
+    });
+})();
+</script>
 </body>
 </html>

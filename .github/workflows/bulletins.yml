@@ -1,0 +1,35 @@
+name: Build bulletins index
+
+# bulletins/ 폴더에 PDF를 추가/삭제하면 bulletins.json 을 자동으로 다시 생성한다.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'bulletins/**'
+      - 'scripts/build-bulletins.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Regenerate bulletins.json
+        run: node scripts/build-bulletins.mjs
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain bulletins.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add bulletins.json
+            git commit -m "주보 목록 자동 갱신 (bulletins.json)"
+            git push
+          else
+            echo "변경 없음 — 건너뜀"
+          fi
