@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-01",
-  "count": 161,
+  "updated": "2026-07-02",
+  "count": 166,
   "items": [
     {
       "date": "2026-06-21",
@@ -542,6 +542,13 @@
       "title": "주일 주보"
     },
     {
+      "date": "2024-12-29",
+      "year": "2024",
+      "path": "bulletins/2024/2024-12-29.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
       "date": "2024-11-24",
       "year": "2024",
       "path": "bulletins/2024/2024-11-24.pdf",
@@ -570,9 +577,37 @@
       "title": "주일 주보"
     },
     {
+      "date": "2024-08-11",
+      "year": "2024",
+      "path": "bulletins/2024/2024-08-11.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2024-08-04",
+      "year": "2024",
+      "path": "bulletins/2024/2024-08-04.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
       "date": "2024-07-28",
       "year": "2024",
       "path": "bulletins/2024/2024-07-28.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2024-07-14",
+      "year": "2024",
+      "path": "bulletins/2024/2024-07-14.pdf",
+      "type": "PDF",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2024-07-07",
+      "year": "2024",
+      "path": "bulletins/2024/2024-07-07.pdf",
       "type": "PDF",
       "title": "주일 주보"
     },
