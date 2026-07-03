@@ -63,8 +63,12 @@
   <div class="admin-wrap" id="editor-view" style="display:none;">
     <div class="admin-header">
       <h1 style="font-size:22px;font-weight:800;">사이트 내용 편집</h1>
-      <button class="btn" id="logout-btn">로그아웃</button>
+      <div style="display:flex;gap:8px;">
+        <a class="btn btn-accent" href="index.html?edit=1">✎ 사이트에서 직접 편집</a>
+        <button class="btn" id="logout-btn">로그아웃</button>
+      </div>
     </div>
+    <p style="color:var(--ink-soft);font-size:13.5px;margin:-8px 0 20px;">아래에서 항목별로 수정하거나, <b>“사이트에서 직접 편집”</b>으로 실제 화면을 보며 클릭해 고칠 수 있습니다.</p>
 
     <div id="editor-sections"></div>
   </div>

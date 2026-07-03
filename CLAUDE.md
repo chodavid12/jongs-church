@@ -47,6 +47,11 @@
 - `data-cms-src="key"` → 요소의 **이미지(src)** 를 DB 값으로 교체.
 - `group_name='theme'` → `--key`(color- 접두어 제거) CSS 변수로 적용.
 
+### 인라인 편집 모드 (js/edit.js)
+- 실제 페이지를 `?edit=1`로 열면(관리자 로그인 필요) `data-cms`/`-href`/`-src` 요소에 테두리가 뜨고, 클릭하면 그 자리에서 수정→Supabase 저장. 일반 방문자(`?edit` 없음)에겐 아무 영향 없음.
+- 진입점: `admin.html`의 "✎ 사이트에서 직접 편집" 버튼 → `index.html?edit=1`.
+- **클릭 편집 가능 범위 = data-cms가 붙은 요소뿐.** 더 많은 부분을 클릭 편집하려면 해당 요소에 `data-cms`(+DB 행)를 추가하면 됨(아래 참고).
+
 ### 새 편집 항목을 추가하려면 (예: 다른 섹션도 강화)
 1. HTML 요소에 `data-cms` / `data-cms-href` / `data-cms-src` 부여 (정적 값은 폴백으로 남겨둠).
 2. `site_settings`에 행 추가: `(key, value, label, group_name, sort)`. `admin.html`이 자동으로 폼을 그린다.
