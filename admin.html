@@ -46,6 +46,31 @@
     .publish-bar .pc { font-size: 14px; font-weight: 700; color: var(--ink-soft); }
     .publish-bar.dirty .pc { color: #8a6d12; }
     .publish-bar button:disabled { opacity: .45; cursor: default; }
+    .admin-tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line-mid); margin-bottom: 22px; }
+    .admin-tabs .tab { background: none; border: 0; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink-soft);
+      padding: 10px 16px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .admin-tabs .tab.active { color: var(--accent-deep); border-bottom-color: var(--accent); }
+    .dash-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+    .stat { background: var(--paper-tint); border-radius: 14px; padding: 16px 18px; }
+    .stat .n { font-size: 13px; color: var(--ink-soft); font-weight: 600; }
+    .stat .v { font-size: 30px; font-weight: 800; margin-top: 4px; letter-spacing: -.02em; }
+    .dash-card { background: var(--paper-tint); border-radius: 16px; padding: 18px 20px; margin-bottom: 16px; }
+    .dash-card h3 { font-size: 15px; font-weight: 800; margin-bottom: 12px; }
+    .dash-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .dash-card ul { list-style: none; }
+    .dash-card li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; font-size: 14px; border-bottom: 1px solid var(--line-soft, #eee); }
+    .dash-card li:last-child { border-bottom: 0; }
+    .dash-card li .lbl { color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .dash-card li .cnt { font-weight: 700; color: var(--ink-soft); flex: none; }
+    .bars { display: flex; align-items: flex-end; gap: 4px; height: 90px; }
+    .bars .bar { flex: 1; background: var(--accent); border-radius: 4px 4px 0 0; min-height: 2px; opacity: .85; }
+    .bars .bar span { display: block; }
+    .barlabels { display: flex; gap: 4px; margin-top: 6px; }
+    .barlabels span { flex: 1; text-align: center; font-size: 10px; color: var(--ink-faint); }
+    .devbar { display: flex; height: 22px; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+    .devbar i { display: block; height: 100%; }
+    .quick a { color: var(--accent-deep); font-weight: 700; margin-right: 10px; }
+    @media (max-width: 640px) { .dash-grid { grid-template-columns: repeat(2, 1fr); } .dash-2col { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -65,22 +90,34 @@
     <p id="auth-error"></p>
   </section>
 
-  <div class="admin-wrap" id="editor-view" style="display:none;">
+  <div class="admin-wrap" id="app-view" style="display:none;">
     <div class="admin-header">
-      <h1 style="font-size:22px;font-weight:800;">사이트 내용 편집</h1>
+      <h1 style="font-size:22px;font-weight:800;">종의교회 관리자</h1>
       <div style="display:flex;gap:8px;">
         <a class="btn btn-accent" href="index.html?edit=1">✎ 사이트에서 직접 편집</a>
         <button class="btn" id="logout-btn">로그아웃</button>
       </div>
     </div>
-    <p style="color:var(--ink-soft);font-size:13.5px;margin:-8px 0 16px;">아래에서 항목별로 수정하거나, <b>“사이트에서 직접 편집”</b>으로 실제 화면을 보며 클릭해 고칠 수 있습니다. 저장은 <b>초안</b>으로만 반영되며, <b>게시하기</b>를 눌러야 방문자에게 공개됩니다.</p>
 
     <div id="publish-bar" class="publish-bar">
       <span id="publish-count" class="pc">…</span>
       <button class="btn btn-accent" id="publish-btn" disabled>게시하기</button>
     </div>
 
-    <div id="editor-sections"></div>
+    <div class="admin-tabs">
+      <button class="tab active" data-tab="dashboard">📊 대시보드</button>
+      <button class="tab" data-tab="editor">📝 내용 편집</button>
+    </div>
+
+    <section id="dashboard-view" class="tab-panel">
+      <div id="dash-root"><p style="color:var(--ink-faint)">불러오는 중…</p></div>
+    </section>
+
+    <section id="editor-view" class="tab-panel" hidden>
+      <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 16px;">항목별로 수정하거나, <b>“사이트에서 직접 편집”</b>으로 실제 화면을 보며 클릭해 고칠 수 있습니다. 저장은 <b>초안</b>이며, <b>게시하기</b>를 눌러야 방문자에게 공개됩니다.</p>
+
+      <div id="editor-sections"></div>
+    </section>
   </div>
 </main>
 
@@ -249,14 +286,80 @@
       });
   }
 
+  const appView = document.getElementById("app-view");
+
+  // 탭 전환
+  document.querySelectorAll(".admin-tabs .tab").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".admin-tabs .tab").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const t = btn.dataset.tab;
+      document.getElementById("dashboard-view").hidden = t !== "dashboard";
+      document.getElementById("editor-view").hidden = t !== "editor";
+    });
+  });
+
+  // ---- 대시보드 ----
+  const PAGE_NAMES = { "/": "홈", "/about.html": "종의소개", "/worship.html": "종의예배", "/life.html": "종의생활", "/news.html": "종의소식" };
+  function pageName(p) { return PAGE_NAMES[p] || p; }
+
+  async function loadDashboard() {
+    const root = document.getElementById("dash-root");
+    let ov, daily, pages, refs, devs;
+    try {
+      [ov, daily, pages, refs, devs] = await Promise.all([
+        sb.rpc("stats_overview"),
+        sb.rpc("stats_daily", { days: 14 }),
+        sb.rpc("stats_top_pages", { days: 30, lim: 8 }),
+        sb.rpc("stats_referrers", { days: 30, lim: 8 }),
+        sb.rpc("stats_devices", { days: 30 }),
+      ]);
+    } catch (e) { root.innerHTML = "통계를 불러오지 못했습니다."; return; }
+    const o = (ov && ov.data) || { today: 0, d7: 0, d30: 0, total: 0 };
+    const dailyRows = (daily && daily.data) || [];
+    const maxV = Math.max(1, ...dailyRows.map((r) => Number(r.views)));
+    const bars = dailyRows.map((r) => `<div class="bar" style="height:${Math.round((Number(r.views) / maxV) * 100)}%" title="${r.day}: ${r.views}"></div>`).join("");
+    const labels = dailyRows.map((r, i) => (i % 2 === 0 ? `<span>${String(r.day).slice(5)}</span>` : "<span></span>")).join("");
+    const pageLis = ((pages && pages.data) || []).map((r) => `<li><span class="lbl">${escapeHtml(pageName(r.path))}</span><span class="cnt">${r.views}</span></li>`).join("") || "<li>아직 데이터가 없습니다</li>";
+    const refLis = ((refs && refs.data) || []).map((r) => { let h = r.referrer; try { if (h && h !== "(직접 방문)") h = new URL(h).hostname; } catch (e) {} return `<li><span class="lbl">${escapeHtml(h)}</span><span class="cnt">${r.views}</span></li>`; }).join("") || "<li>아직 데이터가 없습니다</li>";
+    const devData = (devs && devs.data) || [];
+    const devTotal = Math.max(1, devData.reduce((a, r) => a + Number(r.views), 0));
+    const DEVC = { desktop: "#428cb9", mobile: "#f4c430", tablet: "#8fcdf0", "기타": "#d2d2d7" };
+    const devBar = devData.map((r) => `<i style="width:${(Number(r.views) / devTotal) * 100}%;background:${DEVC[r.device] || "#aaa"}"></i>`).join("");
+    const devLegend = devData.map((r) => `<span style="margin-right:12px;font-size:13px"><b style="color:${DEVC[r.device] || "#aaa"}">■</b> ${escapeHtml(r.device)} ${r.views}</span>`).join("");
+
+    root.innerHTML =
+      `<div class="dash-grid">
+        <div class="stat"><div class="n">오늘 방문</div><div class="v">${o.today}</div></div>
+        <div class="stat"><div class="n">최근 7일</div><div class="v">${o.d7}</div></div>
+        <div class="stat"><div class="n">최근 30일</div><div class="v">${o.d30}</div></div>
+        <div class="stat"><div class="n">누적</div><div class="v">${o.total}</div></div>
+      </div>
+      <div class="dash-card"><h3>최근 14일 방문 추이</h3><div class="bars">${bars}</div><div class="barlabels">${labels}</div></div>
+      <div class="dash-2col">
+        <div class="dash-card"><h3>인기 페이지 (30일)</h3><ul>${pageLis}</ul></div>
+        <div class="dash-card"><h3>유입 경로 (30일)</h3><ul>${refLis}</ul></div>
+      </div>
+      <div class="dash-card"><h3>기기 (30일)</h3><div class="devbar">${devBar}</div><div>${devLegend || "아직 데이터가 없습니다"}</div></div>
+      <div class="dash-card"><h3>사이트 정보</h3>
+        <p style="margin-bottom:6px">최신 주보: <b id="i-bulletin">–</b></p>
+        <p style="margin-bottom:12px">재정 최신 주차: <b id="i-finance">–</b></p>
+        <div class="quick">바로 편집: <a href="index.html?edit=1">홈</a><a href="about.html?edit=1">종의소개</a><a href="worship.html?edit=1">종의예배</a><a href="life.html?edit=1">종의생활</a><a href="news.html?edit=1">종의소식</a></div>
+      </div>`;
+
+    fetch("bulletins.json?_=" + Date.now()).then((r) => r.json()).then((d) => { const it = (d.items || [])[0]; if (it) document.getElementById("i-bulletin").textContent = it.date + " (총 " + (d.count || 0) + "개)"; }).catch(() => {});
+    fetch("finance.json?_=" + Date.now()).then((r) => r.json()).then((d) => { const w = (d.weeks || []).slice().sort((a, b) => (a.date < b.date ? 1 : -1))[0]; if (w) document.getElementById("i-finance").textContent = w.date; }).catch(() => {});
+  }
+
   sb.auth.onAuthStateChange((_event, session) => {
     if (session) {
       authView.style.display = "none";
-      editorView.style.display = "";
+      appView.style.display = "";
+      loadDashboard();
       loadEditor();
     } else {
       authView.style.display = "";
-      editorView.style.display = "none";
+      appView.style.display = "none";
     }
   });
 </script>
