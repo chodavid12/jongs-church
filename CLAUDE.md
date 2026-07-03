@@ -37,7 +37,22 @@
 | `hero_sub` / `creed_statement` | 메인 히어로 문구 |
 | `offering_principle_desc` / `membership_note` | 생활 페이지 설명 |
 
+**group_name = `hero` (첫 화면):** `hero_title_1`, `hero_title_2`(강조는 `<em>`), `hero_sub`, `hero_cta_primary_label`/`_link`, `hero_cta_secondary_label`/`_link`.
+
 **group_name = `theme` (색상, `--변수`로 적용):** `color-accent`, `color-ink`, `color-paper` 등.
+
+### CMS 바인딩 방식 (js/cms.js)
+- `data-cms="key"` → 요소의 **내용(innerHTML)** 을 DB 값으로 교체 (HTML 허용, 예: `<em>`, `<br>`).
+- `data-cms-href="key"` → 요소의 **링크(href)** 를 DB 값으로 교체.
+- `data-cms-src="key"` → 요소의 **이미지(src)** 를 DB 값으로 교체.
+- `group_name='theme'` → `--key`(color- 접두어 제거) CSS 변수로 적용.
+
+### 새 편집 항목을 추가하려면 (예: 다른 섹션도 강화)
+1. HTML 요소에 `data-cms` / `data-cms-href` / `data-cms-src` 부여 (정적 값은 폴백으로 남겨둠).
+2. `site_settings`에 행 추가: `(key, value, label, group_name, sort)`. `admin.html`이 자동으로 폼을 그린다.
+   - `admin.html`은 `group_name`별 섹션(순서: hero→content→link→theme, `GROUP_META`에 한글 제목)으로 렌더링하고, 같은 그룹은 `sort` 숫자 오름차순으로 표시.
+   - 키가 `_link`로 끝나거나 `group_name='link'`면 **URL 입력칸**, `theme`이면 색상칸, 그 외엔 여러 줄 텍스트칸으로 렌더링.
+3. `js/cms.js` 캐시 버전(`?v=N`)을 올린다.
 
 예) 예배 시간 변경:
 ```sql

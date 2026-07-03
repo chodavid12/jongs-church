@@ -26,6 +26,10 @@
       flex: 1; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line-mid);
       font: inherit; font-size: 14.5px; background: var(--paper);
     }
+    .admin-card input.link-input {
+      width: 100%; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line-mid);
+      font: inherit; font-size: 14.5px; background: var(--paper);
+    }
     .admin-row-foot { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 12px; }
     .admin-status { font-size: 13px; color: var(--ink-faint); }
     .admin-group-title { margin: 36px 0 4px; font-weight: 800; font-size: 19px; }
@@ -62,11 +66,7 @@
       <button class="btn" id="logout-btn">로그아웃</button>
     </div>
 
-    <h2 class="admin-group-title">콘텐츠</h2>
-    <div id="content-list"></div>
-
-    <h2 class="admin-group-title">디자인 색상</h2>
-    <div id="theme-list"></div>
+    <div id="editor-sections"></div>
   </div>
 </main>
 
@@ -104,46 +104,68 @@
   signupBtn.addEventListener("click", () => handleAuth((c) => sb.auth.signUp(c)));
   document.getElementById("logout-btn").addEventListener("click", () => sb.auth.signOut());
 
-  function renderContentRow(row) {
-    const card = document.createElement("div");
-    card.className = "admin-card";
-    card.innerHTML = `
-      <h3>${row.label}</h3>
-      <p class="key">${row.key}</p>
-      <textarea>${row.value}</textarea>
-      <div class="admin-row-foot">
-        <span class="admin-status"></span>
-        <button class="btn btn-accent">저장</button>
-      </div>
-    `;
-    const textarea = card.querySelector("textarea");
-    const status = card.querySelector(".admin-status");
-    card.querySelector("button").addEventListener("click", async () => {
+  // group_name → 화면에 보일 섹션 제목 / 표시 순서
+  const GROUP_META = {
+    hero: "히어로 (첫 화면)",
+    content: "기본 콘텐츠",
+    link: "링크",
+    theme: "디자인 색상",
+  };
+  const GROUP_ORDER = ["hero", "content", "link", "theme"];
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function saveHandler(key, getValue, status) {
+    return async () => {
       status.textContent = "저장 중…";
       const { error } = await sb
         .from("site_settings")
-        .update({ value: textarea.value, updated_at: new Date().toISOString() })
-        .eq("key", row.key);
+        .update({ value: getValue(), updated_at: new Date().toISOString() })
+        .eq("key", key);
       status.textContent = error ? "오류: " + error.message : "저장됨 ✓";
-    });
+    };
+  }
+
+  function cardShell(row, fieldHTML) {
+    const card = document.createElement("div");
+    card.className = "admin-card";
+    card.innerHTML = `
+      <h3>${escapeHtml(row.label)}</h3>
+      <p class="key">${escapeHtml(row.key)}</p>
+      ${fieldHTML}
+      <div class="admin-row-foot">
+        <span class="admin-status"></span>
+        <button class="btn btn-accent">저장</button>
+      </div>`;
+    return card;
+  }
+
+  function renderTextRow(row) {
+    const card = cardShell(row, `<textarea>${escapeHtml(row.value)}</textarea>`);
+    const field = card.querySelector("textarea");
+    const status = card.querySelector(".admin-status");
+    card.querySelector("button").addEventListener("click", saveHandler(row.key, () => field.value, status));
+    return card;
+  }
+
+  function renderLinkRow(row) {
+    const card = cardShell(row, `<input type="url" class="link-input" value="${escapeHtml(row.value)}" placeholder="https://…  또는  worship.html">`);
+    const field = card.querySelector("input");
+    const status = card.querySelector(".admin-status");
+    card.querySelector("button").addEventListener("click", saveHandler(row.key, () => field.value.trim(), status));
     return card;
   }
 
   function renderThemeRow(row) {
-    const card = document.createElement("div");
-    card.className = "admin-card";
-    card.innerHTML = `
-      <h3>${row.label}</h3>
-      <p class="key">${row.key}</p>
+    const card = cardShell(row, `
       <div class="color-row">
-        <input type="color" value="${row.value}">
-        <input type="text" value="${row.value}">
-      </div>
-      <div class="admin-row-foot">
-        <span class="admin-status"></span>
-        <button class="btn btn-accent">저장</button>
-      </div>
-    `;
+        <input type="color" value="${escapeHtml(row.value)}">
+        <input type="text" value="${escapeHtml(row.value)}">
+      </div>`);
     const colorInput = card.querySelector('input[type="color"]');
     const textInput = card.querySelector('input[type="text"]');
     colorInput.addEventListener("input", () => (textInput.value = colorInput.value));
@@ -151,31 +173,42 @@
       if (/^#[0-9a-fA-F]{6}$/.test(textInput.value)) colorInput.value = textInput.value;
     });
     const status = card.querySelector(".admin-status");
-    card.querySelector("button").addEventListener("click", async () => {
-      status.textContent = "저장 중…";
-      const { error } = await sb
-        .from("site_settings")
-        .update({ value: textInput.value, updated_at: new Date().toISOString() })
-        .eq("key", row.key);
-      status.textContent = error ? "오류: " + error.message : "저장됨 ✓";
-    });
+    card.querySelector("button").addEventListener("click", saveHandler(row.key, () => textInput.value, status));
     return card;
   }
 
+  function renderRow(row) {
+    if (row.group_name === "theme") return renderThemeRow(row);
+    if (row.group_name === "link" || /_link$/.test(row.key)) return renderLinkRow(row);
+    return renderTextRow(row);
+  }
+
   async function loadEditor() {
-    const { data, error } = await sb.from("site_settings").select("*").order("group_name").order("key");
+    const sections = document.getElementById("editor-sections");
+    const { data, error } = await sb
+      .from("site_settings")
+      .select("*")
+      .order("group_name")
+      .order("sort")
+      .order("key");
     if (error) {
-      editorView.innerHTML = "불러오기 오류: " + error.message;
+      sections.innerHTML = "불러오기 오류: " + error.message;
       return;
     }
-    const contentList = document.getElementById("content-list");
-    const themeList = document.getElementById("theme-list");
-    contentList.innerHTML = "";
-    themeList.innerHTML = "";
+    sections.innerHTML = "";
+    const groups = {};
     data.forEach((row) => {
-      if (row.group_name === "theme") themeList.appendChild(renderThemeRow(row));
-      else contentList.appendChild(renderContentRow(row));
+      (groups[row.group_name] = groups[row.group_name] || []).push(row);
     });
+    Object.keys(groups)
+      .sort((a, b) => ((GROUP_ORDER.indexOf(a) + 1 || 99) - (GROUP_ORDER.indexOf(b) + 1 || 99)))
+      .forEach((g) => {
+        const h = document.createElement("h2");
+        h.className = "admin-group-title";
+        h.textContent = GROUP_META[g] || g;
+        sections.appendChild(h);
+        groups[g].forEach((row) => sections.appendChild(renderRow(row)));
+      });
   }
 
   sb.auth.onAuthStateChange((_event, session) => {

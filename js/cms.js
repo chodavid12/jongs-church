@@ -10,8 +10,17 @@
         const cssVar = "--" + row.key.replace(/^color-/, "");
         document.documentElement.style.setProperty(cssVar, row.value);
       } else {
+        // 텍스트/HTML 내용
         document.querySelectorAll('[data-cms="' + row.key + '"]').forEach((el) => {
           el.innerHTML = row.value;
+        });
+        // 링크 주소 (href)
+        document.querySelectorAll('[data-cms-href="' + row.key + '"]').forEach((el) => {
+          el.setAttribute("href", row.value);
+        });
+        // 이미지 주소 (src)
+        document.querySelectorAll('[data-cms-src="' + row.key + '"]').forEach((el) => {
+          el.setAttribute("src", row.value);
         });
       }
     });
