@@ -89,6 +89,26 @@
 
     // 편집 요소 클릭 가로채기 (링크 이동 방지)
     document.addEventListener("click", onClick, true);
+
+    // 편집 모드에선 '초안(draft)' 값을 화면에 적용해, 미게시 변경까지 보이게 함
+    applyDrafts();
+  }
+
+  // 초안 값을 페이지에 적용 (cms.js의 published 대신)
+  function applyDrafts() {
+    sb.from("site_settings").select("key,draft_value,group_name").then(function (r) {
+      if (!r.data) return;
+      r.data.forEach(function (row) {
+        var v = row.draft_value;
+        if (row.group_name === "theme") {
+          document.documentElement.style.setProperty("--" + row.key.replace(/^color-/, ""), v);
+        } else {
+          document.querySelectorAll('[data-cms="' + row.key + '"]').forEach(function (el) { el.innerHTML = v; });
+          document.querySelectorAll('[data-cms-href="' + row.key + '"]').forEach(function (el) { el.setAttribute("href", v); });
+          document.querySelectorAll('[data-cms-src="' + row.key + '"]').forEach(function (el) { el.setAttribute("src", v); });
+        }
+      });
+    });
   }
 
   function onClick(e) {
@@ -133,7 +153,7 @@
       var msg = document.getElementById("cms-msg");
       msg.textContent = "저장 중…";
       sb.from("site_settings")
-        .update({ value: val, updated_at: new Date().toISOString() })
+        .update({ draft_value: val, updated_at: new Date().toISOString() })
         .eq("key", f.key)
         .then(function (r) {
           if (r.error) { msg.textContent = "오류: " + r.error.message; return; }

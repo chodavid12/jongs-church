@@ -39,6 +39,13 @@
     #auth-error { color: #c0392b; font-size: 13.5px; margin-top: 10px; }
     #auth-toggle { display: block; text-align: center; margin-top: 16px; font-size: 13.5px; color: var(--ink-soft); }
     .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .publish-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      background: var(--paper-tint); border: 1px solid var(--line-mid); border-radius: 14px;
+      padding: 12px 16px; margin-bottom: 22px; position: sticky; top: 8px; z-index: 5; }
+    .publish-bar.dirty { background: #fff8e6; border-color: #f4c430; }
+    .publish-bar .pc { font-size: 14px; font-weight: 700; color: var(--ink-soft); }
+    .publish-bar.dirty .pc { color: #8a6d12; }
+    .publish-bar button:disabled { opacity: .45; cursor: default; }
   </style>
 </head>
 <body>
@@ -66,7 +73,12 @@
         <button class="btn" id="logout-btn">로그아웃</button>
       </div>
     </div>
-    <p style="color:var(--ink-soft);font-size:13.5px;margin:-8px 0 20px;">아래에서 항목별로 수정하거나, <b>“사이트에서 직접 편집”</b>으로 실제 화면을 보며 클릭해 고칠 수 있습니다.</p>
+    <p style="color:var(--ink-soft);font-size:13.5px;margin:-8px 0 16px;">아래에서 항목별로 수정하거나, <b>“사이트에서 직접 편집”</b>으로 실제 화면을 보며 클릭해 고칠 수 있습니다. 저장은 <b>초안</b>으로만 반영되며, <b>게시하기</b>를 눌러야 방문자에게 공개됩니다.</p>
+
+    <div id="publish-bar" class="publish-bar">
+      <span id="publish-count" class="pc">…</span>
+      <button class="btn btn-accent" id="publish-btn" disabled>게시하기</button>
+    </div>
 
     <div id="editor-sections"></div>
   </div>
@@ -94,6 +106,7 @@
 
   loginBtn.addEventListener("click", () => handleAuth((c) => sb.auth.signInWithPassword(c)));
   document.getElementById("logout-btn").addEventListener("click", () => sb.auth.signOut());
+  document.getElementById("publish-btn").addEventListener("click", doPublish);
 
   // group_name → 화면에 보일 섹션 제목 / 표시 순서
   const GROUP_META = {
@@ -115,9 +128,10 @@
       status.textContent = "저장 중…";
       const { error } = await sb
         .from("site_settings")
-        .update({ value: getValue(), updated_at: new Date().toISOString() })
+        .update({ draft_value: getValue(), updated_at: new Date().toISOString() })
         .eq("key", key);
-      status.textContent = error ? "오류: " + error.message : "저장됨 ✓";
+      status.textContent = error ? "오류: " + error.message : "저장됨(초안) ✓";
+      if (!error) refreshPublishBar();
     };
   }
 
@@ -174,6 +188,36 @@
     return renderTextRow(row);
   }
 
+  // 미게시 변경 개수 조회 → 게시 바 갱신
+  async function refreshPublishBar() {
+    const bar = document.getElementById("publish-bar");
+    if (!bar) return;
+    const { data } = await sb.from("site_settings").select("draft_value,published_value");
+    const dirty = (data || []).filter((r) => r.draft_value !== r.published_value).length;
+    const countEl = document.getElementById("publish-count");
+    const btn = document.getElementById("publish-btn");
+    if (dirty > 0) {
+      bar.classList.add("dirty");
+      countEl.textContent = "미게시 변경 " + dirty + "건";
+      btn.disabled = false;
+    } else {
+      bar.classList.remove("dirty");
+      countEl.textContent = "모든 변경이 게시됨";
+      btn.disabled = true;
+    }
+  }
+
+  async function doPublish() {
+    const btn = document.getElementById("publish-btn");
+    const countEl = document.getElementById("publish-count");
+    btn.disabled = true;
+    countEl.textContent = "게시 중…";
+    const { error } = await sb.rpc("publish_settings");
+    if (error) { countEl.textContent = "게시 오류: " + error.message; return; }
+    await refreshPublishBar();
+    countEl.textContent = "게시 완료 ✓ — 방문자에게 반영되었습니다";
+  }
+
   async function loadEditor() {
     const sections = document.getElementById("editor-sections");
     const { data, error } = await sb
@@ -187,6 +231,9 @@
       return;
     }
     sections.innerHTML = "";
+    // 편집 폼은 초안(draft) 값을 보여줌
+    data.forEach((row) => { row.value = row.draft_value; });
+    refreshPublishBar();
     const groups = {};
     data.forEach((row) => {
       (groups[row.group_name] = groups[row.group_name] || []).push(row);
