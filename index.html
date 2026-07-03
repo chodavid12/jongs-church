@@ -151,11 +151,11 @@
   <!-- 히어로 -->
   <section class="hero">
     <div class="hero-bgvideo" aria-hidden="true">
-      <video src="assets/media/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
+      <video src="assets/media/hero.mp4" data-cms-src="media_hero_video" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="hero-aura" aria-hidden="true"></div>
     <div class="container hero-inner">
-      <img class="hero-logo" src="assets/logo.png" alt="종의교회 — SINCE 2023">
+      <img class="hero-logo" src="assets/logo.png" data-cms-src="media_hero_logo" alt="종의교회 — SINCE 2023">
       <h1 class="hero-title">
         <span class="line"><span class="line-in" data-cms="hero_title_1">우리는</span></span>
         <span class="line"><span class="line-in" data-cms="hero_title_2"><em>주의 종</em>입니다</span></span>
@@ -191,7 +191,7 @@
         </div>
         <a class="creed-link" href="about.html">종의소개 자세히 보기 →</a>
         <div class="creed-photo reveal">
-          <img src="assets/media/community.jpeg" alt="종의교회 성도들">
+          <img src="assets/media/community.jpeg" data-cms-src="media_creed_image" alt="종의교회 성도들">
         </div>
       </div>
     </div>
@@ -220,7 +220,7 @@
   <!-- 예배 라이브 -->
   <section class="section live-cinematic" id="live">
     <div class="live-bgvideo" aria-hidden="true">
-      <video src="assets/media/worship.mp4" autoplay muted loop playsinline preload="auto"></video>
+      <video src="assets/media/worship.mp4" data-cms-src="media_live_video" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="container">
       <div class="section-head reveal">
@@ -349,7 +349,7 @@
 <script src="js/supabase-config.js?v=1"></script>
 <script src="js/cms.js?v=4"></script>
 <script src="js/track.js?v=1"></script>
-<script src="js/edit.js?v=3"></script>
+<script src="js/edit.js?v=4"></script>
 <script src="js/main.js?v=4"></script>
 <script>
 document.querySelectorAll('video[autoplay]').forEach((v) => {

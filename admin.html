@@ -149,10 +149,11 @@
   const GROUP_META = {
     hero: "히어로 (첫 화면)",
     content: "기본 콘텐츠",
+    media: "이미지 · 영상",
     link: "링크",
     theme: "디자인 색상",
   };
-  const GROUP_ORDER = ["hero", "content", "link", "theme"];
+  const GROUP_ORDER = ["hero", "content", "media", "link", "theme"];
 
   function escapeHtml(s) {
     return String(s)
@@ -221,7 +222,7 @@
 
   function renderRow(row) {
     if (row.group_name === "theme") return renderThemeRow(row);
-    if (row.group_name === "link" || /_link$/.test(row.key)) return renderLinkRow(row);
+    if (row.group_name === "link" || row.group_name === "media" || /_link$/.test(row.key)) return renderLinkRow(row);
     return renderTextRow(row);
   }
 
