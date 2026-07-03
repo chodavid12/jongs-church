@@ -45,7 +45,7 @@ update site_settings set value = '오전 10:00' where key = 'service_time_short'
 update site_settings set value = replace(value,'오전 11:00','오전 10:00') where key = 'worship_times_line';
 ```
 
-> **알려진 불일치:** DB의 `worship_times_line`은 "금요**기도회**", worship.html의 예배 안내는 "금요**묵상**". 표기 통일이 필요하면 사용자에게 확인 후 DB를 수정할 것.
+> **표기 통일 완료(2026-07):** 금요 모임 명칭은 **"금요기도회"** 로 통일. DB·전체 HTML 일치.
 
 ---
 
