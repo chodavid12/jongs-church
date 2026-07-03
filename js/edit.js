@@ -4,8 +4,8 @@
 (function () {
   if (!/[?&]edit=1(&|$)/.test(location.search)) return; // 일반 방문자에겐 아무 영향 없음
 
-  var SUPABASE_URL = "https://jqxhdajpehnwaewrfjld.supabase.co";
-  var SUPABASE_ANON_KEY = "sb_publishable_aD4lD4JuNZWJrjFUVUpOLQ_0rc9r8dx";
+  var SUPABASE_URL = (window.SUPA && window.SUPA.URL) || "https://jqxhdajpehnwaewrfjld.supabase.co";
+  var SUPABASE_ANON_KEY = (window.SUPA && window.SUPA.ANON_KEY) || "sb_publishable_aD4lD4JuNZWJrjFUVUpOLQ_0rc9r8dx";
   var sb = null;
 
   // ---- 스타일 ----

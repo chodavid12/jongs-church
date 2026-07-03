@@ -55,8 +55,6 @@
     <input id="auth-email" type="email" placeholder="이메일" autocomplete="username">
     <input id="auth-password" type="password" placeholder="비밀번호" autocomplete="current-password">
     <button class="btn btn-accent" id="login-btn">로그인</button>
-    <button class="btn" id="signup-btn" style="display:none;">계정 만들기</button>
-    <a href="#" id="auth-toggle">처음이신가요? 계정 만들기</a>
     <p id="auth-error"></p>
   </section>
 
@@ -74,27 +72,17 @@
   </div>
 </main>
 
+<script src="js/supabase-config.js?v=1"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
-  const SUPABASE_URL = "https://jqxhdajpehnwaewrfjld.supabase.co";
-  const SUPABASE_ANON_KEY = "sb_publishable_aD4lD4JuNZWJrjFUVUpOLQ_0rc9r8dx";
+  const SUPABASE_URL = (window.SUPA && window.SUPA.URL) || "https://jqxhdajpehnwaewrfjld.supabase.co";
+  const SUPABASE_ANON_KEY = (window.SUPA && window.SUPA.ANON_KEY) || "sb_publishable_aD4lD4JuNZWJrjFUVUpOLQ_0rc9r8dx";
   const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const authView = document.getElementById("auth-view");
   const editorView = document.getElementById("editor-view");
   const authError = document.getElementById("auth-error");
-  const authToggle = document.getElementById("auth-toggle");
   const loginBtn = document.getElementById("login-btn");
-  const signupBtn = document.getElementById("signup-btn");
-  let mode = "login";
-
-  authToggle.addEventListener("click", (e) => {
-    e.preventDefault();
-    mode = mode === "login" ? "signup" : "login";
-    loginBtn.style.display = mode === "login" ? "" : "none";
-    signupBtn.style.display = mode === "signup" ? "" : "none";
-    authToggle.textContent = mode === "login" ? "처음이신가요? 계정 만들기" : "이미 계정이 있으신가요? 로그인";
-  });
 
   async function handleAuth(fn) {
     authError.textContent = "";
@@ -105,7 +93,6 @@
   }
 
   loginBtn.addEventListener("click", () => handleAuth((c) => sb.auth.signInWithPassword(c)));
-  signupBtn.addEventListener("click", () => handleAuth((c) => sb.auth.signUp(c)));
   document.getElementById("logout-btn").addEventListener("click", () => sb.auth.signOut());
 
   // group_name → 화면에 보일 섹션 제목 / 표시 순서

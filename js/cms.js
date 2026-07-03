@@ -1,8 +1,8 @@
 // 관리자 화면(admin.html)에서 수정한 콘텐츠·디자인 값을 Supabase에서 불러와
 // 페이지에 적용합니다. 네트워크 오류 시 기존 정적 HTML이 그대로 보입니다.
 (function () {
-  const SUPABASE_URL = "https://jqxhdajpehnwaewrfjld.supabase.co";
-  const SUPABASE_ANON_KEY = "sb_publishable_aD4lD4JuNZWJrjFUVUpOLQ_0rc9r8dx";
+  const SUPABASE_URL = (window.SUPA && window.SUPA.URL) || "https://jqxhdajpehnwaewrfjld.supabase.co";
+  const SUPABASE_ANON_KEY = (window.SUPA && window.SUPA.ANON_KEY) || "sb_publishable_aD4lD4JuNZWJrjFUVUpOLQ_0rc9r8dx";
 
   function applySettings(rows) {
     rows.forEach((row) => {
