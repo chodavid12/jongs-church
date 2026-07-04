@@ -41,7 +41,15 @@
     "#cms-device .dv-bar button{font:inherit;background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:8px;padding:8px 12px;cursor:pointer;margin-left:6px;}" +
     "#cms-device .dv-bar button.on{background:#f4c430;color:#1d1d1f;}" +
     "#cms-device .dv-stage{flex:1;display:flex;align-items:center;justify-content:center;overflow:auto;padding:12px;}" +
-    "#cms-device iframe{height:100%;max-height:calc(100vh - 80px);width:390px;background:#fff;border:0;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);}";
+    "#cms-device iframe{height:100%;max-height:calc(100vh - 80px);width:390px;background:#fff;border:0;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);}" +
+    "#cms-leave{position:fixed;inset:0;z-index:100001;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;}" +
+    "#cms-leave .box{background:#fff;border-radius:18px;padding:26px 24px;width:min(380px,90vw);text-align:center;font:14px/1.6 -apple-system,'Apple SD Gothic Neo',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.3);}" +
+    "#cms-leave .ic{width:48px;height:48px;border-radius:50%;background:#e8f5e9;color:#2e7d32;font-size:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}" +
+    "#cms-leave h3{font-size:18px;font-weight:800;margin:0 0 8px;}" +
+    "#cms-leave p{color:#6e6e73;margin:0 0 18px;}" +
+    "#cms-leave .acts{display:flex;gap:10px;}" +
+    "#cms-leave .acts button{flex:1;padding:12px;border:0;border-radius:12px;font:inherit;font-weight:700;cursor:pointer;background:#f0f0f3;color:#1d1d1f;}" +
+    "#cms-leave .acts button.primary{background:#428cb9;color:#fff;}";
   var st = document.createElement("style");
   st.textContent = css;
   document.head.appendChild(st);
@@ -95,11 +103,10 @@
     bar.id = "cms-bar";
     bar.innerHTML =
       '<span class="t"><span class="dot">✎</span> 편집 모드 <span id="cms-hint">— 바꿀 부분을 클릭</span></span>' +
-      '<span class="acts"><button class="ghost" id="cms-preview-btn">📱 미리보기</button><button id="cms-exit">나가기</button></span>';
+      '<span class="acts"><button class="ghost" id="cms-dash">📊 대시보드</button><button class="ghost" id="cms-preview-btn">📱 미리보기</button><button id="cms-exit">나가기</button></span>';
     document.body.appendChild(bar);
-    document.getElementById("cms-exit").addEventListener("click", function () {
-      location.href = location.pathname + location.hash;
-    });
+    document.getElementById("cms-dash").addEventListener("click", function () { leaveConfirm("admin.html", "대시보드로 이동"); });
+    document.getElementById("cms-exit").addEventListener("click", function () { leaveConfirm(location.pathname + location.hash, "사이트 나가기"); });
     document.getElementById("cms-preview-btn").addEventListener("click", openDeviceFrame);
 
     document.addEventListener("click", onClick, true);
@@ -135,7 +142,7 @@
   function onClick(e) {
     var el = e.target.closest("[data-cms],[data-cms-href],[data-cms-src]");
     if (!el) return;
-    if (e.target.closest("#cms-bar,#cms-pop,#cms-login,#cms-device")) return;
+    if (e.target.closest("#cms-bar,#cms-pop,#cms-login,#cms-device,#cms-leave")) return;
     e.preventDefault();
     e.stopPropagation();
     openEditor(el);
@@ -232,5 +239,19 @@
     }
     btns.forEach(function (b) { b.addEventListener("click", function () { setW(b.dataset.w, b); }); });
     o.querySelector("#dv-close").addEventListener("click", function () { o.remove(); });
+  }
+
+  // ---- 편집 종료/이동 시 초안 저장 안내 팝업 ----
+  function leaveConfirm(url, label) {
+    var o = document.createElement("div");
+    o.id = "cms-leave";
+    o.innerHTML =
+      '<div class="box"><div class="ic">✓</div>' +
+      "<h3>초안이 저장되어 있습니다</h3>" +
+      "<p>지금까지의 편집은 <b>초안</b>으로 저장돼 있습니다.<br>방문자에게 공개하려면 <b>대시보드 → 게시하기</b>를 눌러주세요.</p>" +
+      '<div class="acts"><button id="lv-cancel">계속 편집</button><button id="lv-go" class="primary">' + label + "</button></div></div>";
+    document.body.appendChild(o);
+    o.querySelector("#lv-cancel").addEventListener("click", function () { o.remove(); });
+    o.querySelector("#lv-go").addEventListener("click", function () { location.href = url; });
   }
 })();

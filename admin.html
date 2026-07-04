@@ -70,7 +70,31 @@
     .devbar { display: flex; height: 22px; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
     .devbar i { display: block; height: 100%; }
     .quick a { color: var(--accent-deep); font-weight: 700; margin-right: 10px; }
+    .admin-shell { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 236px; flex: none; background: var(--paper-tint); border-right: 1px solid var(--line-mid);
+      padding: 20px 14px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 0; height: 100vh; box-sizing: border-box; }
+    .side-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; padding: 4px 8px; }
+    .side-brand img { width: 22px; height: 22px; }
+    .side-nav { display: flex; flex-direction: column; gap: 4px; }
+    .side-item { display: block; width: 100%; text-align: left; background: none; border: 0; font: inherit; font-size: 15px;
+      font-weight: 600; color: var(--ink); padding: 11px 12px; border-radius: 10px; cursor: pointer; text-decoration: none; }
+    .side-item:hover { background: rgba(0,0,0,.05); }
+    .side-item.active { background: var(--accent); color: #fff; }
+    .side-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+    .side-foot .publish-bar { flex-direction: column; align-items: stretch; gap: 8px; margin: 0; position: static; top: auto; text-align: center; }
+    .side-foot .publish-bar button, .side-foot #logout-btn { width: 100%; justify-content: center; }
+    .admin-main { flex: 1; min-width: 0; padding: 28px 32px 60px; max-width: 920px; }
+    .admin-page-title { font-size: 24px; font-weight: 800; margin-bottom: 20px; }
     @media (max-width: 640px) { .dash-grid { grid-template-columns: repeat(2, 1fr); } .dash-2col { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) {
+      .admin-shell { flex-direction: column; }
+      .admin-sidebar { width: auto; height: auto; position: static; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px; }
+      .side-brand { width: 100%; }
+      .side-nav { flex-direction: row; flex: 1; }
+      .side-foot { margin: 0; flex-direction: row; align-items: center; }
+      .side-foot .publish-bar { flex-direction: row; }
+      .admin-main { padding: 20px 16px 40px; }
+    }
   </style>
 </head>
 <body>
@@ -90,34 +114,27 @@
     <p id="auth-error"></p>
   </section>
 
-  <div class="admin-wrap" id="app-view" style="display:none;">
-    <div class="admin-header">
-      <h1 style="font-size:22px;font-weight:800;">종의교회 관리자</h1>
-      <div style="display:flex;gap:8px;">
-        <a class="btn btn-accent" href="index.html?edit=1">✎ 사이트에서 직접 편집</a>
+  <div id="app-view" class="admin-shell" style="display:none;">
+    <aside class="admin-sidebar">
+      <div class="side-brand"><img src="assets/logo-mark.png" alt="">관리자</div>
+      <nav class="side-nav">
+        <button class="side-item active" data-nav="dashboard">📊 대시보드</button>
+        <a class="side-item" href="index.html?edit=1">✎ 사이트에서 직접 편집</a>
+      </nav>
+      <div class="side-foot">
+        <div id="publish-bar" class="publish-bar">
+          <span id="publish-count" class="pc">…</span>
+          <button class="btn btn-accent" id="publish-btn" disabled>게시하기</button>
+        </div>
         <button class="btn" id="logout-btn">로그아웃</button>
       </div>
-    </div>
-
-    <div id="publish-bar" class="publish-bar">
-      <span id="publish-count" class="pc">…</span>
-      <button class="btn btn-accent" id="publish-btn" disabled>게시하기</button>
-    </div>
-
-    <div class="admin-tabs">
-      <button class="tab active" data-tab="dashboard">📊 대시보드</button>
-      <button class="tab" data-tab="editor">📝 내용 편집</button>
-    </div>
-
-    <section id="dashboard-view" class="tab-panel">
-      <div id="dash-root"><p style="color:var(--ink-faint)">불러오는 중…</p></div>
-    </section>
-
-    <section id="editor-view" class="tab-panel" hidden>
-      <p style="color:var(--ink-soft);font-size:13.5px;margin:0 0 16px;">항목별로 수정하거나, <b>“사이트에서 직접 편집”</b>으로 실제 화면을 보며 클릭해 고칠 수 있습니다. 저장은 <b>초안</b>이며, <b>게시하기</b>를 눌러야 방문자에게 공개됩니다.</p>
-
-      <div id="editor-sections"></div>
-    </section>
+    </aside>
+    <main class="admin-main">
+      <section id="dashboard-view">
+        <h1 class="admin-page-title">대시보드</h1>
+        <div id="dash-root"><p style="color:var(--ink-faint)">불러오는 중…</p></div>
+      </section>
+    </main>
   </div>
 </main>
 
@@ -357,7 +374,7 @@
       authView.style.display = "none";
       appView.style.display = "";
       loadDashboard();
-      loadEditor();
+      refreshPublishBar();
     } else {
       authView.style.display = "";
       appView.style.display = "none";
