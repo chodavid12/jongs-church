@@ -41,7 +41,7 @@
     "#cms-device .dv-bar button{font:inherit;background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:8px;padding:8px 12px;cursor:pointer;margin-left:6px;}" +
     "#cms-device .dv-bar button.on{background:#f4c430;color:#1d1d1f;}" +
     "#cms-device .dv-stage{flex:1;display:flex;align-items:center;justify-content:center;overflow:auto;padding:12px;}" +
-    "#cms-device iframe{height:100%;max-height:calc(100vh - 80px);width:390px;background:#fff;border:0;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);}" +
+    "#cms-device iframe{height:100%;max-height:calc(100vh - 80px);width:393px;background:#fff;border:0;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);}" +
     "#cms-leave{position:fixed;inset:0;z-index:100001;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;}" +
     "#cms-leave .box{background:#fff;border-radius:18px;padding:26px 24px;width:min(380px,90vw);text-align:center;font:14px/1.6 -apple-system,'Apple SD Gothic Neo',sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.3);}" +
     "#cms-leave .ic{width:48px;height:48px;border-radius:50%;background:#e8f5e9;color:#2e7d32;font-size:24px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}" +
@@ -226,7 +226,7 @@
     o.id = "cms-device";
     o.innerHTML =
       '<div class="dv-bar"><span>📱 미리보기 (초안)</span>' +
-      '<span><button data-w="390" class="on">모바일</button><button data-w="768">태블릿</button><button data-w="1280">PC</button>' +
+      '<span><button data-w="393" class="on">📱 아이폰 16</button><button data-w="820">태블릿(에어 11")</button><button data-w="1280">🖥 PC</button>' +
       '<button id="dv-close" style="margin-left:14px">닫기 ✕</button></span></div>' +
       '<div class="dv-stage"><iframe id="dv-frame"></iframe></div>';
     document.body.appendChild(o);

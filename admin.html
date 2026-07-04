@@ -70,9 +70,10 @@
     .devbar { display: flex; height: 22px; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
     .devbar i { display: block; height: 100%; }
     .quick a { color: var(--accent-deep); font-weight: 700; margin-right: 10px; }
-    .admin-shell { display: flex; min-height: 100vh; }
+    .admin-shell { display: flex; min-height: 100vh; padding-top: var(--header-h); }
     .admin-sidebar { width: 236px; flex: none; background: var(--paper-tint); border-right: 1px solid var(--line-mid);
-      padding: 20px 14px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 0; height: 100vh; box-sizing: border-box; }
+      padding: 20px 14px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: var(--header-h);
+      height: calc(100vh - var(--header-h)); box-sizing: border-box; }
     .side-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; padding: 4px 8px; }
     .side-brand img { width: 22px; height: 22px; }
     .side-nav { display: flex; flex-direction: column; gap: 4px; }
