@@ -169,13 +169,13 @@
   </section>
 
   <!-- 종의정신 (정체성) -->
-  <section class="section section-tint" id="creed">
+  <section class="section section-tint" id="creed" data-section="creed">
     <div class="container">
       <div class="creed reveal">
         <span class="creed-eyebrow" data-cms="home_creed_eyebrow">종의정신</span>
         <h2 class="creed-statement" data-cms="creed_statement">작은 자들이 어울려 사는<br>나라를 이뤄갑니다</h2>
         <p class="creed-ref" data-cms="home_creed_ref">하나님의 종으로 오신 예수 그리스도의 가르침대로 — 이사야 42:1–7</p>
-        <div class="creed-points">
+        <div class="creed-points" data-cms-list="home_creed_items">
           <div>
             <strong data-cms="home_creed_1_t">Since 2023</strong>
             <span data-cms="home_creed_1_d">예수 그리스도의 몸으로<br>세워진 교회</span>
@@ -198,7 +198,7 @@
   </section>
 
   <!-- 교회 소개 영상 -->
-  <section class="section" id="intro-video">
+  <section class="section" id="intro-video" data-section="intro-video">
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
@@ -218,7 +218,7 @@
   </section>
 
   <!-- 예배 라이브 -->
-  <section class="section live-cinematic" id="live">
+  <section class="section live-cinematic" id="live" data-section="live">
     <div class="live-bgvideo" aria-hidden="true">
       <video src="assets/media/worship.mp4" data-cms-src="media_live_video" autoplay muted loop playsinline preload="auto"></video>
     </div>
@@ -243,7 +243,7 @@
   </section>
 
   <!-- 교회 소식 -->
-  <section class="section section-tint" id="news">
+  <section class="section section-tint" id="news" data-section="news">
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
@@ -265,7 +265,7 @@
   </section>
 
   <!-- 교회 안내 -->
-  <section class="section" id="guide">
+  <section class="section" id="guide" data-section="guide">
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
@@ -347,9 +347,9 @@
 </div>
 
 <script src="js/supabase-config.js?v=1"></script>
-<script src="js/cms.js?v=4"></script>
+<script src="js/cms.js?v=5"></script>
 <script src="js/track.js?v=1"></script>
-<script src="js/edit.js?v=6"></script>
+<script src="js/edit.js?v=7"></script>
 <script src="js/main.js?v=4"></script>
 <script>
 document.querySelectorAll('video[autoplay]').forEach((v) => {

@@ -70,14 +70,14 @@
   </section>
 
   <!-- 성도 생활 -->
-  <section class="section" id="daily">
+  <section class="section" id="daily" data-section="daily">
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
         <h2 data-cms="life_daily_title">성도 생활</h2>
         <span class="en">DAILY LIFE</span>
       </div>
-      <div class="intro-grid">
+      <div class="intro-grid" data-cms-list="life_daily_items">
         <article class="intro-card reveal">
           <h3 data-cms="life_daily_1_t">말씀 생활</h3>
           <ul class="card-list" data-cms="life_daily_1_list">
@@ -107,14 +107,14 @@
   </section>
 
   <!-- 교인 등록 안내 -->
-  <section class="section section-tint" id="membership">
+  <section class="section section-tint" id="membership" data-section="membership">
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
         <h2 data-cms="life_membership_title">교인 등록 안내</h2>
         <span class="en">MEMBERSHIP</span>
       </div>
-      <div class="intro-grid">
+      <div class="intro-grid" data-cms-list="life_member_items">
         <article class="intro-card reveal">
           <h3 data-cms="life_member_1_t">방문자</h3>
           <ul class="card-list" data-cms="life_member_1_list">
@@ -175,14 +175,14 @@
   </section>
 
   <!-- 헌금 안내 -->
-  <section class="section" id="offering">
+  <section class="section" id="offering" data-section="offering">
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
         <h2 data-cms="life_offering_title">헌금 안내</h2>
         <span class="en">OFFERING</span>
       </div>
-      <div class="intro-grid">
+      <div class="intro-grid" data-cms-list="life_offer_items">
         <article class="intro-card reveal">
           <h3 data-cms="life_offer_1_t">분류</h3>
           <ul class="card-list" data-cms="life_offer_1_list">
@@ -208,7 +208,7 @@
   </section>
 
   <!-- 목회방침 -->
-  <section class="section section-tint" id="policy">
+  <section class="section section-tint" id="policy" data-section="policy">
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
@@ -217,7 +217,7 @@
       </div>
       <p class="policy-note reveal" data-cms="life_policy_note">※ 아래 내용은 2023년 작성 기준입니다.</p>
 
-      <div class="policy reveal">
+      <div class="policy reveal" data-cms-list="life_policy_items">
         <details>
           <summary><span class="idx">01</span><h3 data-cms="life_policy_1_t">주일 일정 안내</h3><span class="mark"></span></summary>
           <div class="body" data-cms="life_policy_1_body">
@@ -345,9 +345,9 @@
 </footer>
 
 <script src="js/supabase-config.js?v=1"></script>
-<script src="js/cms.js?v=4"></script>
+<script src="js/cms.js?v=5"></script>
 <script src="js/track.js?v=1"></script>
-<script src="js/edit.js?v=6"></script>
+<script src="js/edit.js?v=7"></script>
 <script src="js/main.js?v=4"></script>
 </body>
 </html>

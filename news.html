@@ -73,7 +73,7 @@
   </section>
 
   <!-- 주보 아카이브 (bulletins.json 에서 자동 생성) -->
-  <section class="archive" id="bulletin">
+  <section class="archive" id="bulletin" data-section="bulletin">
     <div class="container">
       <div id="archive-root">
         <p class="archive-loading">주보를 불러오는 중…</p>
@@ -85,7 +85,7 @@
   </section>
 
   <!-- 재정 보고 (finance.json 에서 자동 생성) -->
-  <section class="archive finance" id="finance">
+  <section class="archive finance" id="finance" data-section="finance">
     <div class="container">
       <div class="finance-head reveal">
         <h2 class="finance-title"><span class="sq"></span><span data-cms="news_finance_title">재정 보고</span></h2>
@@ -98,14 +98,14 @@
   </section>
 
   <!-- 바로가기 -->
-  <section class="section section-tint" id="channels">
+  <section class="section section-tint" id="channels" data-section="channels">
     <div class="container">
       <div class="section-head reveal">
         <span class="sq"></span>
         <h2 data-cms="news_channels_title">소식 채널</h2>
         <span class="en">CHANNELS</span>
       </div>
-      <div class="page-tiles">
+      <div class="page-tiles" data-cms-list="news_channels_items">
         <a class="tile reveal" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener" data-cms-href="news_tile_1_link">
           <span class="tile-en" data-cms="news_tile_1_en">YOUTUBE</span>
           <h3 data-cms="news_tile_1_t">설교 영상</h3>
@@ -152,9 +152,9 @@
 </footer>
 
 <script src="js/supabase-config.js?v=1"></script>
-<script src="js/cms.js?v=4"></script>
+<script src="js/cms.js?v=5"></script>
 <script src="js/track.js?v=1"></script>
-<script src="js/edit.js?v=6"></script>
+<script src="js/edit.js?v=7"></script>
 <script src="js/main.js?v=4"></script>
 <script>
 // 주보 아카이브 — bulletins.json 을 읽어 연도별로 자동 렌더링
