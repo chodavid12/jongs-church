@@ -72,9 +72,28 @@
     </div>
   </section>
 
+  <style>
+    /* 주보 종류 필터 탭 (news.html 전용) */
+    .archive-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
+    .archive-tabs:empty { display: none; }
+    .archive-tab {
+      appearance: none; cursor: pointer;
+      border: 1px solid var(--line-mid); background: var(--paper);
+      color: var(--ink-soft); font: inherit; font-weight: 600; font-size: 14px;
+      padding: 8px 18px; border-radius: var(--pill); transition: all .15s ease;
+    }
+    .archive-tab:hover { color: var(--ink); border-color: var(--ink-faint); }
+    .archive-tab[aria-selected="true"] {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    .archive-tab .cnt { opacity: .7; margin-left: 4px; font-weight: 500; }
+  </style>
+
   <!-- 주보 아카이브 (bulletins.json 에서 자동 생성) -->
   <section class="archive" id="bulletin" data-section="bulletin">
     <div class="container">
+      <!-- 종류 필터 (주일/학생부) — JS가 종류가 2개 이상일 때만 렌더 -->
+      <div id="archive-tabs" class="archive-tabs" role="tablist" aria-label="주보 종류"></div>
       <div id="archive-root">
         <p class="archive-loading">주보를 불러오는 중…</p>
       </div>
@@ -163,59 +182,112 @@
   if (!root) return;
   var fmt = function (d) { return d.replace(/-/g, '. '); }; // 2023-01-01 → 2023. 01. 01
 
+  var tabsEl = document.getElementById('archive-tabs');
+  var allItems = [];
+  var curFilter = 'all';
+
+  // 종류별 개수 (필터 탭용)
+  function countBy(cat) {
+    return allItems.filter(function (it) { return cat === 'all' || (it.category || 'sunday') === cat; }).length;
+  }
+
+  // 연도별 목록 렌더 (현재 필터 적용)
+  function renderList() {
+    var items = allItems.filter(function (it) {
+      return curFilter === 'all' || (it.category || 'sunday') === curFilter;
+    });
+    if (!items.length) { root.innerHTML = '<p class="archive-loading">해당 종류의 주보가 아직 없습니다.</p>'; return; }
+
+    // 연도별 묶기 (items 는 최신순)
+    var years = [];
+    var byYear = {};
+    items.forEach(function (it) {
+      if (!byYear[it.year]) { byYear[it.year] = []; years.push(it.year); }
+      byYear[it.year].push(it);
+    });
+
+    // 같은 날짜·같은 종류에 여러 장이 있으면 (2), (3) … 으로 표시
+    var totalByKey = {};
+    var keyOf = function (it) { return it.date + '|' + (it.category || 'sunday'); };
+    items.forEach(function (it) { totalByKey[keyOf(it)] = (totalByKey[keyOf(it)] || 0) + 1; });
+
+    var html = '';
+    years.forEach(function (y, yi) {
+      var isOpen = yi === 0; // 최신 연도만 펼친 채로 시작
+      html += '<div class="year-group' + (isOpen ? ' open' : '') + '">'
+            + '<button class="year-toggle" type="button" aria-expanded="' + isOpen + '">'
+            + '<span class="year">' + y + '</span>'
+            + '<span class="year-count">' + byYear[y].length + '개</span>'
+            + '<span class="chev" aria-hidden="true"></span>'
+            + '</button>'
+            + '<div class="year-body"><ul>';
+      var nthByKey = {};
+      byYear[y].forEach(function (it) {
+        var k = keyOf(it);
+        nthByKey[k] = (nthByKey[k] || 0) + 1;
+        var title = it.title || '주일 주보';
+        if (totalByKey[k] > 1) title += ' (' + nthByKey[k] + ')';
+        html += '<li><a href="' + it.path + '" target="_blank" rel="noopener">'
+              + '<span class="date">' + fmt(it.date) + '</span>'
+              + '<span class="title">' + title + '</span>'
+              + '<span class="ext">' + (it.type || 'PDF') + '</span></a></li>';
+      });
+      html += '</ul></div></div>';
+    });
+    root.innerHTML = html;
+
+    // 연도 토글 (열기/닫기)
+    root.querySelectorAll('.year-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var open = btn.parentNode.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    });
+  }
+
+  // 필터 탭 렌더 (주일·학생부 두 종류가 모두 있을 때만)
+  function renderTabs() {
+    if (!tabsEl) return;
+    var hasYouth = countBy('youth') > 0;
+    var hasSunday = countBy('sunday') > 0;
+    if (!(hasYouth && hasSunday)) { tabsEl.innerHTML = ''; return; }
+    var defs = [
+      { key: 'all', label: '전체' },
+      { key: 'sunday', label: '주일 주보' },
+      { key: 'youth', label: '학생부 주보' }
+    ];
+    tabsEl.innerHTML = defs.map(function (d) {
+      var sel = d.key === curFilter;
+      return '<button class="archive-tab" type="button" role="tab" data-cat="' + d.key + '"'
+           + ' aria-selected="' + sel + '">' + d.label
+           + '<span class="cnt">' + countBy(d.key) + '</span></button>';
+    }).join('');
+    tabsEl.querySelectorAll('.archive-tab').forEach(function (b) {
+      b.addEventListener('click', function () {
+        curFilter = b.getAttribute('data-cat');
+        tabsEl.querySelectorAll('.archive-tab').forEach(function (x) {
+          x.setAttribute('aria-selected', String(x === b));
+        });
+        renderList();
+      });
+    });
+  }
+
   fetch('bulletins.json?_=' + Date.now())
     .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
     .then(function (data) {
-      var items = (data && data.items) || [];
-      if (!items.length) { root.innerHTML = '<p class="archive-loading">아직 등록된 주보가 없습니다.</p>'; return; }
+      allItems = (data && data.items) || [];
+      if (!allItems.length) { root.innerHTML = '<p class="archive-loading">아직 등록된 주보가 없습니다.</p>'; return; }
 
-      // 상단 '이번 주 주보' 버튼을 최신 주보로 연결
+      // 상단 '이번 주 주보' 버튼을 최신 주일 주보로 연결 (없으면 최신 항목)
       var btn = document.getElementById('latest-bulletin-btn');
-      if (btn) btn.setAttribute('href', items[0].path);
+      if (btn) {
+        var latestSunday = allItems.filter(function (it) { return (it.category || 'sunday') === 'sunday'; })[0];
+        btn.setAttribute('href', (latestSunday || allItems[0]).path);
+      }
 
-      // 연도별 묶기 (items 는 최신순)
-      var years = [];
-      var byYear = {};
-      items.forEach(function (it) {
-        if (!byYear[it.year]) { byYear[it.year] = []; years.push(it.year); }
-        byYear[it.year].push(it);
-      });
-
-      // 같은 날짜에 여러 장이 있으면 (2), (3) … 으로 표시
-      var totalByDate = {};
-      items.forEach(function (it) { totalByDate[it.date] = (totalByDate[it.date] || 0) + 1; });
-
-      var html = '';
-      years.forEach(function (y, yi) {
-        var isOpen = yi === 0; // 최신 연도만 펼친 채로 시작
-        html += '<div class="year-group' + (isOpen ? ' open' : '') + '">'
-              + '<button class="year-toggle" type="button" aria-expanded="' + isOpen + '">'
-              + '<span class="year">' + y + '</span>'
-              + '<span class="year-count">' + byYear[y].length + '개</span>'
-              + '<span class="chev" aria-hidden="true"></span>'
-              + '</button>'
-              + '<div class="year-body"><ul>';
-        var nthByDate = {};
-        byYear[y].forEach(function (it) {
-          nthByDate[it.date] = (nthByDate[it.date] || 0) + 1;
-          var title = it.title || '주일 주보';
-          if (totalByDate[it.date] > 1) title += ' (' + nthByDate[it.date] + ')';
-          html += '<li><a href="' + it.path + '" target="_blank" rel="noopener">'
-                + '<span class="date">' + fmt(it.date) + '</span>'
-                + '<span class="title">' + title + '</span>'
-                + '<span class="ext">' + (it.type || 'PDF') + '</span></a></li>';
-        });
-        html += '</ul></div></div>';
-      });
-      root.innerHTML = html;
-
-      // 연도 토글 (열기/닫기)
-      root.querySelectorAll('.year-toggle').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var open = btn.parentNode.classList.toggle('open');
-          btn.setAttribute('aria-expanded', String(open));
-        });
-      });
+      renderTabs();
+      renderList();
     })
     .catch(function () {
       root.innerHTML = '<p class="archive-loading">주보 목록을 불러오지 못했습니다.</p>';

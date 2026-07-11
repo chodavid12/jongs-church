@@ -4,6 +4,7 @@
 // bulletins.json 으로 저장한다. 파일명에 YYYY-MM-DD 또는 YYYYMMDD 가 들어 있기만 하면 인식한다.
 //   예) 2023-01-01.pdf, 20230101_신년주일_01.jpg  →  2023-01-01
 // PDF·JPG·JPEG·PNG·WEBP 를 지원하며, 같은 날짜에 파일이 여러 장이면 모두 표시한다.
+// bulletins/youth/ 아래의 파일은 '학생부 주보'(category:'youth')로, 그 외는 '주일 주보'(category:'sunday')로 분류한다.
 
 import { readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, extname } from 'node:path';
@@ -43,7 +44,11 @@ for (const abs of files) {
   }
   const ext = extname(rel).toLowerCase();
   const type = ext === '.pdf' ? 'PDF' : '이미지';
-  items.push({ date, year: date.slice(0, 4), path: rel, type, title: '주일 주보' });
+  // 경로에 /youth/ 가 있으면 학생부 주보로 분류 (예: bulletins/youth/2026/2026-07-05.pdf)
+  const isYouth = /(^|\/)youth\//.test(rel);
+  const category = isYouth ? 'youth' : 'sunday';
+  const title = isYouth ? '학생부 주보' : '주일 주보';
+  items.push({ date, year: date.slice(0, 4), path: rel, type, category, title });
 }
 
 // 최신순 정렬 (같은 날짜는 파일명 순)
