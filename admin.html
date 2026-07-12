@@ -7,38 +7,13 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="assets/favicon.png" type="image/png">
 
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="assets/fonts/pretendard/pretendardvariable-dynamic-subset.css">
   <link rel="stylesheet" href="css/style.css?v=13">
   <style>
-    .admin-wrap { max-width: 720px; margin: 0 auto; padding: calc(var(--header-h) + 48px) var(--pad-x) 80px; }
-    .admin-card { background: var(--paper-tint); border-radius: var(--radius); padding: 28px 24px; margin-bottom: 16px; }
-    .admin-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-    .admin-card .key { font-size: 12px; color: var(--ink-faint); margin-bottom: 14px; }
-    .admin-card textarea {
-      width: 100%; min-height: 72px; padding: 12px 14px; border-radius: 14px;
-      border: 1px solid var(--line-mid); font: inherit; font-size: 14.5px; line-height: 1.6;
-      resize: vertical; background: var(--paper);
-    }
-    .admin-card .color-row { display: flex; align-items: center; gap: 12px; }
-    .admin-card input[type="color"] { width: 48px; height: 40px; border: 1px solid var(--line-mid); border-radius: 10px; background: var(--paper); padding: 2px; }
-    .admin-card input[type="text"] {
-      flex: 1; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line-mid);
-      font: inherit; font-size: 14.5px; background: var(--paper);
-    }
-    .admin-card input.link-input {
-      width: 100%; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line-mid);
-      font: inherit; font-size: 14.5px; background: var(--paper);
-    }
-    .admin-row-foot { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 12px; }
-    .admin-status { font-size: 13px; color: var(--ink-faint); }
-    .admin-group-title { margin: 36px 0 4px; font-weight: 800; font-size: 19px; }
     #auth-view { max-width: 360px; margin: calc(var(--header-h) + 80px) auto 0; padding: 0 var(--pad-x); }
     #auth-view input { width: 100%; padding: 12px 14px; margin-bottom: 10px; border-radius: 12px; border: 1px solid var(--line-mid); font: inherit; font-size: 15px; }
     #auth-view .btn { width: 100%; justify-content: center; margin-top: 6px; }
     #auth-error { color: #c0392b; font-size: 13.5px; margin-top: 10px; }
-    #auth-toggle { display: block; text-align: center; margin-top: 16px; font-size: 13.5px; color: var(--ink-soft); }
-    .admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
     .publish-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px;
       background: var(--paper-tint); border: 1px solid var(--line-mid); border-radius: 14px;
       padding: 12px 16px; margin-bottom: 22px; position: sticky; top: 8px; z-index: 5; }
@@ -46,10 +21,6 @@
     .publish-bar .pc { font-size: 14px; font-weight: 700; color: var(--ink-soft); }
     .publish-bar.dirty .pc { color: #8a6d12; }
     .publish-bar button:disabled { opacity: .45; cursor: default; }
-    .admin-tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line-mid); margin-bottom: 22px; }
-    .admin-tabs .tab { background: none; border: 0; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink-soft);
-      padding: 10px 16px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
-    .admin-tabs .tab.active { color: var(--accent-deep); border-bottom-color: var(--accent); }
     .dash-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
     .stat { background: var(--paper-tint); border-radius: 14px; padding: 16px 18px; }
     .stat .n { font-size: 13px; color: var(--ink-soft); font-weight: 600; }
@@ -140,14 +111,13 @@
 </main>
 
 <script src="js/supabase-config.js?v=1"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/vendor/supabase.js"></script>
 <script>
   const SUPABASE_URL = (window.SUPA && window.SUPA.URL) || "https://jqxhdajpehnwaewrfjld.supabase.co";
   const SUPABASE_ANON_KEY = (window.SUPA && window.SUPA.ANON_KEY) || "sb_publishable_aD4lD4JuNZWJrjFUVUpOLQ_0rc9r8dx";
   const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const authView = document.getElementById("auth-view");
-  const editorView = document.getElementById("editor-view");
   const authError = document.getElementById("auth-error");
   const loginBtn = document.getElementById("login-btn");
 
@@ -163,85 +133,10 @@
   document.getElementById("logout-btn").addEventListener("click", () => sb.auth.signOut());
   document.getElementById("publish-btn").addEventListener("click", doPublish);
 
-  // group_name → 화면에 보일 섹션 제목 / 표시 순서
-  const GROUP_META = {
-    hero: "히어로 (첫 화면)",
-    content: "기본 콘텐츠",
-    media: "이미지 · 영상",
-    link: "링크",
-    theme: "디자인 색상",
-  };
-  const GROUP_ORDER = ["hero", "content", "media", "link", "theme"];
-
   function escapeHtml(s) {
     return String(s)
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
-  }
-
-  function saveHandler(key, getValue, status) {
-    return async () => {
-      status.textContent = "저장 중…";
-      const { error } = await sb
-        .from("site_settings")
-        .update({ draft_value: getValue(), updated_at: new Date().toISOString() })
-        .eq("key", key);
-      status.textContent = error ? "오류: " + error.message : "저장됨(초안) ✓";
-      if (!error) refreshPublishBar();
-    };
-  }
-
-  function cardShell(row, fieldHTML) {
-    const card = document.createElement("div");
-    card.className = "admin-card";
-    card.innerHTML = `
-      <h3>${escapeHtml(row.label)}</h3>
-      <p class="key">${escapeHtml(row.key)}</p>
-      ${fieldHTML}
-      <div class="admin-row-foot">
-        <span class="admin-status"></span>
-        <button class="btn btn-accent">저장</button>
-      </div>`;
-    return card;
-  }
-
-  function renderTextRow(row) {
-    const card = cardShell(row, `<textarea>${escapeHtml(row.value)}</textarea>`);
-    const field = card.querySelector("textarea");
-    const status = card.querySelector(".admin-status");
-    card.querySelector("button").addEventListener("click", saveHandler(row.key, () => field.value, status));
-    return card;
-  }
-
-  function renderLinkRow(row) {
-    const card = cardShell(row, `<input type="url" class="link-input" value="${escapeHtml(row.value)}" placeholder="https://…  또는  worship.html">`);
-    const field = card.querySelector("input");
-    const status = card.querySelector(".admin-status");
-    card.querySelector("button").addEventListener("click", saveHandler(row.key, () => field.value.trim(), status));
-    return card;
-  }
-
-  function renderThemeRow(row) {
-    const card = cardShell(row, `
-      <div class="color-row">
-        <input type="color" value="${escapeHtml(row.value)}">
-        <input type="text" value="${escapeHtml(row.value)}">
-      </div>`);
-    const colorInput = card.querySelector('input[type="color"]');
-    const textInput = card.querySelector('input[type="text"]');
-    colorInput.addEventListener("input", () => (textInput.value = colorInput.value));
-    textInput.addEventListener("input", () => {
-      if (/^#[0-9a-fA-F]{6}$/.test(textInput.value)) colorInput.value = textInput.value;
-    });
-    const status = card.querySelector(".admin-status");
-    card.querySelector("button").addEventListener("click", saveHandler(row.key, () => textInput.value, status));
-    return card;
-  }
-
-  function renderRow(row) {
-    if (row.group_name === "theme") return renderThemeRow(row);
-    if (row.group_name === "link" || row.group_name === "media" || /_link$/.test(row.key)) return renderLinkRow(row);
-    return renderTextRow(row);
   }
 
   // 미게시 변경 개수 조회 → 게시 바 갱신
@@ -274,49 +169,7 @@
     countEl.textContent = "게시 완료 ✓ — 방문자에게 반영되었습니다";
   }
 
-  async function loadEditor() {
-    const sections = document.getElementById("editor-sections");
-    const { data, error } = await sb
-      .from("site_settings")
-      .select("*")
-      .order("group_name")
-      .order("sort")
-      .order("key");
-    if (error) {
-      sections.innerHTML = "불러오기 오류: " + error.message;
-      return;
-    }
-    sections.innerHTML = "";
-    // 편집 폼은 초안(draft) 값을 보여줌
-    data.forEach((row) => { row.value = row.draft_value; });
-    refreshPublishBar();
-    const groups = {};
-    data.forEach((row) => {
-      (groups[row.group_name] = groups[row.group_name] || []).push(row);
-    });
-    Object.keys(groups)
-      .sort((a, b) => ((GROUP_ORDER.indexOf(a) + 1 || 99) - (GROUP_ORDER.indexOf(b) + 1 || 99)))
-      .forEach((g) => {
-        const h = document.createElement("h2");
-        h.className = "admin-group-title";
-        h.textContent = GROUP_META[g] || g;
-        sections.appendChild(h);
-        groups[g].forEach((row) => sections.appendChild(renderRow(row)));
-      });
-  }
-
   const appView = document.getElementById("app-view");
-
-  // 탭 전환
-  document.querySelectorAll(".admin-tabs .tab").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".admin-tabs .tab").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const t = btn.dataset.tab;
-      document.getElementById("dashboard-view").hidden = t !== "dashboard";
-      document.getElementById("editor-view").hidden = t !== "editor";
-    });
-  });
 
   // ---- 대시보드 ----
   const PAGE_NAMES = { "/": "홈", "/about.html": "종의소개", "/worship.html": "종의예배", "/life.html": "종의생활", "/news.html": "종의소식" };

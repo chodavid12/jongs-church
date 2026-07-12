@@ -75,7 +75,7 @@
   document.head.appendChild(st);
 
   var s = document.createElement("script");
-  s.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js";
+  s.src = "js/vendor/supabase.js";
   s.onload = init;
   s.onerror = function () { if (EDIT) alert("편집 도구를 불러오지 못했습니다. 네트워크를 확인해 주세요."); };
   document.head.appendChild(s);
