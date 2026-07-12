@@ -85,12 +85,21 @@ update site_settings set value = replace(value,'오전 11:00','오전 10:00') wh
 ## 배포 워크플로
 - 개발 브랜치: `claude/increase-font-size-0h6rpk`
 - 반영 순서: `main`에 커밋·push → `pages build and deployment` 성공 확인 → 필요시 재실행 → 작업 브랜치도 `git merge main --ff-only` 후 push.
-- CSS/JS 캐시 버스팅: `css/style.css?v=N` 숫자를 올린다 (현재 v=13).
+- **CSS/JS 캐시 버스팅은 자동화됨:** css/js를 고쳤으면 배포 전에 `node scripts/stamp-assets.mjs` 실행 → 내용 해시로 `?v=`를 전 HTML에 자동 스탬프. (수동 `?v=N` 금지 — 바뀐 파일만 새 해시로 바뀐다.)
 
 ## 데이터 자동화 스크립트
 - `scripts/set-finance.mjs` — 재정 입력 (finance.json)
-- `scripts/build-bulletins.mjs` — 주보 목록 생성 (bulletins.json)
-- 주보 PDF: `bulletins/YYYY/YYYY-MM-DD.pdf`
+- `scripts/build-bulletins.mjs` — 주보 목록 생성 (bulletins.json). `bulletins/youth/` 아래는 자동으로 **학생부 주보**(category:youth)로 분류.
+- `scripts/stamp-assets.mjs` — css/js 내용 해시로 `?v=` 자동 스탬프 (배포 전 실행).
+- 주보 PDF: `bulletins/YYYY/YYYY-MM-DD.pdf` (학생부: `bulletins/youth/YYYY/…`).
+  - **주보 파일은 반드시 압축해서 넣는다** (과대 PDF 금지). 이미지/스캔 PDF는 ghostscript로:
+    `gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dColorImageResolution=150 -dGrayImageResolution=150 -dNOPAUSE -dQUIET -dBATCH -sOutputFile=out.pdf in.pdf` (보통 <500KB, 화질 유지).
+
+## 성능·구조 (2026-07 최적화)
+- **외부 CDN 의존 제거(self-host):** supabase-js는 `js/vendor/supabase.js`, Pretendard 폰트는 `assets/fonts/pretendard/`. jsdelivr 미사용 (CDN 장애에도 편집기·폰트 정상).
+- **편집기 조건부 로드:** `js/edit.js`(편집 전용)는 각 페이지에서 `?edit=1`/`?preview=1`일 때만 동적 로드된다. 일반 방문자에겐 로드 안 됨 → 페이로드 최소. (그냥 `<script src="js/edit.js">`로 되돌리지 말 것.)
+- **admin.html:** 폼 편집기는 제거됨. 관리는 **사이드바(대시보드 + "사이트에서 직접 편집"=`?edit=1`)**만. 죽은 폼 렌더 코드 되살리지 말 것.
+- **폴백/SEO:** 콘텐츠는 여전히 cms.js가 런타임 주입(폴백 HTML은 DB와 일치 유지). 정적 굽기(빌드 시 published 값을 HTML에 구워 SEO·FOUC 개선)는 **미도입(향후 과제)** — DB 접근 필요.
 
 ## 체크리스트 (텍스트/콘텐츠 수정 시)
 - [ ] 이 문구에 `data-cms`가 있나? → 있으면 Supabase DB부터 수정
