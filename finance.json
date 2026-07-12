@@ -378,14 +378,15 @@
     {
       "date": "2025-04-27",
       "general": 360000,
-      "purpose": 0,
+      "purpose": 100000,
       "relief": 0
     },
     {
       "date": "2025-04-20",
       "general": 801338,
-      "purpose": 0,
-      "relief": 0
+      "purpose": 180000,
+      "relief": 0,
+      "memo": "목적: 부활절"
     },
     {
       "date": "2025-04-13",
