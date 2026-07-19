@@ -1,7 +1,23 @@
 {
-  "updated": "2026-07-12",
-  "count": 187,
+  "updated": "2026-07-19",
+  "count": 189,
   "items": [
+    {
+      "date": "2026-07-19",
+      "year": "2026",
+      "path": "bulletins/2026/2026-07-19.pdf",
+      "type": "PDF",
+      "category": "sunday",
+      "title": "주일 주보"
+    },
+    {
+      "date": "2026-07-19",
+      "year": "2026",
+      "path": "bulletins/youth/2026/2026-07-19.pdf",
+      "type": "PDF",
+      "category": "youth",
+      "title": "학생부 주보"
+    },
     {
       "date": "2026-07-12",
       "year": "2026",
