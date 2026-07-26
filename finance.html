@@ -98,16 +98,33 @@
     </div>
   </section>
 
-  <!-- 3) 공과금·전기세 (finance-docs.json category=utility) -->
+  <style>
+    /* 전기요금 표 (finance.html 전용) */
+    .util-table { width: 100%; border-collapse: collapse; min-width: 520px; font-size: 14px; background: var(--paper); }
+    .util-table th, .util-table td { padding: 8px 12px; border-bottom: 1px solid var(--line-soft, #eee); white-space: nowrap; }
+    .util-table thead th { background: var(--paper-tint, #f6f5f1); color: var(--ink); font-weight: 700; text-align: center; border-bottom: 1px solid var(--line-mid, #ddd); }
+    .util-table .util-y { border-left: 1px solid var(--line-mid, #ddd); }
+    .util-table .util-sub { font-weight: 600; font-size: 12.5px; color: var(--ink-soft); }
+    .util-table .util-m { text-align: left; font-weight: 600; color: var(--ink); background: var(--paper-tint, #f6f5f1); }
+    .util-table td.util-cost { text-align: right; font-variant-numeric: tabular-nums; }
+    .util-table td.util-kwh { text-align: right; color: var(--ink-soft); font-variant-numeric: tabular-nums; border-right: 1px solid var(--line-soft, #eee); }
+    .util-table tbody tr:nth-child(even) td { background: rgba(0,0,0,.015); }
+    .util-table td:nth-child(2), .util-table thead .util-sub:nth-of-type(1) { border-left: 1px solid var(--line-mid, #ddd); }
+    .util-docs-h { margin: 22px 0 10px; font-size: 15px; color: var(--ink-soft); font-weight: 700; }
+    @media (prefers-color-scheme: dark) { .util-table tbody tr:nth-child(even) td { background: rgba(255,255,255,.04); } }
+  </style>
+
+  <!-- 3) 공과금·전기세 (utilities.json = 전기요금 표, finance-docs = 기타 자료) -->
   <section class="archive" id="utility" data-section="utility">
     <div class="container">
       <div class="finance-head reveal">
         <h2 class="finance-title"><span class="sq"></span><span data-cms="finance_utility_title">공과금·전기세</span></h2>
-        <p class="finance-intro" data-cms="finance_utility_intro">교회 운영에 쓰이는 전기세 등 공과금 내역을 정리해 올립니다.</p>
+        <p class="finance-intro" data-cms="finance_utility_intro">교회 운영에 쓰이는 전기요금을 연도·월별로 정리해 올립니다. (요금·사용 전력량)</p>
       </div>
-      <div id="utility-root">
-        <p class="archive-loading">내역을 불러오는 중…</p>
+      <div id="electric-root">
+        <p class="archive-loading">전기요금을 불러오는 중…</p>
       </div>
+      <div id="utility-root"></div>
     </div>
   </section>
 
@@ -248,9 +265,12 @@ if(/[?&](edit|preview)=1(&|$)/.test(location.search)){var _e=document.createElem
   var fmtD = function (d) { return d ? d.replace(/-/g, '. ') : ''; };
 
   // 한 분류(category)의 문서들을 연도별 그룹 목록으로 렌더
-  function renderDocs(rootEl, docs, emptyMsg) {
+  // opts: { emptyMsg: string|null (null이면 비었을 때 아무것도 안 그림), heading: string }
+  function renderDocs(rootEl, docs, opts) {
     if (!rootEl) return;
-    if (!docs.length) { rootEl.innerHTML = '<p class="archive-loading">' + emptyMsg + '</p>'; return; }
+    opts = opts || {};
+    if (!docs.length) { rootEl.innerHTML = opts.emptyMsg ? '<p class="archive-loading">' + opts.emptyMsg + '</p>' : ''; return; }
+    var headHtml = opts.heading ? '<h3 class="util-docs-h">' + opts.heading + '</h3>' : '';
 
     // 최신 연도 우선, 같은 연도 안에선 sort 값(또는 date) 내림차순
     docs.sort(function (a, b) {
@@ -284,7 +304,7 @@ if(/[?&](edit|preview)=1(&|$)/.test(location.search)){var _e=document.createElem
       });
       html += '</ul></div></div>';
     });
-    rootEl.innerHTML = html;
+    rootEl.innerHTML = headHtml + html;
 
     rootEl.querySelectorAll('.year-toggle').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -298,12 +318,62 @@ if(/[?&](edit|preview)=1(&|$)/.test(location.search)){var _e=document.createElem
     .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
     .then(function (data) {
       var docs = (data && data.docs) || [];
-      renderDocs(reportsRoot, docs.filter(function (d) { return d.category === 'half'; }), '아직 등록된 반기 보고서가 없습니다.');
-      renderDocs(utilityRoot, docs.filter(function (d) { return d.category === 'utility'; }), '아직 등록된 공과금 내역이 없습니다.');
+      renderDocs(reportsRoot, docs.filter(function (d) { return d.category === 'half'; }), { emptyMsg: '아직 등록된 반기 보고서가 없습니다.' });
+      renderDocs(utilityRoot, docs.filter(function (d) { return d.category === 'utility'; }), { emptyMsg: null, heading: '기타 공과금 자료' });
     })
     .catch(function () {
       if (reportsRoot) reportsRoot.innerHTML = '<p class="archive-loading">아직 등록된 반기 보고서가 없습니다.</p>';
-      if (utilityRoot) utilityRoot.innerHTML = '<p class="archive-loading">아직 등록된 공과금 내역이 없습니다.</p>';
+      if (utilityRoot) utilityRoot.innerHTML = '';
+    });
+})();
+</script>
+<script>
+// 전기요금 표 — utilities.json 의 electric 배열을 연도(열)×월(행) 표로 렌더
+(function () {
+  var root = document.getElementById('electric-root');
+  if (!root) return;
+  var won = function (n) { return (n || n === 0) ? n.toLocaleString('ko-KR') : ''; };
+
+  fetch('utilities.json?_=' + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function (data) {
+      var rows = (data && data.electric) || [];
+      if (!rows.length) { root.innerHTML = '<p class="archive-loading">아직 등록된 전기요금 내역이 없습니다.</p>'; return; }
+
+      // 연도 목록: 데이터에 있는 연도 + 올해까지 포함(빈 열도 미리 표시)
+      var yearsSet = {};
+      rows.forEach(function (r) { yearsSet[r.year] = true; });
+      var minY = Math.min.apply(null, rows.map(function (r) { return r.year; }));
+      var maxY = Math.max(new Date().getFullYear(), Math.max.apply(null, rows.map(function (r) { return r.year; })));
+      var years = [];
+      for (var y = minY; y <= maxY; y++) years.push(y);
+
+      // 조회표 byYM[year][month] = {cost, kwh}
+      var byYM = {};
+      rows.forEach(function (r) { (byYM[r.year] = byYM[r.year] || {})[r.month] = r; });
+
+      var html = '<div class="fin-wrap"><table class="util-table">';
+      // 헤더 1행: 연도 (요금·전력 2칸 병합)
+      html += '<thead><tr><th rowspan="2" class="util-m"></th>';
+      years.forEach(function (y) { html += '<th colspan="2" class="util-y">' + y + '</th>'; });
+      html += '</tr><tr>';
+      years.forEach(function () { html += '<th class="util-sub">요금</th><th class="util-sub">전력</th>'; });
+      html += '</tr></thead><tbody>';
+      // 본문: 1~12월
+      for (var m = 1; m <= 12; m++) {
+        html += '<tr><th class="util-m">' + m + '월</th>';
+        years.forEach(function (y) {
+          var c = byYM[y] && byYM[y][m];
+          html += '<td class="util-cost">' + (c ? won(c.cost) : '') + '</td>'
+                + '<td class="util-kwh">' + (c && c.kwh != null ? c.kwh + 'kWh' : '') + '</td>';
+        });
+        html += '</tr>';
+      }
+      html += '</tbody></table></div>';
+      root.innerHTML = html;
+    })
+    .catch(function () {
+      root.innerHTML = '<p class="archive-loading">전기요금 내역을 불러오지 못했습니다.</p>';
     });
 })();
 </script>
