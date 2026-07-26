@@ -5,14 +5,14 @@
   <script>history.scrollRestoration="manual";window.scrollTo(0,0);</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>종의소식 — 종의교회</title>
-  <meta name="description" content="종의교회 주보 아카이브와 설교 영상, 교회 소식입니다. 매주일 주보를 이곳에서 보실 수 있습니다.">
+  <meta name="description" content="종의교회 주보 아카이브, 재정 보고, 설교 영상과 교회 소식입니다. 주보와 재정을 온라인으로 투명하게 나눕니다.">
   <link rel="canonical" href="https://www.jongschurch.com/news.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="종의교회">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:url" content="https://www.jongschurch.com/news.html">
   <meta property="og:title" content="종의소식 — 종의교회">
-  <meta property="og:description" content="종의교회 주보 아카이브와 설교 영상, 교회 소식입니다. 매주일 주보를 이곳에서 보실 수 있습니다.">
+  <meta property="og:description" content="종의교회 주보 아카이브, 재정 보고, 설교 영상과 교회 소식입니다.">
   <meta property="og:image" content="https://www.jongschurch.com/assets/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.jongschurch.com/assets/og-image.jpg">
@@ -64,58 +64,34 @@
     <div class="container">
       <p class="crumb" data-cms="news_hero_crumb">종의교회 — NEWS</p>
       <h1 data-cms="news_hero_title"><em>종의</em>소식</h1>
-      <p class="desc" data-cms="news_hero_desc">매주 주보와 설교 영상, 교회 소식을 전합니다. 주보는 온라인으로 나눕니다.</p>
+      <p class="desc" data-cms="news_hero_desc">매주 주보와 재정 보고, 설교 영상과 교회 소식을 전합니다. 주보와 재정은 온라인으로 나눕니다.</p>
       <div class="actions">
-        <a id="latest-bulletin-btn" class="btn btn-accent" href="news.html#bulletin" target="_blank" rel="noopener"><span data-cms="news_hero_cta_label">이번 주 주보 (PDF)</span> <span class="arrow">↗</span></a>
+        <a id="latest-bulletin-btn" class="btn btn-accent" href="bulletin.html" target="_blank" rel="noopener"><span data-cms="news_hero_cta_label">이번 주 주보 (PDF)</span> <span class="arrow">↗</span></a>
       </div>
     </div>
   </section>
 
-  <style>
-    /* 주보 종류 필터 탭 (news.html 전용) */
-    .archive-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
-    .archive-tabs:empty { display: none; }
-    .archive-tab {
-      appearance: none; cursor: pointer;
-      border: 1px solid var(--line-mid); background: var(--paper);
-      color: var(--ink-soft); font: inherit; font-weight: 600; font-size: 14px;
-      padding: 8px 18px; border-radius: var(--pill); transition: all .15s ease;
-    }
-    .archive-tab:hover { color: var(--ink); border-color: var(--ink-faint); }
-    .archive-tab[aria-selected="true"] {
-      background: var(--accent); border-color: var(--accent); color: #fff;
-    }
-    .archive-tab .cnt { opacity: .7; margin-left: 4px; font-weight: 500; }
-  </style>
-
-  <!-- 주보 아카이브 (bulletins.json 에서 자동 생성) -->
-  <section class="archive" id="bulletin" data-section="bulletin">
+  <!-- 하위 페이지 (주보 / 재정) -->
+  <section class="section" id="menu" data-section="menu">
     <div class="container">
-      <!-- 종류 필터 (주일/학생부) — JS가 종류가 2개 이상일 때만 렌더 -->
-      <div id="archive-tabs" class="archive-tabs" role="tablist" aria-label="주보 종류"></div>
-      <div id="archive-root">
-        <p class="archive-loading">주보를 불러오는 중…</p>
-      </div>
-      <noscript>
-        <p class="archive-loading">주보 목록은 자바스크립트가 켜진 환경에서 표시됩니다.</p>
-      </noscript>
-    </div>
-  </section>
-
-  <!-- 재정 보고 (finance.json 에서 자동 생성) -->
-  <section class="archive finance" id="finance" data-section="finance">
-    <div class="container">
-      <div class="finance-head reveal">
-        <h2 class="finance-title"><span class="sq"></span><span data-cms="news_finance_title">재정 보고</span></h2>
-        <p class="finance-intro" data-cms="news_finance_intro">종의교회는 헌금을 투명하게 나눕니다. 매주 주보 [재정 보고]에 실린 헌금 수입(일반·목적·구제)을 그대로 옮겨 정리합니다. <strong>No 십일조 · No 봉투</strong> — 가족과 상식의 원칙으로 운영합니다.</p>
-      </div>
-      <div id="finance-root">
-        <p class="archive-loading">재정 내역을 불러오는 중…</p>
+      <div class="page-tiles">
+        <a class="tile reveal" href="bulletin.html">
+          <span class="tile-en">BULLETIN</span>
+          <h3>주보 아카이브</h3>
+          <p>주일 주보와 학생부 주보를 매주 온라인으로 나눕니다. 지난 주보를 연도별로 모아 보실 수 있습니다.</p>
+          <span class="go">주보 보러가기 →</span>
+        </a>
+        <a class="tile reveal" href="finance.html">
+          <span class="tile-en">FINANCE</span>
+          <h3>재정·살림</h3>
+          <p>주간 헌금 보고와 반기 결산 보고서, 공과금 내역을 투명하게 나눕니다. No 십일조 · No 봉투.</p>
+          <span class="go">재정 보러가기 →</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- 바로가기 -->
+  <!-- 소식 채널 -->
   <section class="section section-tint" id="channels" data-section="channels">
     <div class="container">
       <div class="section-head reveal">
@@ -152,8 +128,8 @@
       <div class="footer-col">
         <p class="label">바로가기</p>
         <div class="links">
-          <a href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube — 설교 영상 ↗</a>
-          <a href="https://www.band.us/band/89344128" target="_blank" rel="noopener">네이버 밴드 — 교회 소식 ↗</a>
+          <a href="bulletin.html">주보 아카이브 →</a>
+          <a href="finance.html">재정·살림 →</a>
           <a href="index.html">홈으로 →</a>
         </div>
       </div>
@@ -176,215 +152,19 @@
 if(/[?&](edit|preview)=1(&|$)/.test(location.search)){var _e=document.createElement("script");_e.src="js/edit.js?v=894a9e6d";document.body.appendChild(_e);}</script>
 <script src="js/main.js?v=dd77f716"></script>
 <script>
-// 주보 아카이브 — bulletins.json 을 읽어 연도별로 자동 렌더링
+// 히어로 '이번 주 주보' 버튼을 최신 주일 주보 PDF로 직접 연결 (없으면 주보 아카이브)
 (function () {
-  var root = document.getElementById('archive-root');
-  if (!root) return;
-  var fmt = function (d) { return d.replace(/-/g, '. '); }; // 2023-01-01 → 2023. 01. 01
-
-  var tabsEl = document.getElementById('archive-tabs');
-  var allItems = [];
-  var curFilter = 'all';
-
-  // 종류별 개수 (필터 탭용)
-  function countBy(cat) {
-    return allItems.filter(function (it) { return cat === 'all' || (it.category || 'sunday') === cat; }).length;
-  }
-
-  // 연도별 목록 렌더 (현재 필터 적용)
-  function renderList() {
-    var items = allItems.filter(function (it) {
-      return curFilter === 'all' || (it.category || 'sunday') === curFilter;
-    });
-    if (!items.length) { root.innerHTML = '<p class="archive-loading">해당 종류의 주보가 아직 없습니다.</p>'; return; }
-
-    // 연도별 묶기 (items 는 최신순)
-    var years = [];
-    var byYear = {};
-    items.forEach(function (it) {
-      if (!byYear[it.year]) { byYear[it.year] = []; years.push(it.year); }
-      byYear[it.year].push(it);
-    });
-
-    // 같은 날짜·같은 종류에 여러 장이 있으면 (2), (3) … 으로 표시
-    var totalByKey = {};
-    var keyOf = function (it) { return it.date + '|' + (it.category || 'sunday'); };
-    items.forEach(function (it) { totalByKey[keyOf(it)] = (totalByKey[keyOf(it)] || 0) + 1; });
-
-    var html = '';
-    years.forEach(function (y, yi) {
-      var isOpen = yi === 0; // 최신 연도만 펼친 채로 시작
-      html += '<div class="year-group' + (isOpen ? ' open' : '') + '">'
-            + '<button class="year-toggle" type="button" aria-expanded="' + isOpen + '">'
-            + '<span class="year">' + y + '</span>'
-            + '<span class="year-count">' + byYear[y].length + '개</span>'
-            + '<span class="chev" aria-hidden="true"></span>'
-            + '</button>'
-            + '<div class="year-body"><ul>';
-      var nthByKey = {};
-      byYear[y].forEach(function (it) {
-        var k = keyOf(it);
-        nthByKey[k] = (nthByKey[k] || 0) + 1;
-        var title = it.title || '주일 주보';
-        if (totalByKey[k] > 1) title += ' (' + nthByKey[k] + ')';
-        html += '<li><a href="' + it.path + '" target="_blank" rel="noopener">'
-              + '<span class="date">' + fmt(it.date) + '</span>'
-              + '<span class="title">' + title + '</span>'
-              + '<span class="ext">' + (it.type || 'PDF') + '</span></a></li>';
-      });
-      html += '</ul></div></div>';
-    });
-    root.innerHTML = html;
-
-    // 연도 토글 (열기/닫기)
-    root.querySelectorAll('.year-toggle').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var open = btn.parentNode.classList.toggle('open');
-        btn.setAttribute('aria-expanded', String(open));
-      });
-    });
-  }
-
-  // 필터 탭 렌더 (주일·학생부 두 종류가 모두 있을 때만)
-  function renderTabs() {
-    if (!tabsEl) return;
-    var hasYouth = countBy('youth') > 0;
-    var hasSunday = countBy('sunday') > 0;
-    if (!(hasYouth && hasSunday)) { tabsEl.innerHTML = ''; return; }
-    var defs = [
-      { key: 'all', label: '전체' },
-      { key: 'sunday', label: '주일 주보' },
-      { key: 'youth', label: '학생부 주보' }
-    ];
-    tabsEl.innerHTML = defs.map(function (d) {
-      var sel = d.key === curFilter;
-      return '<button class="archive-tab" type="button" role="tab" data-cat="' + d.key + '"'
-           + ' aria-selected="' + sel + '">' + d.label
-           + '<span class="cnt">' + countBy(d.key) + '</span></button>';
-    }).join('');
-    tabsEl.querySelectorAll('.archive-tab').forEach(function (b) {
-      b.addEventListener('click', function () {
-        curFilter = b.getAttribute('data-cat');
-        tabsEl.querySelectorAll('.archive-tab').forEach(function (x) {
-          x.setAttribute('aria-selected', String(x === b));
-        });
-        renderList();
-      });
-    });
-  }
-
+  var btn = document.getElementById('latest-bulletin-btn');
+  if (!btn) return;
   fetch('bulletins.json?_=' + Date.now())
-    .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function (r) { if (!r.ok) throw new Error('nf'); return r.json(); })
     .then(function (data) {
-      allItems = (data && data.items) || [];
-      if (!allItems.length) { root.innerHTML = '<p class="archive-loading">아직 등록된 주보가 없습니다.</p>'; return; }
-
-      // 상단 '이번 주 주보' 버튼을 최신 주일 주보로 연결 (없으면 최신 항목)
-      var btn = document.getElementById('latest-bulletin-btn');
-      if (btn) {
-        var latestSunday = allItems.filter(function (it) { return (it.category || 'sunday') === 'sunday'; })[0];
-        btn.setAttribute('href', (latestSunday || allItems[0]).path);
-      }
-
-      renderTabs();
-      renderList();
+      var items = (data && data.items) || [];
+      if (!items.length) return;
+      var latestSunday = items.filter(function (it) { return (it.category || 'sunday') === 'sunday'; })[0];
+      btn.setAttribute('href', (latestSunday || items[0]).path);
     })
-    .catch(function () {
-      root.innerHTML = '<p class="archive-loading">주보 목록을 불러오지 못했습니다.</p>';
-    });
-})();
-</script>
-<script>
-// 재정 보고 — finance.json 을 읽어 연도별·월별로 자동 집계
-(function () {
-  var root = document.getElementById('finance-root');
-  if (!root) return;
-  var won = function (n) { return (n || 0).toLocaleString('ko-KR'); };
-
-  fetch('finance.json?_=' + Date.now())
-    .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
-    .then(function (data) {
-      var weeks = (data && data.weeks) || [];
-      if (!weeks.length) { root.innerHTML = '<p class="archive-loading">아직 등록된 재정 내역이 없습니다.</p>'; return; }
-
-      weeks.sort(function (a, b) { return a.date < b.date ? 1 : -1; }); // 최신순
-
-      // 연도 > 월 로 묶기
-      var years = [], byYear = {};
-      weeks.forEach(function (w) {
-        var y = w.date.slice(0, 4);
-        if (!byYear[y]) { byYear[y] = []; years.push(y); }
-        byYear[y].push(w);
-      });
-
-      var fmtD = function (d) { return d.replace(/-/g, '. '); };
-      var html = '';
-      years.forEach(function (y, yi) {
-        var yearOpen = yi === 0; // 최신 연도만 펼침
-
-        // 연도 안에서 월별로 묶기
-        var months = [], byMonth = {};
-        byYear[y].forEach(function (w) {
-          var m = w.date.slice(5, 7);
-          if (!byMonth[m]) { byMonth[m] = []; months.push(m); }
-          byMonth[m].push(w);
-        });
-        months.sort();                                   // 월 오름차순 (1월 → 12월)
-        months.forEach(function (m) {                    // 각 월 안 주차 오름차순
-          byMonth[m].sort(function (a, b) { return a.date < b.date ? -1 : 1; });
-        });
-
-        // 연 합계
-        var yt = { g: 0, p: 0, r: 0 };
-        byYear[y].forEach(function (w) { yt.g += w.general || 0; yt.p += w.purpose || 0; yt.r += w.relief || 0; });
-
-        html += '<div class="year-group' + (yearOpen ? ' open' : '') + '">'
-              + '<button class="year-toggle" type="button" aria-expanded="' + yearOpen + '">'
-              + '<span class="year">' + y + '</span>'
-              + '<span class="year-count">일반 ' + won(yt.g) + '원</span>'
-              + '<span class="chev" aria-hidden="true"></span>'
-              + '</button>'
-              + '<div class="year-body"><div>';
-
-        months.forEach(function (m, mi) {
-          var monthOpen = yearOpen && mi === months.length - 1; // 펼친 연도의 최신 월(맨 아래)만 펼침
-          var mt = { g: 0, p: 0, r: 0 };
-          byMonth[m].forEach(function (w) { mt.g += w.general || 0; mt.p += w.purpose || 0; mt.r += w.relief || 0; });
-
-          html += '<div class="month-group' + (monthOpen ? ' open' : '') + '">'
-                + '<button class="month-toggle" type="button" aria-expanded="' + monthOpen + '">'
-                + '<span class="month-name">' + parseInt(m, 10) + '월</span>'
-                + '<span class="month-sum">일반 ' + won(mt.g) + '원</span>'
-                + '<span class="chev" aria-hidden="true"></span>'
-                + '</button>'
-                + '<div class="month-body"><div class="fin-wrap"><table class="fin-table">'
-                + '<thead><tr><th>주간</th><th>일반헌금</th><th>목적헌금</th><th>구제헌금</th></tr></thead><tbody>';
-          byMonth[m].forEach(function (w) {
-            html += '<tr><td class="fin-d">' + fmtD(w.date) + (w.memo ? ' <span class="fin-memo">' + w.memo + '</span>' : '') + '</td>'
-                  + '<td>' + won(w.general) + '</td><td>' + won(w.purpose) + '</td><td>' + won(w.relief) + '</td></tr>';
-          });
-          html += '<tr class="fin-sub"><td>' + parseInt(m, 10) + '월 합계</td>'
-                + '<td>' + won(mt.g) + '</td><td>' + won(mt.p) + '</td><td>' + won(mt.r) + '</td></tr>';
-          html += '</tbody></table></div></div></div>';
-        });
-
-        html += '<div class="year-total"><span>' + y + ' 합계</span>'
-              + '<span class="yt-nums">일반 ' + won(yt.g) + ' · 목적 ' + won(yt.p) + ' · 구제 ' + won(yt.r) + '</span></div>';
-        html += '</div></div></div>';
-      });
-      root.innerHTML = html;
-
-      // 연도·월 토글 (각 버튼은 자기 그룹만 열고 닫음)
-      root.querySelectorAll('.year-toggle, .month-toggle').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var open = btn.parentNode.classList.toggle('open');
-          btn.setAttribute('aria-expanded', String(open));
-        });
-      });
-    })
-    .catch(function () {
-      root.innerHTML = '<p class="archive-loading">재정 내역을 불러오지 못했습니다.</p>';
-    });
+    .catch(function () {});
 })();
 </script>
 </body>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <script>history.scrollRestoration="manual";window.scrollTo(0,0);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>재정·살림 — 종의교회</title>
+  <meta name="description" content="종의교회 재정 보고입니다. 주간 헌금 보고와 반기 결산 보고서, 공과금 내역을 투명하게 나눕니다. No 십일조 · No 봉투.">
+  <link rel="canonical" href="https://www.jongschurch.com/finance.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="종의교회">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:url" content="https://www.jongschurch.com/finance.html">
+  <meta property="og:title" content="재정·살림 — 종의교회">
+  <meta property="og:description" content="종의교회 재정 보고입니다. 주간 헌금 보고와 반기 결산 보고서, 공과금 내역을 투명하게 나눕니다.">
+  <meta property="og:image" content="https://www.jongschurch.com/assets/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.jongschurch.com/assets/og-image.jpg">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="assets/fonts/pretendard/pretendardvariable-dynamic-subset.css">
+
+  <link rel="stylesheet" href="css/style.css?v=94f664cf">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logotype" href="index.html"><img class="mark" src="assets/logo-mark.png" alt="종의교회 로고">종의교회</a>
+    <nav class="site-nav" aria-label="주 메뉴">
+      <a href="about.html">종의소개</a>
+      <a href="worship.html">종의예배</a>
+      <a href="life.html">종의생활</a>
+      <a class="active" href="news.html">종의소식</a>
+      <a class="nav-ext" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube</a>
+      <a class="nav-ext" href="https://www.band.us/band/89344128" target="_blank" rel="noopener">BAND</a>
+    </nav>
+    <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" aria-hidden="true">
+  <div class="container">
+    <nav aria-label="모바일 메뉴">
+      <a href="about.html"><span class="num">01</span>종의소개</a>
+      <a href="worship.html"><span class="num">02</span>종의예배</a>
+      <a href="life.html"><span class="num">03</span>종의생활</a>
+      <a class="active" href="news.html"><span class="num">04</span>종의소식</a>
+      <a href="index.html#guide"><span class="num">05</span>오시는 길</a>
+    </nav>
+    <div class="mobile-ext">
+      <a class="btn" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube <span class="arrow">↗</span></a>
+      <a class="btn" href="https://www.band.us/band/89344128" target="_blank" rel="noopener">네이버 밴드 <span class="arrow">↗</span></a>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="crumb"><a href="news.html">종의소식</a> — 재정·살림</p>
+      <h1><em>재정</em>·살림</h1>
+      <p class="desc">종의교회는 헌금과 살림을 투명하게 나눕니다. 주간 헌금 보고와 반기 결산 보고서, 공과금 내역을 이곳에 올립니다.</p>
+      <div class="actions">
+        <a class="btn btn-accent" href="#finance">주간 헌금 보고 <span class="arrow">↓</span></a>
+        <a class="btn" href="bulletin.html">주보 아카이브 <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1) 주간 헌금 보고 (finance.json 에서 자동 생성) -->
+  <section class="archive finance" id="finance" data-section="finance">
+    <div class="container">
+      <div class="finance-head reveal">
+        <h2 class="finance-title"><span class="sq"></span><span data-cms="news_finance_title">주간 헌금 보고</span></h2>
+        <p class="finance-intro" data-cms="news_finance_intro">종의교회는 헌금을 투명하게 나눕니다. 매주 주보 [재정 보고]에 실린 헌금 수입(일반·목적·구제)을 그대로 옮겨 정리합니다. <strong>No 십일조 · No 봉투</strong> — 가족과 상식의 원칙으로 운영합니다.</p>
+      </div>
+      <div id="finance-root">
+        <p class="archive-loading">재정 내역을 불러오는 중…</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) 반기 재정보고서 (finance-docs.json category=half) -->
+  <section class="archive section-tint" id="reports" data-section="reports">
+    <div class="container">
+      <div class="finance-head reveal">
+        <h2 class="finance-title"><span class="sq"></span><span data-cms="finance_reports_title">반기 재정보고서</span></h2>
+        <p class="finance-intro" data-cms="finance_reports_intro">상반기·하반기 결산 보고서를 연도별로 올립니다. 항목을 누르면 보고서(PDF)를 보실 수 있습니다.</p>
+      </div>
+      <div id="reports-root">
+        <p class="archive-loading">보고서를 불러오는 중…</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3) 공과금·전기세 (finance-docs.json category=utility) -->
+  <section class="archive" id="utility" data-section="utility">
+    <div class="container">
+      <div class="finance-head reveal">
+        <h2 class="finance-title"><span class="sq"></span><span data-cms="finance_utility_title">공과금·전기세</span></h2>
+        <p class="finance-intro" data-cms="finance_utility_intro">교회 운영에 쓰이는 전기세 등 공과금 내역을 정리해 올립니다.</p>
+      </div>
+      <div id="utility-root">
+        <p class="archive-loading">내역을 불러오는 중…</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col">
+        <p class="footer-logotype"><span class="sq"></span>종의교회</p>
+        <p>담임목사 <span data-cms="pastor_name">박재협</span><br>경기도 부천시 <span data-cms="church_address">부일로505번길 17-1, B1층</span><br><span data-cms="worship_times_line">주일예배 오전 10:00 · 금요기도회 저녁 8:30</span></p>
+      </div>
+      <div class="footer-col">
+        <p class="label">바로가기</p>
+        <div class="links">
+          <a href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube — 설교 영상 ↗</a>
+          <a href="https://www.band.us/band/89344128" target="_blank" rel="noopener">네이버 밴드 — 교회 소식 ↗</a>
+          <a href="index.html">홈으로 →</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="label">헌금 계좌</p>
+        <p><span data-cms="account_bank">카카오뱅크</span> <span data-cms="account_number">7979-63-04620</span><br>예금주 <span data-cms="account_holder">조다윗</span></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year">2026</span> 종의교회</p>
+      <p>우리는 주의 종입니다</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/supabase-config.js?v=541fdf00"></script>
+<script src="js/cms.js?v=c196ba29"></script>
+<script src="js/track.js?v=ef9faa61"></script>
+<script>/* 편집기는 ?edit=1 / ?preview=1 일 때만 로드 (일반 방문자 부담 0) */
+if(/[?&](edit|preview)=1(&|$)/.test(location.search)){var _e=document.createElement("script");_e.src="js/edit.js?v=894a9e6d";document.body.appendChild(_e);}</script>
+<script src="js/main.js?v=dd77f716"></script>
+<script>
+// 주간 헌금 보고 — finance.json 을 읽어 연도별·월별로 자동 집계
+(function () {
+  var root = document.getElementById('finance-root');
+  if (!root) return;
+  var won = function (n) { return (n || 0).toLocaleString('ko-KR'); };
+
+  fetch('finance.json?_=' + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function (data) {
+      var weeks = (data && data.weeks) || [];
+      if (!weeks.length) { root.innerHTML = '<p class="archive-loading">아직 등록된 재정 내역이 없습니다.</p>'; return; }
+
+      weeks.sort(function (a, b) { return a.date < b.date ? 1 : -1; }); // 최신순
+
+      // 연도 > 월 로 묶기
+      var years = [], byYear = {};
+      weeks.forEach(function (w) {
+        var y = w.date.slice(0, 4);
+        if (!byYear[y]) { byYear[y] = []; years.push(y); }
+        byYear[y].push(w);
+      });
+
+      var fmtD = function (d) { return d.replace(/-/g, '. '); };
+      var html = '';
+      years.forEach(function (y, yi) {
+        var yearOpen = yi === 0; // 최신 연도만 펼침
+
+        // 연도 안에서 월별로 묶기
+        var months = [], byMonth = {};
+        byYear[y].forEach(function (w) {
+          var m = w.date.slice(5, 7);
+          if (!byMonth[m]) { byMonth[m] = []; months.push(m); }
+          byMonth[m].push(w);
+        });
+        months.sort();                                   // 월 오름차순 (1월 → 12월)
+        months.forEach(function (m) {                    // 각 월 안 주차 오름차순
+          byMonth[m].sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+        });
+
+        // 연 합계
+        var yt = { g: 0, p: 0, r: 0 };
+        byYear[y].forEach(function (w) { yt.g += w.general || 0; yt.p += w.purpose || 0; yt.r += w.relief || 0; });
+
+        html += '<div class="year-group' + (yearOpen ? ' open' : '') + '">'
+              + '<button class="year-toggle" type="button" aria-expanded="' + yearOpen + '">'
+              + '<span class="year">' + y + '</span>'
+              + '<span class="year-count">일반 ' + won(yt.g) + '원</span>'
+              + '<span class="chev" aria-hidden="true"></span>'
+              + '</button>'
+              + '<div class="year-body"><div>';
+
+        months.forEach(function (m, mi) {
+          var monthOpen = yearOpen && mi === months.length - 1; // 펼친 연도의 최신 월(맨 아래)만 펼침
+          var mt = { g: 0, p: 0, r: 0 };
+          byMonth[m].forEach(function (w) { mt.g += w.general || 0; mt.p += w.purpose || 0; mt.r += w.relief || 0; });
+
+          html += '<div class="month-group' + (monthOpen ? ' open' : '') + '">'
+                + '<button class="month-toggle" type="button" aria-expanded="' + monthOpen + '">'
+                + '<span class="month-name">' + parseInt(m, 10) + '월</span>'
+                + '<span class="month-sum">일반 ' + won(mt.g) + '원</span>'
+                + '<span class="chev" aria-hidden="true"></span>'
+                + '</button>'
+                + '<div class="month-body"><div class="fin-wrap"><table class="fin-table">'
+                + '<thead><tr><th>주간</th><th>일반헌금</th><th>목적헌금</th><th>구제헌금</th></tr></thead><tbody>';
+          byMonth[m].forEach(function (w) {
+            html += '<tr><td class="fin-d">' + fmtD(w.date) + (w.memo ? ' <span class="fin-memo">' + w.memo + '</span>' : '') + '</td>'
+                  + '<td>' + won(w.general) + '</td><td>' + won(w.purpose) + '</td><td>' + won(w.relief) + '</td></tr>';
+          });
+          html += '<tr class="fin-sub"><td>' + parseInt(m, 10) + '월 합계</td>'
+                + '<td>' + won(mt.g) + '</td><td>' + won(mt.p) + '</td><td>' + won(mt.r) + '</td></tr>';
+          html += '</tbody></table></div></div></div>';
+        });
+
+        html += '<div class="year-total"><span>' + y + ' 합계</span>'
+              + '<span class="yt-nums">일반 ' + won(yt.g) + ' · 목적 ' + won(yt.p) + ' · 구제 ' + won(yt.r) + '</span></div>';
+        html += '</div></div></div>';
+      });
+      root.innerHTML = html;
+
+      // 연도·월 토글 (각 버튼은 자기 그룹만 열고 닫음)
+      root.querySelectorAll('.year-toggle, .month-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var open = btn.parentNode.classList.toggle('open');
+          btn.setAttribute('aria-expanded', String(open));
+        });
+      });
+    })
+    .catch(function () {
+      root.innerHTML = '<p class="archive-loading">재정 내역을 불러오지 못했습니다.</p>';
+    });
+})();
+</script>
+<script>
+// 반기 보고서·공과금 — finance-docs.json 을 읽어 분류별로 연도 묶어 렌더
+(function () {
+  var reportsRoot = document.getElementById('reports-root');
+  var utilityRoot = document.getElementById('utility-root');
+  if (!reportsRoot && !utilityRoot) return;
+  var fmtD = function (d) { return d ? d.replace(/-/g, '. ') : ''; };
+
+  // 한 분류(category)의 문서들을 연도별 그룹 목록으로 렌더
+  function renderDocs(rootEl, docs, emptyMsg) {
+    if (!rootEl) return;
+    if (!docs.length) { rootEl.innerHTML = '<p class="archive-loading">' + emptyMsg + '</p>'; return; }
+
+    // 최신 연도 우선, 같은 연도 안에선 sort 값(또는 date) 내림차순
+    docs.sort(function (a, b) {
+      if ((b.year || '') !== (a.year || '')) return (b.year || '') < (a.year || '') ? -1 : 1;
+      var ak = a.sort || a.date || a.title, bk = b.sort || b.date || b.title;
+      return ak < bk ? 1 : -1;
+    });
+
+    var years = [], byYear = {};
+    docs.forEach(function (d) {
+      var y = d.year || '기타';
+      if (!byYear[y]) { byYear[y] = []; years.push(y); }
+      byYear[y].push(d);
+    });
+
+    var html = '';
+    years.forEach(function (y, yi) {
+      var isOpen = yi === 0;
+      html += '<div class="year-group' + (isOpen ? ' open' : '') + '">'
+            + '<button class="year-toggle" type="button" aria-expanded="' + isOpen + '">'
+            + '<span class="year">' + y + '</span>'
+            + '<span class="year-count">' + byYear[y].length + '개</span>'
+            + '<span class="chev" aria-hidden="true"></span>'
+            + '</button>'
+            + '<div class="year-body"><ul>';
+      byYear[y].forEach(function (d) {
+        html += '<li><a href="' + d.path + '" target="_blank" rel="noopener">'
+              + '<span class="date">' + (d.period || fmtD(d.date) || '') + '</span>'
+              + '<span class="title">' + (d.title || '문서') + '</span>'
+              + '<span class="ext">' + (d.type || 'PDF') + '</span></a></li>';
+      });
+      html += '</ul></div></div>';
+    });
+    rootEl.innerHTML = html;
+
+    rootEl.querySelectorAll('.year-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var open = btn.parentNode.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    });
+  }
+
+  fetch('finance-docs.json?_=' + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function (data) {
+      var docs = (data && data.docs) || [];
+      renderDocs(reportsRoot, docs.filter(function (d) { return d.category === 'half'; }), '아직 등록된 반기 보고서가 없습니다.');
+      renderDocs(utilityRoot, docs.filter(function (d) { return d.category === 'utility'; }), '아직 등록된 공과금 내역이 없습니다.');
+    })
+    .catch(function () {
+      if (reportsRoot) reportsRoot.innerHTML = '<p class="archive-loading">아직 등록된 반기 보고서가 없습니다.</p>';
+      if (utilityRoot) utilityRoot.innerHTML = '<p class="archive-loading">아직 등록된 공과금 내역이 없습니다.</p>';
+    });
+})();
+</script>
+</body>
+</html>

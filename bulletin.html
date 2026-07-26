@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <script>history.scrollRestoration="manual";window.scrollTo(0,0);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>주보 아카이브 — 종의교회</title>
+  <meta name="description" content="종의교회 주보 아카이브입니다. 주일 주보와 학생부 주보를 매주 온라인으로 나눕니다.">
+  <link rel="canonical" href="https://www.jongschurch.com/bulletin.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="종의교회">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:url" content="https://www.jongschurch.com/bulletin.html">
+  <meta property="og:title" content="주보 아카이브 — 종의교회">
+  <meta property="og:description" content="종의교회 주보 아카이브입니다. 주일 주보와 학생부 주보를 매주 온라인으로 나눕니다.">
+  <meta property="og:image" content="https://www.jongschurch.com/assets/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.jongschurch.com/assets/og-image.jpg">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="assets/fonts/pretendard/pretendardvariable-dynamic-subset.css">
+
+  <link rel="stylesheet" href="css/style.css?v=94f664cf">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logotype" href="index.html"><img class="mark" src="assets/logo-mark.png" alt="종의교회 로고">종의교회</a>
+    <nav class="site-nav" aria-label="주 메뉴">
+      <a href="about.html">종의소개</a>
+      <a href="worship.html">종의예배</a>
+      <a href="life.html">종의생활</a>
+      <a class="active" href="news.html">종의소식</a>
+      <a class="nav-ext" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube</a>
+      <a class="nav-ext" href="https://www.band.us/band/89344128" target="_blank" rel="noopener">BAND</a>
+    </nav>
+    <button class="menu-toggle" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" aria-hidden="true">
+  <div class="container">
+    <nav aria-label="모바일 메뉴">
+      <a href="about.html"><span class="num">01</span>종의소개</a>
+      <a href="worship.html"><span class="num">02</span>종의예배</a>
+      <a href="life.html"><span class="num">03</span>종의생활</a>
+      <a class="active" href="news.html"><span class="num">04</span>종의소식</a>
+      <a href="index.html#guide"><span class="num">05</span>오시는 길</a>
+    </nav>
+    <div class="mobile-ext">
+      <a class="btn" href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube <span class="arrow">↗</span></a>
+      <a class="btn" href="https://www.band.us/band/89344128" target="_blank" rel="noopener">네이버 밴드 <span class="arrow">↗</span></a>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="crumb"><a href="news.html">종의소식</a> — 주보</p>
+      <h1><em>주보</em> 아카이브</h1>
+      <p class="desc">주일 주보와 학생부 주보를 매주 온라인으로 나눕니다. 아래에서 지난 주보를 모두 보실 수 있습니다.</p>
+      <div class="actions">
+        <a id="latest-bulletin-btn" class="btn btn-accent" href="#bulletin" target="_blank" rel="noopener">이번 주 주보 (PDF) <span class="arrow">↗</span></a>
+        <a class="btn" href="finance.html">재정·살림 <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* 주보 종류 필터 탭 (bulletin.html 전용) */
+    .archive-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
+    .archive-tabs:empty { display: none; }
+    .archive-tab {
+      appearance: none; cursor: pointer;
+      border: 1px solid var(--line-mid); background: var(--paper);
+      color: var(--ink-soft); font: inherit; font-weight: 600; font-size: 14px;
+      padding: 8px 18px; border-radius: var(--pill); transition: all .15s ease;
+    }
+    .archive-tab:hover { color: var(--ink); border-color: var(--ink-faint); }
+    .archive-tab[aria-selected="true"] {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    .archive-tab .cnt { opacity: .7; margin-left: 4px; font-weight: 500; }
+  </style>
+
+  <!-- 주보 아카이브 (bulletins.json 에서 자동 생성) -->
+  <section class="archive" id="bulletin" data-section="bulletin">
+    <div class="container">
+      <!-- 종류 필터 (주일/학생부) — JS가 종류가 2개 이상일 때만 렌더 -->
+      <div id="archive-tabs" class="archive-tabs" role="tablist" aria-label="주보 종류"></div>
+      <div id="archive-root">
+        <p class="archive-loading">주보를 불러오는 중…</p>
+      </div>
+      <noscript>
+        <p class="archive-loading">주보 목록은 자바스크립트가 켜진 환경에서 표시됩니다.</p>
+      </noscript>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-col">
+        <p class="footer-logotype"><span class="sq"></span>종의교회</p>
+        <p>담임목사 <span data-cms="pastor_name">박재협</span><br>경기도 부천시 <span data-cms="church_address">부일로505번길 17-1, B1층</span><br><span data-cms="worship_times_line">주일예배 오전 10:00 · 금요기도회 저녁 8:30</span></p>
+      </div>
+      <div class="footer-col">
+        <p class="label">바로가기</p>
+        <div class="links">
+          <a href="https://youtube.com/@jongs_community" target="_blank" rel="noopener">YouTube — 설교 영상 ↗</a>
+          <a href="https://www.band.us/band/89344128" target="_blank" rel="noopener">네이버 밴드 — 교회 소식 ↗</a>
+          <a href="index.html">홈으로 →</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="label">헌금 계좌</p>
+        <p><span data-cms="account_bank">카카오뱅크</span> <span data-cms="account_number">7979-63-04620</span><br>예금주 <span data-cms="account_holder">조다윗</span></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year">2026</span> 종의교회</p>
+      <p>우리는 주의 종입니다</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/supabase-config.js?v=541fdf00"></script>
+<script src="js/cms.js?v=c196ba29"></script>
+<script src="js/track.js?v=ef9faa61"></script>
+<script>/* 편집기는 ?edit=1 / ?preview=1 일 때만 로드 (일반 방문자 부담 0) */
+if(/[?&](edit|preview)=1(&|$)/.test(location.search)){var _e=document.createElement("script");_e.src="js/edit.js?v=894a9e6d";document.body.appendChild(_e);}</script>
+<script src="js/main.js?v=dd77f716"></script>
+<script>
+// 주보 아카이브 — bulletins.json 을 읽어 연도별로 자동 렌더링
+(function () {
+  var root = document.getElementById('archive-root');
+  if (!root) return;
+  var fmt = function (d) { return d.replace(/-/g, '. '); }; // 2023-01-01 → 2023. 01. 01
+
+  var tabsEl = document.getElementById('archive-tabs');
+  var allItems = [];
+  var curFilter = 'all';
+
+  // 종류별 개수 (필터 탭용)
+  function countBy(cat) {
+    return allItems.filter(function (it) { return cat === 'all' || (it.category || 'sunday') === cat; }).length;
+  }
+
+  // 연도별 목록 렌더 (현재 필터 적용)
+  function renderList() {
+    var items = allItems.filter(function (it) {
+      return curFilter === 'all' || (it.category || 'sunday') === curFilter;
+    });
+    if (!items.length) { root.innerHTML = '<p class="archive-loading">해당 종류의 주보가 아직 없습니다.</p>'; return; }
+
+    // 연도별 묶기 (items 는 최신순)
+    var years = [];
+    var byYear = {};
+    items.forEach(function (it) {
+      if (!byYear[it.year]) { byYear[it.year] = []; years.push(it.year); }
+      byYear[it.year].push(it);
+    });
+
+    // 같은 날짜·같은 종류에 여러 장이 있으면 (2), (3) … 으로 표시
+    var totalByKey = {};
+    var keyOf = function (it) { return it.date + '|' + (it.category || 'sunday'); };
+    items.forEach(function (it) { totalByKey[keyOf(it)] = (totalByKey[keyOf(it)] || 0) + 1; });
+
+    var html = '';
+    years.forEach(function (y, yi) {
+      var isOpen = yi === 0; // 최신 연도만 펼친 채로 시작
+      html += '<div class="year-group' + (isOpen ? ' open' : '') + '">'
+            + '<button class="year-toggle" type="button" aria-expanded="' + isOpen + '">'
+            + '<span class="year">' + y + '</span>'
+            + '<span class="year-count">' + byYear[y].length + '개</span>'
+            + '<span class="chev" aria-hidden="true"></span>'
+            + '</button>'
+            + '<div class="year-body"><ul>';
+      var nthByKey = {};
+      byYear[y].forEach(function (it) {
+        var k = keyOf(it);
+        nthByKey[k] = (nthByKey[k] || 0) + 1;
+        var title = it.title || '주일 주보';
+        if (totalByKey[k] > 1) title += ' (' + nthByKey[k] + ')';
+        html += '<li><a href="' + it.path + '" target="_blank" rel="noopener">'
+              + '<span class="date">' + fmt(it.date) + '</span>'
+              + '<span class="title">' + title + '</span>'
+              + '<span class="ext">' + (it.type || 'PDF') + '</span></a></li>';
+      });
+      html += '</ul></div></div>';
+    });
+    root.innerHTML = html;
+
+    // 연도 토글 (열기/닫기)
+    root.querySelectorAll('.year-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var open = btn.parentNode.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    });
+  }
+
+  // 필터 탭 렌더 (주일·학생부 두 종류가 모두 있을 때만)
+  function renderTabs() {
+    if (!tabsEl) return;
+    var hasYouth = countBy('youth') > 0;
+    var hasSunday = countBy('sunday') > 0;
+    if (!(hasYouth && hasSunday)) { tabsEl.innerHTML = ''; return; }
+    var defs = [
+      { key: 'all', label: '전체' },
+      { key: 'sunday', label: '주일 주보' },
+      { key: 'youth', label: '학생부 주보' }
+    ];
+    tabsEl.innerHTML = defs.map(function (d) {
+      var sel = d.key === curFilter;
+      return '<button class="archive-tab" type="button" role="tab" data-cat="' + d.key + '"'
+           + ' aria-selected="' + sel + '">' + d.label
+           + '<span class="cnt">' + countBy(d.key) + '</span></button>';
+    }).join('');
+    tabsEl.querySelectorAll('.archive-tab').forEach(function (b) {
+      b.addEventListener('click', function () {
+        curFilter = b.getAttribute('data-cat');
+        tabsEl.querySelectorAll('.archive-tab').forEach(function (x) {
+          x.setAttribute('aria-selected', String(x === b));
+        });
+        renderList();
+      });
+    });
+  }
+
+  fetch('bulletins.json?_=' + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function (data) {
+      allItems = (data && data.items) || [];
+      if (!allItems.length) { root.innerHTML = '<p class="archive-loading">아직 등록된 주보가 없습니다.</p>'; return; }
+
+      // 상단 '이번 주 주보' 버튼을 최신 주일 주보로 연결 (없으면 최신 항목)
+      var btn = document.getElementById('latest-bulletin-btn');
+      if (btn) {
+        var latestSunday = allItems.filter(function (it) { return (it.category || 'sunday') === 'sunday'; })[0];
+        btn.setAttribute('href', (latestSunday || allItems[0]).path);
+      }
+
+      renderTabs();
+      renderList();
+    })
+    .catch(function () {
+      root.innerHTML = '<p class="archive-loading">주보 목록을 불러오지 못했습니다.</p>';
+    });
+})();
+</script>
+</body>
+</html>

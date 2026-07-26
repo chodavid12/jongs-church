@@ -172,7 +172,7 @@
   const appView = document.getElementById("app-view");
 
   // ---- 대시보드 ----
-  const PAGE_NAMES = { "/": "홈", "/about.html": "종의소개", "/worship.html": "종의예배", "/life.html": "종의생활", "/news.html": "종의소식" };
+  const PAGE_NAMES = { "/": "홈", "/about.html": "종의소개", "/worship.html": "종의예배", "/life.html": "종의생활", "/news.html": "종의소식", "/bulletin.html": "주보 아카이브", "/finance.html": "재정·살림" };
   function pageName(p) { return PAGE_NAMES[p] || p; }
 
   async function loadDashboard() {
@@ -216,7 +216,7 @@
       <div class="dash-card"><h3>사이트 정보</h3>
         <p style="margin-bottom:6px">최신 주보: <b id="i-bulletin">–</b></p>
         <p style="margin-bottom:12px">재정 최신 주차: <b id="i-finance">–</b></p>
-        <div class="quick">바로 편집: <a href="index.html?edit=1">홈</a><a href="about.html?edit=1">종의소개</a><a href="worship.html?edit=1">종의예배</a><a href="life.html?edit=1">종의생활</a><a href="news.html?edit=1">종의소식</a></div>
+        <div class="quick">바로 편집: <a href="index.html?edit=1">홈</a><a href="about.html?edit=1">종의소개</a><a href="worship.html?edit=1">종의예배</a><a href="life.html?edit=1">종의생활</a><a href="news.html?edit=1">종의소식</a><a href="bulletin.html?edit=1">주보</a><a href="finance.html?edit=1">재정</a></div>
       </div>`;
 
     fetch("bulletins.json?_=" + Date.now()).then((r) => r.json()).then((d) => { const it = (d.items || [])[0]; if (it) document.getElementById("i-bulletin").textContent = it.date + " (총 " + (d.count || 0) + "개)"; }).catch(() => {});

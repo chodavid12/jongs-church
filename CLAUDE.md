@@ -90,10 +90,21 @@ update site_settings set value = replace(value,'오전 11:00','오전 10:00') wh
 ## 데이터 자동화 스크립트
 - `scripts/set-finance.mjs` — 재정 입력 (finance.json)
 - `scripts/build-bulletins.mjs` — 주보 목록 생성 (bulletins.json). `bulletins/youth/` 아래는 자동으로 **학생부 주보**(category:youth)로 분류.
+- `scripts/build-finance-docs.mjs` — 재정 자료 목록 생성 (finance-docs.json). `finance-docs/반기/`→반기 보고서(category:half), `finance-docs/공과금/`→공과금(category:utility)으로 분류. 파일명에 `상반기/하반기`·`YYYY-MM`이 있으면 기간·연도 자동 인식.
 - `scripts/stamp-assets.mjs` — css/js 내용 해시로 `?v=` 자동 스탬프 (배포 전 실행).
 - 주보 PDF: `bulletins/YYYY/YYYY-MM-DD.pdf` (학생부: `bulletins/youth/YYYY/…`).
   - **주보 파일은 반드시 압축해서 넣는다** (과대 PDF 금지). 이미지/스캔 PDF는 ghostscript로:
     `gs -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -dColorImageResolution=150 -dGrayImageResolution=150 -dNOPAUSE -dQUIET -dBATCH -sOutputFile=out.pdf in.pdf` (보통 <500KB, 화질 유지).
+
+## 종의소식 구조 (2026-07 하위페이지 분리)
+- **`news.html` = 허브** (주보/재정 카드 + 소식 채널). 같은 URL 유지(SEO 보존).
+- **`bulletin.html`** = 주보 아카이브 (bulletins.json). 종류 필터(주일/학생부).
+- **`finance.html`** = 재정·살림 3섹션:
+  1. 주간 헌금 보고 (finance.json)
+  2. 반기 재정보고서 (finance-docs.json, category=half) — `finance-docs/반기/`에 PDF 넣고 `build-finance-docs.mjs` 실행
+  3. 공과금·전기세 (finance-docs.json, category=utility) — `finance-docs/공과금/`에 파일 넣고 빌드
+- 세 페이지 모두 nav에서 **종의소식 active** 유지, 히어로에 `종의소식 →` 브레드크럼.
+- "주보 아카이브 →" 링크는 전 페이지에서 **bulletin.html**을 가리킴(예전 news.html 아님).
 
 ## 성능·구조 (2026-07 최적화)
 - **외부 CDN 의존 제거(self-host):** supabase-js는 `js/vendor/supabase.js`, Pretendard 폰트는 `assets/fonts/pretendard/`. jsdelivr 미사용 (CDN 장애에도 편집기·폰트 정상).
