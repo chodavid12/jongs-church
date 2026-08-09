@@ -113,6 +113,13 @@ update site_settings set value = replace(value,'오전 11:00','오전 10:00') wh
 - **admin.html:** 폼 편집기는 제거됨. 관리는 **사이드바(대시보드 + "사이트에서 직접 편집"=`?edit=1`)**만. 죽은 폼 렌더 코드 되살리지 말 것.
 - **폴백/SEO:** 콘텐츠는 여전히 cms.js가 런타임 주입(폴백 HTML은 DB와 일치 유지). 정적 굽기(빌드 시 published 값을 HTML에 구워 SEO·FOUC 개선)는 **미도입(향후 과제)** — DB 접근 필요.
 
+## "주보 올려줘" 표준 절차 (매주 반복)
+사용자가 주보 이미지를 주며 "주보 올려줘"라고 하면 아래를 모두 수행한다:
+1. **주보 PDF 생성·업로드** — 겉장(.001)+속장(.002)을 합쳐 `bulletins/YYYY/YYYY-MM-DD.pdf` (학생부는 `bulletins/youth/…`). 과대하면 ghostscript 압축. `node scripts/build-bulletins.mjs`로 인덱스 갱신.
+2. **재정 보고 수정** — 속장 [재정 보고]의 **새 주차** 헌금액을 `node scripts/set-finance.mjs YYYY-MM-DD <일반> <목적> <구제>`로 입력. (연합계는 교회 주보가 05/03분 621,214원 누락 상태 — 웹이 정답. 새 주차값만 정확히 넣으면 됨.)
+3. **"이번 주 보기" 링크** — **자동이다.** index.html의 `#home-latest-bulletin`, news/bulletin 히어로 버튼 모두 bulletins.json 최신 주일 주보로 자동 연결되므로 **손댈 필요 없음**. (CMS `home_news_bulletin_link` 고정 방식으로 되돌리지 말 것.)
+4. main push → pages 배포 success 확인.
+
 ## 체크리스트 (텍스트/콘텐츠 수정 시)
 - [ ] 이 문구에 `data-cms`가 있나? → 있으면 Supabase DB부터 수정
 - [ ] HTML 대체값도 DB와 일치시켰나?
