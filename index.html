@@ -255,7 +255,7 @@
           <p data-cms="home_news_desc">매주일 주보를 올려드리며, 공지와 교회 소식은 네이버 밴드를 통해 나눕니다.</p>
         </div>
         <div class="bulletin-actions reveal">
-          <a class="btn btn-accent" href="bulletins/2026/2026-06-07.pdf" target="_blank" rel="noopener" data-cms-href="home_news_bulletin_link"><span data-cms="home_news_bulletin_label">이번 주 주보 (PDF)</span> <span class="arrow">↗</span></a>
+          <a id="home-latest-bulletin" class="btn btn-accent" href="bulletin.html" target="_blank" rel="noopener"><span data-cms="home_news_bulletin_label">이번 주 주보 (PDF)</span> <span class="arrow">↗</span></a>
           <a class="btn" href="bulletin.html" data-cms-href="home_news_archive_link"><span data-cms="home_news_archive_label">지난 주보 모아보기</span> <span class="arrow">→</span></a>
           <a class="btn" href="https://www.band.us/band/89344128" target="_blank" rel="noopener" data-cms-href="home_news_band_link"><span data-cms="home_news_band_label">네이버 밴드 소식</span> <span class="arrow">↗</span></a>
         </div>
@@ -358,6 +358,22 @@ document.querySelectorAll('video[autoplay]').forEach((v) => {
   v.addEventListener('loadedmetadata', tryPlay, { once: true });
   document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
 });
+</script>
+<script>
+// '이번 주 주보' 버튼을 최신 주일 주보 PDF로 자동 연결 (bulletins.json 기준, 수동 관리 불필요)
+(function () {
+  var btn = document.getElementById('home-latest-bulletin');
+  if (!btn) return;
+  fetch('bulletins.json?_=' + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error('nf'); return r.json(); })
+    .then(function (data) {
+      var items = (data && data.items) || [];
+      if (!items.length) return;
+      var latestSunday = items.filter(function (it) { return (it.category || 'sunday') === 'sunday'; })[0];
+      if (latestSunday || items[0]) btn.setAttribute('href', (latestSunday || items[0]).path);
+    })
+    .catch(function () {});
+})();
 </script>
 </body>
 </html>
