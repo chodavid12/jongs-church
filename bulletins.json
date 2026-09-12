@@ -1,7 +1,15 @@
 {
-  "updated": "2026-08-30",
-  "count": 196,
+  "updated": "2026-09-12",
+  "count": 197,
   "items": [
+    {
+      "date": "2026-09-06",
+      "year": "2026",
+      "path": "bulletins/2026/2026-09-06.pdf",
+      "type": "PDF",
+      "category": "sunday",
+      "title": "주일 주보"
+    },
     {
       "date": "2026-08-30",
       "year": "2026",
