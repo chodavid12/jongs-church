@@ -1,0 +1,15 @@
+# GitHub Pages(Jekyll) 설정 — 내부 문서·스크립트가 공개 사이트로 서빙되지 않게 제외
+# (exclude를 지정하면 Jekyll 기본 제외 목록이 대체되므로 기본값도 함께 둔다)
+exclude:
+  - CLAUDE.md
+  - UPDATE-GUIDE.md
+  - scripts/
+  - package.json
+  - package-lock.json
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

@@ -1,2 +1,5 @@
 .DS_Store
-.claude/
+# Claude Code: 스킬은 공유(커밋), 개인 설정·로컬 파일은 제외
+.claude/*
+!.claude/skills/
+.claude/settings.local.json
