@@ -1,7 +1,15 @@
 {
-  "updated": "2026-10-11",
-  "count": 201,
+  "updated": "2026-11-01",
+  "count": 202,
   "items": [
+    {
+      "date": "2026-11-01",
+      "year": "2026",
+      "path": "bulletins/2026/2026-11-01.pdf",
+      "type": "PDF",
+      "category": "sunday",
+      "title": "주일 주보"
+    },
     {
       "date": "2026-10-11",
       "year": "2026",
